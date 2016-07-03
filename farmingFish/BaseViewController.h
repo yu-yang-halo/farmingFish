@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  BaseViewController.h
 //  farmingFish
 //
-//  Created by apple on 16/6/28.
+//  Created by apple on 16/7/3.
 //  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface BaseViewController : UIViewController
 
 @end
-

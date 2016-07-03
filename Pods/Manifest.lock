@@ -1,0 +1,10 @@
+PODS:
+  - UIColor+uiGradients (0.1.0)
+
+DEPENDENCIES:
+  - UIColor+uiGradients (~> 0.1.0)
+
+SPEC CHECKSUMS:
+  UIColor+uiGradients: 0e540aa2d8c75254aaebb6c92f20c1aa43be5f05
+
+COCOAPODS: 0.39.0
