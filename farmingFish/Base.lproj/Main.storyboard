@@ -33,17 +33,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95Z-IY-X8m">
-                                <rect key="frame" x="0.0" y="139" width="320" height="302"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="95Z-IY-X8m">
+                                <rect key="frame" x="0.0" y="144" width="320" height="302"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="input_bg" translatesAutoresizingMaskIntoConstraints="NO" id="7zg-db-2OS">
-                                        <rect key="frame" x="36" y="42" width="248" height="132"/>
+                                        <rect key="frame" x="36" y="42" width="248" height="110"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="132" id="bxJ-Kh-DBB"/>
+                                            <constraint firstAttribute="height" constant="110" id="bxJ-Kh-DBB"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dIJ-J5-Yu7">
-                                        <rect key="frame" x="50" y="117" width="220" height="44"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dIJ-J5-Yu7">
+                                        <rect key="frame" x="50" y="99" width="220" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="fHm-77-KGX"/>
                                         </constraints>
@@ -51,8 +51,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="imb-ht-eLV">
-                                        <rect key="frame" x="50" y="58" width="220" height="44"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="imb-ht-eLV">
+                                        <rect key="frame" x="50" y="50" width="220" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="BTA-Kk-Flc"/>
                                         </constraints>
@@ -61,7 +61,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-AV-PIy">
-                                        <rect key="frame" x="40" y="225" width="240" height="47"/>
+                                        <rect key="frame" x="40" y="203" width="240" height="47"/>
                                         <color key="backgroundColor" red="0.5347719648" green="1" blue="0.18587356699999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="3yC-02-Dn8"/>
@@ -79,11 +79,11 @@
                                 <constraints>
                                     <constraint firstItem="7zg-db-2OS" firstAttribute="leading" secondItem="95Z-IY-X8m" secondAttribute="leading" constant="36" id="06J-p2-eYp"/>
                                     <constraint firstItem="B09-AV-PIy" firstAttribute="leading" secondItem="95Z-IY-X8m" secondAttribute="leading" constant="40" id="8cd-BM-awW"/>
-                                    <constraint firstItem="dIJ-J5-Yu7" firstAttribute="top" secondItem="imb-ht-eLV" secondAttribute="bottom" constant="15" id="Ef4-dQ-cFr"/>
+                                    <constraint firstItem="dIJ-J5-Yu7" firstAttribute="top" secondItem="imb-ht-eLV" secondAttribute="bottom" constant="5" id="Ef4-dQ-cFr"/>
                                     <constraint firstItem="7zg-db-2OS" firstAttribute="top" secondItem="95Z-IY-X8m" secondAttribute="top" constant="42" id="IgI-dL-edv"/>
                                     <constraint firstAttribute="trailing" secondItem="dIJ-J5-Yu7" secondAttribute="trailing" constant="50" id="M1L-Zi-6bE"/>
                                     <constraint firstAttribute="height" constant="302" id="SMc-go-B85"/>
-                                    <constraint firstItem="imb-ht-eLV" firstAttribute="top" secondItem="95Z-IY-X8m" secondAttribute="top" constant="58" id="Ufb-FT-uOG"/>
+                                    <constraint firstItem="imb-ht-eLV" firstAttribute="top" secondItem="95Z-IY-X8m" secondAttribute="top" constant="50" id="Ufb-FT-uOG"/>
                                     <constraint firstAttribute="trailing" secondItem="B09-AV-PIy" secondAttribute="trailing" constant="40" id="fU1-4q-ILh"/>
                                     <constraint firstItem="imb-ht-eLV" firstAttribute="leading" secondItem="95Z-IY-X8m" secondAttribute="leading" constant="50" id="kbR-yo-Ffl"/>
                                     <constraint firstAttribute="trailing" secondItem="imb-ht-eLV" secondAttribute="trailing" constant="50" id="ncJ-so-Dog"/>
@@ -96,7 +96,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="95Z-IY-X8m" secondAttribute="trailing" id="8fH-ki-SE8"/>
-                            <constraint firstItem="95Z-IY-X8m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="119" id="AUo-xQ-yg6"/>
+                            <constraint firstItem="95Z-IY-X8m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="80" id="AUo-xQ-yg6"/>
                             <constraint firstItem="95Z-IY-X8m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ivV-Vd-lC3"/>
                         </constraints>
                     </view>
@@ -205,10 +205,10 @@
             </objects>
             <point key="canvasLocation" x="-89" y="592"/>
         </scene>
-        <!--View Controller-->
+        <!--Video View Controller-->
         <scene sceneID="AwH-e2-evG">
             <objects>
-                <viewController id="Hhw-Eo-xmY" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Hhw-Eo-xmY" customClass="VideoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2zy-ED-vBz"/>
                         <viewControllerLayoutGuide type="bottom" id="kDV-cs-pEJ"/>
@@ -222,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agW-Yw-xOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="406" y="585"/>
+            <point key="canvasLocation" x="319" y="565"/>
         </scene>
     </scenes>
     <resources>

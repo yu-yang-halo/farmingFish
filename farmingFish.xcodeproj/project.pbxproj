@@ -13,9 +13,37 @@
 		187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187BC96D1D22A05200FB5678 /* Main.storyboard */; };
 		187BC9711D22A05200FB5678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 187BC9701D22A05200FB5678 /* Assets.xcassets */; };
 		187BC9741D22A05200FB5678 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187BC9721D22A05200FB5678 /* LaunchScreen.storyboard */; };
+		18A72EF81D4431F700E15141 /* Preview.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EF71D4431F700E15141 /* Preview.mm */; };
+		18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EFA1D44373F00E15141 /* VoiceTalk.mm */; };
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
 		18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */; };
 		18ECBA291D28B6B300C20F49 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ECBA281D28B6B300C20F49 /* BaseViewController.m */; };
+		18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */; };
+		18EDAB371D4363DA0071FFE8 /* libAudioEngine_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB311D4363DA0071FFE8 /* libAudioEngine_64.a */; };
+		18EDAB381D4363DA0071FFE8 /* libHCCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB321D4363DA0071FFE8 /* libHCCore.a */; };
+		18EDAB391D4363DA0071FFE8 /* libHCNetSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB331D4363DA0071FFE8 /* libHCNetSDK.a */; };
+		18EDAB3A1D4363DA0071FFE8 /* libplayctrl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB341D4363DA0071FFE8 /* libplayctrl.a */; };
+		18EDAB3B1D4363DA0071FFE8 /* libSystemTransform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB351D4363DA0071FFE8 /* libSystemTransform.a */; };
+		18EDAB3C1D4363DA0071FFE8 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB361D4363DA0071FFE8 /* libtinyxml.a */; };
+		18EDAB411D4366D50071FFE8 /* libHCCore_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB3D1D4366D50071FFE8 /* libHCCore_sim.a */; };
+		18EDAB421D4366D50071FFE8 /* libHCNetSDK_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB3E1D4366D50071FFE8 /* libHCNetSDK_sim.a */; };
+		18EDAB431D4366D50071FFE8 /* libPlayCtrl_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB3F1D4366D50071FFE8 /* libPlayCtrl_sim.a */; };
+		18EDAB441D4366D50071FFE8 /* libtinyxml_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB401D4366D50071FFE8 /* libtinyxml_sim.a */; };
+		18EDAB461D43670A0071FFE8 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB451D43670A0071FFE8 /* libiconv.tbd */; };
+		18EDAB481D4367150071FFE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB471D4367150071FFE8 /* QuartzCore.framework */; };
+		18EDAB4A1D43671D0071FFE8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB491D43671D0071FFE8 /* CoreVideo.framework */; };
+		18EDAB4C1D4367260071FFE8 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB4B1D4367260071FFE8 /* CoreMedia.framework */; };
+		18EDAB4E1D43672E0071FFE8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB4D1D43672E0071FFE8 /* GLKit.framework */; };
+		18EDAB501D4367390071FFE8 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB4F1D4367390071FFE8 /* VideoToolbox.framework */; };
+		18EDAB521D43673F0071FFE8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB511D43673F0071FFE8 /* AudioToolbox.framework */; };
+		18EDAB541D4367460071FFE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB531D4367460071FFE8 /* Foundation.framework */; };
+		18EDAB561D43674E0071FFE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB551D43674E0071FFE8 /* UIKit.framework */; };
+		18EDAB581D4367570071FFE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB571D4367570071FFE8 /* CoreGraphics.framework */; };
+		18EDAB5A1D4367600071FFE8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB591D4367600071FFE8 /* OpenGLES.framework */; };
+		18EDAB5C1D4367730071FFE8 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB5B1D4367730071FFE8 /* OpenAL.framework */; };
+		18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB5E1D43697E0071FFE8 /* DeviceInfo.m */; };
+		18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */; };
+		18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */; };
 		FFDE393AD2F17246DCE58F9F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F6052DAE2A7CF05DE2AF1A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -30,12 +58,48 @@
 		187BC9701D22A05200FB5678 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		187BC9731D22A05200FB5678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		187BC9751D22A05200FB5678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18A72EF61D4431F700E15141 /* Preview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preview.h; sourceTree = "<group>"; };
+		18A72EF71D4431F700E15141 /* Preview.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Preview.mm; sourceTree = "<group>"; };
+		18A72EF91D44373F00E15141 /* VoiceTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceTalk.h; sourceTree = "<group>"; };
+		18A72EFA1D44373F00E15141 /* VoiceTalk.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceTalk.mm; sourceTree = "<group>"; };
+		18A72EFC1D44374F00E15141 /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
 		18E7BE861D26891000729DCA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		18E7BE871D26891000729DCA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		18E7BE891D268BC600729DCA /* UIColor+hexStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+hexStr.h"; sourceTree = "<group>"; };
 		18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+hexStr.m"; sourceTree = "<group>"; };
 		18ECBA271D28B6B300C20F49 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		18ECBA281D28B6B300C20F49 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		18EDAB2A1D4360D40071FFE8 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VideoViewController.mm; sourceTree = "<group>"; };
+		18EDAB2F1D4362EA0071FFE8 /* hcnetsdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hcnetsdk.h; sourceTree = "<group>"; };
+		18EDAB301D4362EA0071FFE8 /* IOSPlayM4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSPlayM4.h; sourceTree = "<group>"; };
+		18EDAB311D4363DA0071FFE8 /* libAudioEngine_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAudioEngine_64.a; path = "farmingFish/lib/Release-iphoneos/libAudioEngine_64.a"; sourceTree = "<group>"; };
+		18EDAB321D4363DA0071FFE8 /* libHCCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCCore.a; path = "farmingFish/lib/Release-iphoneos/libHCCore.a"; sourceTree = "<group>"; };
+		18EDAB331D4363DA0071FFE8 /* libHCNetSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCNetSDK.a; path = "farmingFish/lib/Release-iphoneos/libHCNetSDK.a"; sourceTree = "<group>"; };
+		18EDAB341D4363DA0071FFE8 /* libplayctrl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplayctrl.a; path = "farmingFish/lib/Release-iphoneos/libplayctrl.a"; sourceTree = "<group>"; };
+		18EDAB351D4363DA0071FFE8 /* libSystemTransform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSystemTransform.a; path = "farmingFish/lib/Release-iphoneos/libSystemTransform.a"; sourceTree = "<group>"; };
+		18EDAB361D4363DA0071FFE8 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = "farmingFish/lib/Release-iphoneos/libtinyxml.a"; sourceTree = "<group>"; };
+		18EDAB3D1D4366D50071FFE8 /* libHCCore_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCCore_sim.a; path = "farmingFish/lib/Release-iphonesimulator/libHCCore_sim.a"; sourceTree = "<group>"; };
+		18EDAB3E1D4366D50071FFE8 /* libHCNetSDK_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCNetSDK_sim.a; path = "farmingFish/lib/Release-iphonesimulator/libHCNetSDK_sim.a"; sourceTree = "<group>"; };
+		18EDAB3F1D4366D50071FFE8 /* libPlayCtrl_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPlayCtrl_sim.a; path = "farmingFish/lib/Release-iphonesimulator/libPlayCtrl_sim.a"; sourceTree = "<group>"; };
+		18EDAB401D4366D50071FFE8 /* libtinyxml_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml_sim.a; path = "farmingFish/lib/Release-iphonesimulator/libtinyxml_sim.a"; sourceTree = "<group>"; };
+		18EDAB451D43670A0071FFE8 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		18EDAB471D4367150071FFE8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		18EDAB491D43671D0071FFE8 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		18EDAB4B1D4367260071FFE8 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		18EDAB4D1D43672E0071FFE8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		18EDAB4F1D4367390071FFE8 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		18EDAB511D43673F0071FFE8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		18EDAB531D4367460071FFE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		18EDAB551D43674E0071FFE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		18EDAB571D4367570071FFE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		18EDAB591D4367600071FFE8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		18EDAB5B1D4367730071FFE8 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		18EDAB5D1D43697E0071FFE8 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceInfo.h; path = ../DeviceInfo.h; sourceTree = "<group>"; };
+		18EDAB5E1D43697E0071FFE8 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceInfo.m; path = ../DeviceInfo.m; sourceTree = "<group>"; };
+		18EDAB601D4376230071FFE8 /* VideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCollectionViewCell.h; sourceTree = "<group>"; };
+		18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCollectionViewCell.m; sourceTree = "<group>"; };
+		18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
 		20AC3B5524FCEFA94D89DB7A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5776164CD3410B17457C5A99 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B0F6052DAE2A7CF05DE2AF1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,7 +110,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EDAB5C1D4367730071FFE8 /* OpenAL.framework in Frameworks */,
+				18EDAB5A1D4367600071FFE8 /* OpenGLES.framework in Frameworks */,
+				18EDAB581D4367570071FFE8 /* CoreGraphics.framework in Frameworks */,
+				18EDAB561D43674E0071FFE8 /* UIKit.framework in Frameworks */,
+				18EDAB541D4367460071FFE8 /* Foundation.framework in Frameworks */,
+				18EDAB521D43673F0071FFE8 /* AudioToolbox.framework in Frameworks */,
+				18EDAB501D4367390071FFE8 /* VideoToolbox.framework in Frameworks */,
+				18EDAB4E1D43672E0071FFE8 /* GLKit.framework in Frameworks */,
+				18EDAB4C1D4367260071FFE8 /* CoreMedia.framework in Frameworks */,
+				18EDAB4A1D43671D0071FFE8 /* CoreVideo.framework in Frameworks */,
+				18EDAB481D4367150071FFE8 /* QuartzCore.framework in Frameworks */,
+				18EDAB461D43670A0071FFE8 /* libiconv.tbd in Frameworks */,
 				FFDE393AD2F17246DCE58F9F /* libPods.a in Frameworks */,
+				18EDAB371D4363DA0071FFE8 /* libAudioEngine_64.a in Frameworks */,
+				18EDAB381D4363DA0071FFE8 /* libHCCore.a in Frameworks */,
+				18EDAB391D4363DA0071FFE8 /* libHCNetSDK.a in Frameworks */,
+				18EDAB3A1D4363DA0071FFE8 /* libplayctrl.a in Frameworks */,
+				18EDAB3B1D4363DA0071FFE8 /* libSystemTransform.a in Frameworks */,
+				18EDAB3C1D4363DA0071FFE8 /* libtinyxml.a in Frameworks */,
+				18EDAB411D4366D50071FFE8 /* libHCCore_sim.a in Frameworks */,
+				18EDAB421D4366D50071FFE8 /* libHCNetSDK_sim.a in Frameworks */,
+				18EDAB431D4366D50071FFE8 /* libPlayCtrl_sim.a in Frameworks */,
+				18EDAB441D4366D50071FFE8 /* libtinyxml_sim.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +165,7 @@
 		180F0F571D23E4690021760A /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
+				18EDAB291D4360BB0071FFE8 /* video */,
 				187BC96A1D22A05200FB5678 /* LoginViewController.h */,
 				187BC96B1D22A05200FB5678 /* LoginViewController.m */,
 				18E7BE861D26891000729DCA /* MainViewController.h */,
@@ -110,6 +197,7 @@
 		187BC9631D22A05200FB5678 /* farmingFish */ = {
 			isa = PBXGroup;
 			children = (
+				18EDAB2D1D4361F00071FFE8 /* extension */,
 				180F0F571D23E4690021760A /* viewcontroller */,
 				180F0F541D23E3E70021760A /* service */,
 				187BC9671D22A05200FB5678 /* AppDelegate.h */,
@@ -119,8 +207,6 @@
 				187BC9721D22A05200FB5678 /* LaunchScreen.storyboard */,
 				187BC9751D22A05200FB5678 /* Info.plist */,
 				187BC9641D22A05200FB5678 /* Supporting Files */,
-				18E7BE891D268BC600729DCA /* UIColor+hexStr.h */,
-				18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */,
 			);
 			path = farmingFish;
 			sourceTree = "<group>";
@@ -133,9 +219,69 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		18EDAB291D4360BB0071FFE8 /* video */ = {
+			isa = PBXGroup;
+			children = (
+				18EDAB2E1D4362EA0071FFE8 /* include */,
+				18EDAB2A1D4360D40071FFE8 /* VideoViewController.h */,
+				18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */,
+				18EDAB601D4376230071FFE8 /* VideoCollectionViewCell.h */,
+				18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */,
+				18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */,
+			);
+			name = video;
+			sourceTree = "<group>";
+		};
+		18EDAB2D1D4361F00071FFE8 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				18E7BE891D268BC600729DCA /* UIColor+hexStr.h */,
+				18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */,
+			);
+			name = extension;
+			sourceTree = "<group>";
+		};
+		18EDAB2E1D4362EA0071FFE8 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				18A72EFC1D44374F00E15141 /* AudioEngine.h */,
+				18A72EF91D44373F00E15141 /* VoiceTalk.h */,
+				18A72EFA1D44373F00E15141 /* VoiceTalk.mm */,
+				18EDAB5D1D43697E0071FFE8 /* DeviceInfo.h */,
+				18EDAB5E1D43697E0071FFE8 /* DeviceInfo.m */,
+				18A72EF61D4431F700E15141 /* Preview.h */,
+				18A72EF71D4431F700E15141 /* Preview.mm */,
+				18EDAB2F1D4362EA0071FFE8 /* hcnetsdk.h */,
+				18EDAB301D4362EA0071FFE8 /* IOSPlayM4.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		36FA035931426E1F0BDC41FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18EDAB5B1D4367730071FFE8 /* OpenAL.framework */,
+				18EDAB591D4367600071FFE8 /* OpenGLES.framework */,
+				18EDAB571D4367570071FFE8 /* CoreGraphics.framework */,
+				18EDAB551D43674E0071FFE8 /* UIKit.framework */,
+				18EDAB531D4367460071FFE8 /* Foundation.framework */,
+				18EDAB511D43673F0071FFE8 /* AudioToolbox.framework */,
+				18EDAB4F1D4367390071FFE8 /* VideoToolbox.framework */,
+				18EDAB4D1D43672E0071FFE8 /* GLKit.framework */,
+				18EDAB4B1D4367260071FFE8 /* CoreMedia.framework */,
+				18EDAB491D43671D0071FFE8 /* CoreVideo.framework */,
+				18EDAB471D4367150071FFE8 /* QuartzCore.framework */,
+				18EDAB451D43670A0071FFE8 /* libiconv.tbd */,
+				18EDAB3D1D4366D50071FFE8 /* libHCCore_sim.a */,
+				18EDAB3E1D4366D50071FFE8 /* libHCNetSDK_sim.a */,
+				18EDAB3F1D4366D50071FFE8 /* libPlayCtrl_sim.a */,
+				18EDAB401D4366D50071FFE8 /* libtinyxml_sim.a */,
+				18EDAB311D4363DA0071FFE8 /* libAudioEngine_64.a */,
+				18EDAB321D4363DA0071FFE8 /* libHCCore.a */,
+				18EDAB331D4363DA0071FFE8 /* libHCNetSDK.a */,
+				18EDAB341D4363DA0071FFE8 /* libplayctrl.a */,
+				18EDAB351D4363DA0071FFE8 /* libSystemTransform.a */,
+				18EDAB361D4363DA0071FFE8 /* libtinyxml.a */,
 				B0F6052DAE2A7CF05DE2AF1A /* libPods.a */,
 			);
 			name = Frameworks;
@@ -213,6 +359,7 @@
 			files = (
 				187BC9741D22A05200FB5678 /* LaunchScreen.storyboard in Resources */,
 				187BC9711D22A05200FB5678 /* Assets.xcassets in Resources */,
+				18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */,
 				187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,9 +422,14 @@
 				187BC96C1D22A05200FB5678 /* LoginViewController.m in Sources */,
 				18ECBA291D28B6B300C20F49 /* BaseViewController.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
+				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
 				18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */,
+				18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */,
+				18A72EF81D4431F700E15141 /* Preview.mm in Sources */,
+				18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */,
 				187BC9661D22A05200FB5678 /* main.m in Sources */,
 				18E7BE881D26891000729DCA /* MainViewController.m in Sources */,
+				18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,11 +542,37 @@
 			baseConfigurationReference = 20AC3B5524FCEFA94D89DB7A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = NO;
+				CLANG_WARN_CONSTANT_CONVERSION = NO;
+				CLANG_WARN_EMPTY_BODY = NO;
+				CLANG_WARN_ENUM_CONVERSION = NO;
+				CLANG_WARN_INT_CONVERSION = NO;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				INFOPLIST_FILE = farmingFish/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/farmingFish/lib/Release-iphoneos",
+					"$(PROJECT_DIR)/farmingFish/lib/Release-iphonesimulator",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.yuyang.farmingFish;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -406,11 +584,35 @@
 			baseConfigurationReference = 5776164CD3410B17457C5A99 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = NO;
+				CLANG_WARN_CONSTANT_CONVERSION = NO;
+				CLANG_WARN_EMPTY_BODY = NO;
+				CLANG_WARN_ENUM_CONVERSION = NO;
+				CLANG_WARN_INT_CONVERSION = NO;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				INFOPLIST_FILE = farmingFish/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/farmingFish/lib/Release-iphoneos",
+					"$(PROJECT_DIR)/farmingFish/lib/Release-iphonesimulator",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.yuyang.farmingFish;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
