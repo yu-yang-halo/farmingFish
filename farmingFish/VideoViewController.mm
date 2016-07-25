@@ -24,6 +24,8 @@
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     int layoutMode;//1 2 3 4
+    int lastMode;
+    
     CGRect Screen_bounds;
     
     int g_iStartChan;
@@ -33,6 +35,7 @@ VideoViewController *g_pController = NULL;
     int m_lRealPlayID;
     UIView  *m_multiView[MAX_VIEW_NUM];
     int    m_nPreviewPort;
+    int selectIndex;
 }
 @property(nonatomic,strong) UICollectionView *collectionView;
 @property(nonatomic,strong) UIScrollView     *scrollView;
@@ -69,7 +72,7 @@ VideoViewController *g_pController = NULL;
      */
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
     //设置布局方向为垂直流布局
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.itemSize=CGSizeMake(side, side);
     
     flowLayout.minimumLineSpacing=1;
@@ -83,6 +86,7 @@ VideoViewController *g_pController = NULL;
     self.collectionView.dataSource=self;
     self.collectionView.layer.borderWidth=1;
     self.collectionView.layer.borderColor=[[UIColor whiteColor] CGColor];
+    [self.collectionView setPagingEnabled:YES];
     
     
     [_collectionView registerNib:[UINib nibWithNibName:@"VideoCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"videoCell"];
@@ -94,18 +98,32 @@ VideoViewController *g_pController = NULL;
     
     for(int i=0;i<MAX_VIEW_NUM;i++){
         m_multiView[i]=[[UIView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        [m_multiView[i] setBackgroundColor:[UIColor blackColor]];
         [m_multiView[i] setTag:i];
     }
     
+    
+    
     [self scaleViewLayout];
-    [self loginHCSystem];
+    
+   
+    
+    
 
 }
 -(void)viewWillAppear:(BOOL)animated{
-     [self playVideo];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+         [self loginHCSystem];
+         [self playVideo];
+        
+    });
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
-     [self closeVideo];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+         [self closeVideo];
+    });
 }
 
 -(void)scaleViewLayout{
@@ -130,12 +148,15 @@ VideoViewController *g_pController = NULL;
     [self.view addSubview:view ];
 }
 -(void)modeShow:(UIButton *)sender{
-     layoutMode=sender.tag;
+    layoutMode=sender.tag;
     
     
     UICollectionViewFlowLayout *flowLayout=_collectionView.collectionViewLayout;
     float side=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
     flowLayout.itemSize=CGSizeMake(side, side);
+    
+    [_collectionView setCollectionViewLayout:flowLayout animated:YES];
+    
     [_collectionView reloadData];
     
     
@@ -150,10 +171,16 @@ VideoViewController *g_pController = NULL;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    //collectionView.contentOffset=CGPointMake(0, 0);
-    
+
     VideoCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"videoCell" forIndexPath:indexPath];
-    [cell.videoView addSubview:m_multiView[indexPath.row]];
+    [m_multiView[indexPath.row] removeFromSuperview];
+    if(selectIndex>0){
+         [cell.videoView addSubview:m_multiView[selectIndex]];
+    }else{
+         [cell.videoView addSubview:m_multiView[indexPath.row]];
+    }
+    
+   
     
     [m_multiView[indexPath.row] mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -166,10 +193,48 @@ VideoViewController *g_pController = NULL;
         
     }];
     
+    UITapGestureRecognizer *tapGR1=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectVideo:)];
+    [tapGR1 setNumberOfTapsRequired:1];
+    
+    
+    UITapGestureRecognizer *tapGR2=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(modeSwitch:)];
+    [tapGR2 setNumberOfTapsRequired:2];
+    
+    cell.videoView.tag=indexPath.row;
+    [cell.videoView setUserInteractionEnabled:YES];
+    
+    [cell.videoView addGestureRecognizer:tapGR1];
+    [cell.videoView addGestureRecognizer:tapGR2];
+    
     
     return cell;
 }
+-(void)selectVideo:(UIGestureRecognizer *)gr{
+    int index=gr.view.tag;
+}
+-(void)modeSwitch:(UIGestureRecognizer *)gr{
+    int index=gr.view.tag;
+    
+    if(layoutMode!=1){
+        lastMode=layoutMode;
+        layoutMode=1;
+        selectIndex=index;
+    }else{
+        if(lastMode!=0){
+            layoutMode=lastMode;
+        }
+        selectIndex=-1;
+    }
+    UICollectionViewFlowLayout *flowLayout=_collectionView.collectionViewLayout;
+    float side=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
+    flowLayout.itemSize=CGSizeMake(side, side);
+    
+    [_collectionView setCollectionViewLayout:flowLayout animated:YES];
+    
+    
+    [_collectionView reloadData];
 
+}
 
 
 -(void)didReceiveMemoryWarning {
