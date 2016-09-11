@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import "FService.h"
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 
@@ -47,18 +48,19 @@
     
     [self.view.layer insertSublayer:gradient atIndex:0];
     
+    
+    
+   
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES];
     
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)loginClick:(id)sender {
+    [[FService shareInstance] loginName:@"tldadmin" password:@"1234"];
 }
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181796981D818806000953BF /* FService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181796971D818806000953BF /* FService.m */; };
 		187BC9661D22A05200FB5678 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC9651D22A05200FB5678 /* main.m */; };
 		187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC9681D22A05200FB5678 /* AppDelegate.m */; };
 		187BC96C1D22A05200FB5678 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC96B1D22A05200FB5678 /* LoginViewController.m */; };
@@ -17,6 +18,7 @@
 		18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EFA1D44373F00E15141 /* VoiceTalk.mm */; };
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
 		18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */; };
+		18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EBA9241D839D0A00184A6F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18ECBA291D28B6B300C20F49 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ECBA281D28B6B300C20F49 /* BaseViewController.m */; };
 		18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */; };
 		18EDAB371D4363DA0071FFE8 /* libAudioEngine_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB311D4363DA0071FFE8 /* libAudioEngine_64.a */; };
@@ -48,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181796961D818806000953BF /* FService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FService.h; sourceTree = "<group>"; };
+		181796971D818806000953BF /* FService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FService.m; sourceTree = "<group>"; };
 		187BC9611D22A05200FB5678 /* farmingFish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = farmingFish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187BC9651D22A05200FB5678 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		187BC9671D22A05200FB5678 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 		18E7BE871D26891000729DCA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		18E7BE891D268BC600729DCA /* UIColor+hexStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+hexStr.h"; sourceTree = "<group>"; };
 		18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+hexStr.m"; sourceTree = "<group>"; };
+		18EBA9231D839D0A00184A6F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		18EBA9241D839D0A00184A6F /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		18ECBA271D28B6B300C20F49 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		18ECBA281D28B6B300C20F49 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		18EDAB2A1D4360D40071FFE8 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
@@ -151,6 +157,8 @@
 		180F0F551D23E3F20021760A /* http */ = {
 			isa = PBXGroup;
 			children = (
+				181796961D818806000953BF /* FService.h */,
+				181796971D818806000953BF /* FService.m */,
 			);
 			name = http;
 			sourceTree = "<group>";
@@ -197,6 +205,7 @@
 		187BC9631D22A05200FB5678 /* farmingFish */ = {
 			isa = PBXGroup;
 			children = (
+				18EBA9221D839CFA00184A6F /* JSONKit */,
 				18EDAB2D1D4361F00071FFE8 /* extension */,
 				180F0F571D23E4690021760A /* viewcontroller */,
 				180F0F541D23E3E70021760A /* service */,
@@ -217,6 +226,15 @@
 				187BC9651D22A05200FB5678 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18EBA9221D839CFA00184A6F /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				18EBA9231D839D0A00184A6F /* JSONKit.h */,
+				18EBA9241D839D0A00184A6F /* JSONKit.m */,
+			);
+			name = JSONKit;
 			sourceTree = "<group>";
 		};
 		18EDAB291D4360BB0071FFE8 /* video */ = {
@@ -423,7 +441,9 @@
 				18ECBA291D28B6B300C20F49 /* BaseViewController.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
 				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
+				181796981D818806000953BF /* FService.m in Sources */,
 				18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */,
+				18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */,
 				18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */,
 				18A72EF81D4431F700E15141 /* Preview.mm in Sources */,
 				18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */,
@@ -547,6 +567,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				CLANG_WARN_EMPTY_BODY = NO;
 				CLANG_WARN_ENUM_CONVERSION = NO;
 				CLANG_WARN_INT_CONVERSION = NO;
@@ -589,6 +610,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				CLANG_WARN_EMPTY_BODY = NO;
 				CLANG_WARN_ENUM_CONVERSION = NO;
 				CLANG_WARN_INT_CONVERSION = NO;

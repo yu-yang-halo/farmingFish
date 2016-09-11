@@ -146,6 +146,82 @@ VideoViewController *g_pController = NULL;
     }
     
     [self.view addSubview:view ];
+    
+    
+    UIView *ptzview=[[UIView alloc] initWithFrame:CGRectMake(0,view.frame.origin.y+view.frame.size.height,Screen_bounds.size.width, 50)];
+    
+    float h_space1=(Screen_bounds.size.width-40*4)/5;
+    NSArray *titles=@[@"上",@"下",@"左",@"右"];
+    
+    for (int i=0; i<4; i++) {
+        
+        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(h_space1*(i+1)+40*(i),(50-40)/2, 40, 40)];
+        
+        [btn setTitle:[NSString stringWithFormat:@"%@",titles[i]] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor purpleColor]];
+        
+        [btn setTag:(i+1)];
+        [btn addTarget:self action:@selector(ptzMode:) forControlEvents:UIControlEventTouchDown];
+        
+        [btn addTarget:self action:@selector(ptzModeStop:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [ptzview addSubview:btn];
+    }
+    
+    [self.view addSubview:ptzview ];
+    
+    
+}
+-(void)ptzModeStop:(UIButton *)sender{
+    int mode=sender.tag;
+    int PTZ_DIRECT=PAN_AUTO;
+    
+    if(mode==1){
+        PTZ_DIRECT=TILT_UP;
+    }else if(mode==2){
+        PTZ_DIRECT=TILT_DOWN;
+    }else if (mode==3){
+        PTZ_DIRECT=PAN_LEFT;
+    }else if (mode==4){
+        PTZ_DIRECT=PAN_RIGHT;
+    }
+    
+    
+    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan, PTZ_DIRECT, 1))
+    {
+        NSLog(@"stop  failed with[%d]", NET_DVR_GetLastError());
+    }
+    else
+    {
+        NSLog(@"stop  succ");
+    }
+
+}
+-(void)ptzMode:(UIButton *)sender{
+    int mode=sender.tag;
+    int PTZ_DIRECT=PAN_AUTO;
+    
+    if(mode==1){
+        PTZ_DIRECT=TILT_UP;
+    }else if(mode==2){
+        PTZ_DIRECT=TILT_DOWN;
+    }else if (mode==3){
+        PTZ_DIRECT=PAN_LEFT;
+    }else if (mode==4){
+        PTZ_DIRECT=PAN_RIGHT;
+    }
+    
+    
+    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan, PTZ_DIRECT, 0))
+    {
+        NSLog(@"start  failed with[%d]", NET_DVR_GetLastError());
+    }
+    else
+    {
+        NSLog(@"start  succ");
+    }
+    
 }
 -(void)modeShow:(UIButton *)sender{
     layoutMode=sender.tag;
