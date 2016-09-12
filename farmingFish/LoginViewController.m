@@ -8,8 +8,12 @@
 
 #import "LoginViewController.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <UIView+Toast.h>
 #import "FService.h"
-@interface LoginViewController ()
+const static NSString *KEY_USERNAME=@"username-key";
+const static NSString *KEY_PASSWORD=@"password-key";
+@interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
@@ -23,9 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
-    
     /*
      *  界面样式设置
      */
@@ -34,6 +35,11 @@
     self.loginButton.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.6] CGColor];
     
     [self.loginButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+    
+    
+    _usernameTF.delegate=self;
+    _passwordTF.delegate=self;
+    
     
     
     
@@ -49,9 +55,24 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
     
     
+    [self initUsernameOrPwd];
     
    
 }
+
+-(void)initUsernameOrPwd{
+    NSString *username=[[NSUserDefaults standardUserDefaults] objectForKey:KEY_USERNAME];
+    NSString *pwd=[[NSUserDefaults standardUserDefaults] objectForKey:KEY_PASSWORD];
+    
+    if(username!=nil){
+        _usernameTF.text=username;
+    }
+    if(pwd!=nil){
+        _passwordTF.text=pwd;
+    }
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES];
     
@@ -60,7 +81,53 @@
     [super didReceiveMemoryWarning];
 }
 
+-(BOOL)stringIsEmpty:(NSString *)str{
+    if([[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
 - (IBAction)loginClick:(id)sender {
-    [[FService shareInstance] loginName:@"tldadmin" password:@"1234"];
+    
+    NSString *username=_usernameTF.text;
+    NSString *password=_passwordTF.text;
+    
+    if([self stringIsEmpty:username]){
+        [self.view makeToast:@"用户名不能为空"];
+        return;
+    }
+    if([self stringIsEmpty:password]){
+        [self.view makeToast:@"密码不能为空"];
+        return;
+    }
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"登录中...";
+    
+    [hud showAnimated:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[FService shareInstance] loginName:username password:password];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [hud hideAnimated:YES];
+            
+            [self performSegueWithIdentifier:@"toMainPage" sender:sender];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
+            [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
+            
+            
+        });
+    });
+    
+}
+
+#pragma mark delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 @end

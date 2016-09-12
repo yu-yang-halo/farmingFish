@@ -71,8 +71,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="loginClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xon-Ye-gbv"/>
-                                            <segue destination="7KF-L1-f9T" kind="push" id="fsU-Ke-cAS"/>
+                                            <action selector="loginClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VqN-ew-Q7Z"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -105,7 +104,7 @@
                         <outlet property="loginButton" destination="B09-AV-PIy" id="aTa-yl-o4E"/>
                         <outlet property="passwordTF" destination="dIJ-J5-Yu7" id="wwd-BI-gd1"/>
                         <outlet property="usernameTF" destination="imb-ht-eLV" id="WqQ-zn-wUU"/>
-                        <segue destination="7KF-L1-f9T" kind="push" id="Q4R-Wr-IcQ"/>
+                        <segue destination="7KF-L1-f9T" kind="push" identifier="toMainPage" id="1XI-xn-kdE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -229,7 +228,4 @@
         <image name="fish" width="198" height="105"/>
         <image name="input_bg" width="614" height="254"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fsU-Ke-cAS"/>
-    </inferredMetricsTieBreakers>
 </document>

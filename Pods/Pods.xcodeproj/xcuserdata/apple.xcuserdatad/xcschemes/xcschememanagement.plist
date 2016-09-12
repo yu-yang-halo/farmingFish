@@ -9,12 +9,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Toast.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,12 +37,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>09D09259ED2E124EBEBCCB323E3A1285</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>31A409356D2A74D50A2FC6BB39F5B105</key>
+		<key>1277A235DECCC2244528E42A46911EC0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6262AB28B7FC4E3AB34787D983C896B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7D32E05E5B0D425EE85EC0D232B6A11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
