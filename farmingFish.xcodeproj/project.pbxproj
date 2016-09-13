@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		181796981D818806000953BF /* FService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181796971D818806000953BF /* FService.m */; };
+		1861B7541D8824E5008CD63C /* File.java in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7531D8824E5008CD63C /* File.java */; };
+		1861B7571D883118008CD63C /* SocketService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7561D883118008CD63C /* SocketService.m */; };
 		187BC9661D22A05200FB5678 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC9651D22A05200FB5678 /* main.m */; };
 		187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC9681D22A05200FB5678 /* AppDelegate.m */; };
 		187BC96C1D22A05200FB5678 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC96B1D22A05200FB5678 /* LoginViewController.m */; };
@@ -52,6 +54,9 @@
 /* Begin PBXFileReference section */
 		181796961D818806000953BF /* FService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FService.h; sourceTree = "<group>"; };
 		181796971D818806000953BF /* FService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FService.m; sourceTree = "<group>"; };
+		1861B7531D8824E5008CD63C /* File.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = File.java; sourceTree = "<group>"; };
+		1861B7551D883118008CD63C /* SocketService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketService.h; sourceTree = "<group>"; };
+		1861B7561D883118008CD63C /* SocketService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketService.m; sourceTree = "<group>"; };
 		187BC9611D22A05200FB5678 /* farmingFish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = farmingFish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187BC9651D22A05200FB5678 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		187BC9671D22A05200FB5678 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -166,6 +171,9 @@
 		180F0F561D23E4190021760A /* socket */ = {
 			isa = PBXGroup;
 			children = (
+				1861B7531D8824E5008CD63C /* File.java */,
+				1861B7551D883118008CD63C /* SocketService.h */,
+				1861B7561D883118008CD63C /* SocketService.m */,
 			);
 			name = socket;
 			sourceTree = "<group>";
@@ -439,6 +447,7 @@
 			files = (
 				187BC96C1D22A05200FB5678 /* LoginViewController.m in Sources */,
 				18ECBA291D28B6B300C20F49 /* BaseViewController.m in Sources */,
+				1861B7571D883118008CD63C /* SocketService.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
 				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
 				181796981D818806000953BF /* FService.m in Sources */,
@@ -450,6 +459,7 @@
 				187BC9661D22A05200FB5678 /* main.m in Sources */,
 				18E7BE881D26891000729DCA /* MainViewController.m in Sources */,
 				18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */,
+				1861B7541D8824E5008CD63C /* File.java in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
