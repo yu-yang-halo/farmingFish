@@ -7,9 +7,10 @@
 //
 
 #import "LoginViewController.h"
-#import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import "UIViewController+BGColor.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <UIView+Toast.h>
+
 #import "FService.h"
 const static NSString *KEY_USERNAME=@"username-key";
 const static NSString *KEY_PASSWORD=@"password-key";
@@ -42,20 +43,13 @@ const static NSString *KEY_PASSWORD=@"password-key";
     
     
     
+    [self viewControllerBGInit];
     
-    UIColor *startColor = [UIColor uig_emeraldWaterStartColor];
-    UIColor *endColor = [UIColor uig_emeraldWaterEndColor];
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame =self.view.bounds;
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1,1);
-    gradient.colors = @[(id)[startColor CGColor], (id)[endColor CGColor]];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
-    
-    
+      
     [self initUsernameOrPwd];
+    
+    
+    [self flyIconToFace];
     
    
 }
@@ -109,7 +103,7 @@ const static NSString *KEY_PASSWORD=@"password-key";
     [hud showAnimated:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[FService shareInstance] loginName:username password:password];
+        //[[FService shareInstance] loginName:username password:password];
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [hud hideAnimated:YES];

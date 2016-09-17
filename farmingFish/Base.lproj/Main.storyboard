@@ -122,82 +122,11 @@
                     <view key="view" contentMode="scaleToFill" id="qYE-IO-kTx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I58-7y-F4q">
-                                <rect key="frame" x="42" y="172" width="102" height="102"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="Kh8-VQ-Lyl"/>
-                                    <constraint firstAttribute="height" constant="102" id="xup-u4-Gn6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="我的设备">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jW7-V2-mfz">
-                                <rect key="frame" x="177" y="172" width="102" height="102"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="102" id="8GX-aM-m38"/>
-                                    <constraint firstAttribute="width" constant="102" id="Ol0-Wv-sbg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="我的视频">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Hhw-Eo-xmY" kind="push" id="Pq6-bS-cwN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BM3-E3-h6l">
-                                <rect key="frame" x="177" y="294" width="102" height="102"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="102" id="XOO-Si-bnr"/>
-                                    <constraint firstAttribute="width" constant="102" id="a8M-po-Sds"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="历史数据">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fish" translatesAutoresizingMaskIntoConstraints="NO" id="wqa-rm-UQ2">
-                                <rect key="frame" x="104" y="254" width="113" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="113" id="fWz-f7-9x9"/>
-                                    <constraint firstAttribute="height" constant="60" id="xyT-bB-pD9"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEk-po-AFv">
-                                <rect key="frame" x="42" y="294" width="102" height="102"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="102" id="H5f-hh-16m"/>
-                                    <constraint firstAttribute="width" constant="102" id="uq7-mE-yNG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="实时数据">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="0.62315322381944949" blue="0.52585999701481012" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="wqa-rm-UQ2" firstAttribute="centerX" secondItem="qYE-IO-kTx" secondAttribute="centerX" id="8Bi-Mt-tNE"/>
-                            <constraint firstItem="BM3-E3-h6l" firstAttribute="top" secondItem="wqa-rm-UQ2" secondAttribute="bottom" constant="-20" id="AAX-XV-y1W"/>
-                            <constraint firstItem="wqa-rm-UQ2" firstAttribute="top" secondItem="jW7-V2-mfz" secondAttribute="bottom" constant="-20" id="Aca-IO-em4"/>
-                            <constraint firstItem="wqa-rm-UQ2" firstAttribute="leading" secondItem="I58-7y-F4q" secondAttribute="trailing" constant="-40" id="H3T-aB-qGz"/>
-                            <constraint firstItem="wqa-rm-UQ2" firstAttribute="centerY" secondItem="qYE-IO-kTx" secondAttribute="centerY" id="a6q-yf-HQI"/>
-                            <constraint firstItem="jW7-V2-mfz" firstAttribute="leading" secondItem="wqa-rm-UQ2" secondAttribute="trailing" constant="-40" id="gVV-j6-Yiu"/>
-                            <constraint firstItem="AEk-po-AFv" firstAttribute="top" secondItem="wqa-rm-UQ2" secondAttribute="bottom" constant="-20" id="hec-UU-Uev"/>
-                            <constraint firstItem="BM3-E3-h6l" firstAttribute="leading" secondItem="wqa-rm-UQ2" secondAttribute="trailing" constant="-40" id="nC8-rW-XFn"/>
-                            <constraint firstItem="wqa-rm-UQ2" firstAttribute="top" secondItem="I58-7y-F4q" secondAttribute="bottom" constant="-20" id="oqm-YX-wrT"/>
-                            <constraint firstItem="wqa-rm-UQ2" firstAttribute="leading" secondItem="AEk-po-AFv" secondAttribute="trailing" constant="-40" id="vTo-VG-tcI"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mxO-k5-NUt"/>
                     <connections>
-                        <outlet property="deviceMenuButton" destination="I58-7y-F4q" id="hGX-Dn-O2K"/>
-                        <outlet property="historyDataButton" destination="BM3-E3-h6l" id="lKd-Y3-uYB"/>
-                        <outlet property="myVideoButton" destination="jW7-V2-mfz" id="L1s-XS-bce"/>
-                        <outlet property="realDataButton" destination="AEk-po-AFv" id="VLV-Yg-y0d"/>
+                        <segue destination="Hhw-Eo-xmY" kind="push" identifier="toVideo" id="JIa-ji-Ngr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K2P-Df-uES" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -221,11 +150,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agW-Yw-xOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319" y="565"/>
+            <point key="canvasLocation" x="319" y="592"/>
         </scene>
     </scenes>
     <resources>
-        <image name="fish" width="198" height="105"/>
         <image name="input_bg" width="614" height="254"/>
     </resources>
 </document>

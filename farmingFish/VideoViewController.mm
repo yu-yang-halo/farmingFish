@@ -188,7 +188,7 @@ VideoViewController *g_pController = NULL;
     }
     
     
-    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan, PTZ_DIRECT, 1))
+    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+selectIndex, PTZ_DIRECT, 1))
     {
         NSLog(@"stop  failed with[%d]", NET_DVR_GetLastError());
     }
@@ -199,9 +199,9 @@ VideoViewController *g_pController = NULL;
 
 }
 -(void)ptzMode:(UIButton *)sender{
+    NSLog(@"selectIndex %d",selectIndex);
     int mode=sender.tag;
     int PTZ_DIRECT=PAN_AUTO;
-    
     if(mode==1){
         PTZ_DIRECT=TILT_UP;
     }else if(mode==2){
@@ -212,18 +212,23 @@ VideoViewController *g_pController = NULL;
         PTZ_DIRECT=PAN_RIGHT;
     }
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+selectIndex, PTZ_DIRECT, 0))
+        {
+            NSLog(@"start  failed with[%d]", NET_DVR_GetLastError());
+        }
+        else
+        {
+            NSLog(@"start  succ");
+        }
+    });
     
-    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan, PTZ_DIRECT, 0))
-    {
-        NSLog(@"start  failed with[%d]", NET_DVR_GetLastError());
-    }
-    else
-    {
-        NSLog(@"start  succ");
-    }
+    
     
 }
 -(void)modeShow:(UIButton *)sender{
+     selectIndex=-1;
     layoutMode=sender.tag;
     
     
@@ -249,25 +254,38 @@ VideoViewController *g_pController = NULL;
     
 
     VideoCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"videoCell" forIndexPath:indexPath];
-    [m_multiView[indexPath.row] removeFromSuperview];
+   
     if(selectIndex>0){
+         [m_multiView[selectIndex] removeFromSuperview];
          [cell.videoView addSubview:m_multiView[selectIndex]];
+        [m_multiView[selectIndex] mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.height.equalTo(@[cell.videoView.mas_height,m_multiView[selectIndex].mas_height]);
+            make.width.equalTo(@[cell.videoView.mas_width,m_multiView[selectIndex].mas_width]);
+            
+            make.leading.equalTo(@[cell.videoView.mas_leading,m_multiView[selectIndex].mas_leading]);
+            
+            make.top.equalTo(@[cell.videoView.mas_top,m_multiView[selectIndex].mas_top]);
+            
+        }];
     }else{
+         [m_multiView[indexPath.row] removeFromSuperview];
          [cell.videoView addSubview:m_multiView[indexPath.row]];
+        [m_multiView[indexPath.row] mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.height.equalTo(@[cell.videoView.mas_height,m_multiView[indexPath.row].mas_height]);
+            make.width.equalTo(@[cell.videoView.mas_width,m_multiView[indexPath.row].mas_width]);
+            
+            make.leading.equalTo(@[cell.videoView.mas_leading,m_multiView[indexPath.row].mas_leading]);
+            
+            make.top.equalTo(@[cell.videoView.mas_top,m_multiView[indexPath.row].mas_top]);
+            
+        }];
     }
     
    
     
-    [m_multiView[indexPath.row] mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.height.equalTo(@[cell.videoView.mas_height,m_multiView[indexPath.row].mas_height]);
-        make.width.equalTo(@[cell.videoView.mas_width,m_multiView[indexPath.row].mas_width]);
-        
-        make.leading.equalTo(@[cell.videoView.mas_leading,m_multiView[indexPath.row].mas_leading]);
-        
-        make.top.equalTo(@[cell.videoView.mas_top,m_multiView[indexPath.row].mas_top]);
-        
-    }];
+    
     
     UITapGestureRecognizer *tapGR1=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectVideo:)];
     [tapGR1 setNumberOfTapsRequired:1];
@@ -287,6 +305,7 @@ VideoViewController *g_pController = NULL;
 }
 -(void)selectVideo:(UIGestureRecognizer *)gr{
     int index=gr.view.tag;
+    selectIndex=index;
 }
 -(void)modeSwitch:(UIGestureRecognizer *)gr{
     int index=gr.view.tag;

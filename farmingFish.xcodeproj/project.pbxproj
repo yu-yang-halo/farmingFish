@@ -16,6 +16,7 @@
 		187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187BC96D1D22A05200FB5678 /* Main.storyboard */; };
 		187BC9711D22A05200FB5678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 187BC9701D22A05200FB5678 /* Assets.xcassets */; };
 		187BC9741D22A05200FB5678 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187BC9721D22A05200FB5678 /* LaunchScreen.storyboard */; };
+		1888AF771D8B9900000ECAF5 /* UIViewController+BGColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888AF761D8B9900000ECAF5 /* UIViewController+BGColor.m */; };
 		18A72EF81D4431F700E15141 /* Preview.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EF71D4431F700E15141 /* Preview.mm */; };
 		18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EFA1D44373F00E15141 /* VoiceTalk.mm */; };
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
@@ -48,6 +49,7 @@
 		18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB5E1D43697E0071FFE8 /* DeviceInfo.m */; };
 		18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */; };
 		18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */; };
+		18EDCCAD1D8A21510075D436 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EDCCAC1D8A21510075D436 /* InfoPlist.strings */; };
 		FFDE393AD2F17246DCE58F9F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F6052DAE2A7CF05DE2AF1A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,8 @@
 		187BC9701D22A05200FB5678 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		187BC9731D22A05200FB5678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		187BC9751D22A05200FB5678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1888AF751D8B9900000ECAF5 /* UIViewController+BGColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BGColor.h"; sourceTree = "<group>"; };
+		1888AF761D8B9900000ECAF5 /* UIViewController+BGColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BGColor.m"; sourceTree = "<group>"; };
 		18A72EF61D4431F700E15141 /* Preview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preview.h; sourceTree = "<group>"; };
 		18A72EF71D4431F700E15141 /* Preview.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Preview.mm; sourceTree = "<group>"; };
 		18A72EF91D44373F00E15141 /* VoiceTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceTalk.h; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 		18EDAB601D4376230071FFE8 /* VideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCollectionViewCell.h; sourceTree = "<group>"; };
 		18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCollectionViewCell.m; sourceTree = "<group>"; };
 		18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
+		18EDCCAC1D8A21510075D436 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		20AC3B5524FCEFA94D89DB7A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5776164CD3410B17457C5A99 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B0F6052DAE2A7CF05DE2AF1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +193,8 @@
 				18E7BE871D26891000729DCA /* MainViewController.m */,
 				18ECBA271D28B6B300C20F49 /* BaseViewController.h */,
 				18ECBA281D28B6B300C20F49 /* BaseViewController.m */,
+				1888AF751D8B9900000ECAF5 /* UIViewController+BGColor.h */,
+				1888AF761D8B9900000ECAF5 /* UIViewController+BGColor.m */,
 			);
 			name = viewcontroller;
 			sourceTree = "<group>";
@@ -222,6 +229,7 @@
 				187BC96D1D22A05200FB5678 /* Main.storyboard */,
 				187BC9701D22A05200FB5678 /* Assets.xcassets */,
 				187BC9721D22A05200FB5678 /* LaunchScreen.storyboard */,
+				18EDCCAC1D8A21510075D436 /* InfoPlist.strings */,
 				187BC9751D22A05200FB5678 /* Info.plist */,
 				187BC9641D22A05200FB5678 /* Supporting Files */,
 			);
@@ -387,6 +395,7 @@
 				187BC9711D22A05200FB5678 /* Assets.xcassets in Resources */,
 				18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */,
 				187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */,
+				18EDCCAD1D8A21510075D436 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +459,7 @@
 				1861B7571D883118008CD63C /* SocketService.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
 				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
+				1888AF771D8B9900000ECAF5 /* UIViewController+BGColor.m in Sources */,
 				181796981D818806000953BF /* FService.m in Sources */,
 				18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */,
 				18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */,
