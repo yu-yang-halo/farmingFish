@@ -10,6 +10,8 @@
 #import "UIColor+hexStr.h"
 #import "UIViewController+BGColor.h"
 #import "VideoViewController.h"
+#import "FService.h"
+#import "AppDelegate.h"
 @interface MainViewController (){
     NSArray *items;
 }
@@ -33,11 +35,27 @@
     [self buttonStyleInit];
     
     
-
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       
+        AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+        
+        
+//        [[FService shareInstance] GetCollectorInfo:delegate.customerNo userAccount:delegate.userAccount];
+//        
+//        [[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
+//        
+//        [[FService shareInstance] GetCollectorData:delegate.customerNo dateTime:@"2016-09-18"];
+        
+        
+    });
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO];
     [self animationStart];
+    
+    
 
 }
 

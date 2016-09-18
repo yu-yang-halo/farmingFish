@@ -4,35 +4,45 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CocoaAsyncSocket.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Toast.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>UIColor+uiGradients.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2D90F053C0850D179CBAFC4838E7488B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2FAF5E0956627506E063B8FB4D94FF16</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4AEF92F8398CB5ADEAA6C1643691240C</key>
+		<key>31E44DF6582B99BC8C2860936BA1F4F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +52,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD9A5A92F32ABFF7D3BC0324B0E86427</key>
+		<key>6EB8F6083AE2D335EBD1E599F20AD30B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7E237B29107C832B025663B0170B5F0D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B32BCE8088319B63DCD6BA8488784966</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

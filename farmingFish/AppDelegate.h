@@ -12,6 +12,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+/*
+ * CustomerNo
+ */
+@property(nonatomic,strong) NSString *customerNo;
+@property(nonatomic,strong) NSString *userAccount;
 
 @end
 

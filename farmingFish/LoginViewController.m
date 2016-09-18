@@ -10,7 +10,7 @@
 #import "UIViewController+BGColor.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <UIView+Toast.h>
-
+#import "AppDelegate.h"
 #import "FService.h"
 const static NSString *KEY_USERNAME=@"username-key";
 const static NSString *KEY_PASSWORD=@"password-key";
@@ -103,15 +103,26 @@ const static NSString *KEY_PASSWORD=@"password-key";
     [hud showAnimated:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //[[FService shareInstance] loginName:username password:password];
+        NSString *customerNo=[[FService shareInstance] loginName:username password:password];
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [hud hideAnimated:YES];
             
-            [self performSegueWithIdentifier:@"toMainPage" sender:sender];
-            
-            [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
-            [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
+            if(customerNo==nil){
+                [self.view makeToast:@"用户名或密码错误"];
+            }else{
+                [self performSegueWithIdentifier:@"toMainPage" sender:sender];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
+                [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
+                
+                AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+                [delegate setCustomerNo:customerNo];
+                [delegate setUserAccount:username];
+                
+            }
             
             
         });

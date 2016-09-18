@@ -19,7 +19,7 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     return instance;
 }
 
--(void)loginName:(NSString *)name password:(NSString *)pass{
+-(NSString *)loginName:(NSString *)name password:(NSString *)pass{
     
     
     NSDictionary *parameters=@{@"userAccount":name,@"userPwd":pass};
@@ -30,7 +30,79 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     
     NSLog(@"result::: %@", [retResult objectFromJSONData]);
     
+    NSDictionary *retObj=[retResult objectFromJSONData];
     
+    if(retObj==nil){
+        return nil;
+    }else{
+        id result=[retObj objectForKey:@"LoginResult"];
+        if([result isEqualToString:@"ERROR"]){
+            return nil;
+        }
+        return result;
+    }
+    
+}
+-(id)GetCollectorData:(NSString *)customerNo dateTime:(NSString *)date{
+    NSDictionary *parameters=@{@"collectorId":customerNo,@"dateTime":date};
+    
+    
+    
+    NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetCollectorData",WEBSERVICE_URL];
+    
+    NSData *retResult=[self requestURLSyncPOST:collectorInfoREQ_URL postBody:[parameters JSONData]];
+    
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetCollectorData::: %@", retObj);
+    
+    return retObj;
+
+}
+-(id)GetVideoInfo:(NSString *)fieldId{
+    NSDictionary *parameters=@{@"fieldId":fieldId};
+    
+    NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetVideoInfo",WEBSERVICE_URL];
+    
+    NSData *retResult=[self requestURLSyncPOST:collectorInfoREQ_URL postBody:[parameters JSONData]];
+    
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetVideoInfo::: %@", retObj);
+    
+    return retObj;
+
+}
+-(id)GetUserVideoInfo:(NSString *)userAccount{
+    NSDictionary *parameters=@{@"userAccount":userAccount};
+    
+    NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetUserVideoInfo",WEBSERVICE_URL];
+    
+    NSData *retResult=[self requestURLSyncPOST:collectorInfoREQ_URL postBody:[parameters JSONData]];
+    
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetUserVideoInfo::: %@", retObj);
+    
+    return retObj;
+}
+-(id)GetCollectorInfo:(NSString *)customerNo userAccount:(NSString *)ua{
+    NSDictionary *parameters=@{@"customerNo":customerNo,@"userAccount":ua};
+    
+    NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetCollectorInfo",WEBSERVICE_URL];
+    
+    NSData *retResult=[self requestURLSyncPOST:collectorInfoREQ_URL postBody:[parameters JSONData]];
+    
+   
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetCollectorInfo::: %@", retObj);
+    
+    return retObj;
+ 
 }
 
 -(NSData *)requestURLSyncPOST:(NSString *)service postBody:(NSData *)postBody{

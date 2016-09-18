@@ -10,5 +10,17 @@
 
 @interface FService : NSObject
 +(instancetype)shareInstance;
--(void)loginName:(NSString *)name password:(NSString *)pass;
+
+-(NSString *)loginName:(NSString *)name password:(NSString *)pass;
+
+//采集设备信息
+-(id)GetCollectorInfo:(NSString *)customerNo userAccount:(NSString *)ua;
+//用户视频信息
+-(id)GetUserVideoInfo:(NSString *)userAccount;
+-(id)GetVideoInfo:(NSString *)fieldId;
+
+
+-(id)GetCollectorData:(NSString *)customerNo dateTime:(NSString *)date;
+
+
 @end
