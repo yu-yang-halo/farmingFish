@@ -13,5 +13,6 @@
 +(instancetype)shareInstance;
 
 -(void)connect;
+-(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
 
 @end

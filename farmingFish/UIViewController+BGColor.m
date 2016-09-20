@@ -43,17 +43,26 @@
     
     [self.view addSubview:containerView];
     
-    
-    
-    [UIView animateWithDuration:1.2 animations:^{
-        logoView.bounds=CGRectMake(0, 0,1000, 1000);
+    [UIView animateWithDuration:0.2 animations:^{
+        logoView.bounds=CGRectMake(0, 0, 80,80);
         logoView.center=containerView.center;
-        logoView.alpha=0.0;
     } completion:^(BOOL finished) {
-        [logoView removeFromSuperview];
-        [containerView removeFromSuperview];
+        [UIView animateWithDuration:0.5 animations:^{
+            logoView.bounds=CGRectMake(0, 0,1000, 1000);
+            logoView.center=containerView.center;
+            logoView.alpha=0.0;
+        } completion:^(BOOL finished) {
+            [logoView removeFromSuperview];
+            [containerView removeFromSuperview];
+            
+        }];
+        
         
     }];
+
+    
+    
+    
     
     
     

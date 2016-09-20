@@ -50,6 +50,7 @@
 		18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */; };
 		18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */; };
 		18EDCCAD1D8A21510075D436 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EDCCAC1D8A21510075D436 /* InfoPlist.strings */; };
+		84EA6A7D1D90E9B30075433D /* SPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA6A7C1D90E9B30075433D /* SPackage.m */; };
 		FFDE393AD2F17246DCE58F9F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F6052DAE2A7CF05DE2AF1A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,8 @@
 		18EDCCAC1D8A21510075D436 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		20AC3B5524FCEFA94D89DB7A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5776164CD3410B17457C5A99 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		84EA6A7B1D90E9B30075433D /* SPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPackage.h; sourceTree = "<group>"; };
+		84EA6A7C1D90E9B30075433D /* SPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPackage.m; sourceTree = "<group>"; };
 		B0F6052DAE2A7CF05DE2AF1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -179,6 +182,8 @@
 				1861B7531D8824E5008CD63C /* File.java */,
 				1861B7551D883118008CD63C /* SocketService.h */,
 				1861B7561D883118008CD63C /* SocketService.m */,
+				84EA6A7B1D90E9B30075433D /* SPackage.h */,
+				84EA6A7C1D90E9B30075433D /* SPackage.m */,
 			);
 			name = socket;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 			files = (
 				187BC96C1D22A05200FB5678 /* LoginViewController.m in Sources */,
 				18ECBA291D28B6B300C20F49 /* BaseViewController.m in Sources */,
+				84EA6A7D1D90E9B30075433D /* SPackage.m in Sources */,
 				1861B7571D883118008CD63C /* SocketService.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
 				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
