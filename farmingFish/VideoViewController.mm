@@ -5,7 +5,7 @@
 //  Created by apple on 16/7/23.
 //  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
 //
-
+#import "UIViewController+Extension.h"
 #import "VideoViewController.h"
 #import "UIColor+hexStr.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
@@ -47,8 +47,10 @@ VideoViewController *g_pController = NULL;
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.title=@"我的视频";
+    [self navigationBarInit];
+    
     g_pController=self;
-    Screen_bounds=[UIScreen mainScreen].bounds;
+    Screen_bounds=self.view.bounds;
     
     UIColor *startColor = [UIColor uig_emeraldWaterStartColor];
     UIColor *endColor = [UIColor uig_emeraldWaterEndColor];

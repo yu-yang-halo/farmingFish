@@ -11,6 +11,7 @@
 #import "GCDAsyncSocket.h" // for TCP
 #import "GCDAsyncUdpSocket.h" // for UDP
 #import "SPackage.h"
+#import <UIView+Toast.h>
 
 const  uint16_t socket_port= 9101;
 const  NSString *socket_ip  = @"183.78.182.98";
@@ -34,23 +35,40 @@ static SocketService *instance;
     [asyncSocket readDataWithTimeout:-1 tag:1000];
     
 }
+-(void)reconnect{
+    if(asyncSocket==nil){
+        return;
+    }
+    [self connect];
+    NSLog(@"重新连接。。。");
+}
+
 -(void)connect{
    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-   asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+    if(asyncSocket==nil){
+        asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
 
-
-    NSLog(@"Connecting to \"%@\" on port %hu...", socket_ip, socket_port);
-    
-    NSError *error = nil;
-    if (![asyncSocket connectToHost:socket_ip onPort:socket_port error:&error])
-    {
-        NSLog(@"Error connecting: %@", error);
     }
     
-    
+    if(![asyncSocket isConnected]){
+        
+        NSLog(@"Connecting to \"%@\" on port %hu...", socket_ip, socket_port);
+        
+        NSError *error = nil;
+        if (![asyncSocket connectToHost:socket_ip onPort:socket_port error:&error])
+        {
+            NSLog(@"Error connecting: %@", error);
+        }
+    }
+
 
 }
 
+-(void)disconnect{
+    if(asyncSocket!=nil&&asyncSocket.isConnected){
+        [asyncSocket disconnect];
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Socket Delegate
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,9 +79,8 @@ static SocketService *instance;
     
 
     
-    [sock writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:0];
- 
-    [sock readDataWithTimeout:-1 tag:0];
+//    [sock writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:0];
+//    [sock readDataWithTimeout:-1 tag:0];
     
     [self keepLive];
     
@@ -73,8 +90,8 @@ static SocketService *instance;
 -(void)keepLive{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        while(asyncSocket.isConnected){
-           
+        while(asyncSocket!=nil&&asyncSocket.isConnected){
+            NSLog(@"保持心跳....");
             [asyncSocket writeData:[SPackage buildSocketPackage_WATER]withTimeout:-1 tag:2];
             [asyncSocket readDataWithTimeout:-1 tag:2];
             
@@ -82,8 +99,6 @@ static SocketService *instance;
             [asyncSocket readDataWithTimeout:-1 tag:3];
             
             [NSThread sleepForTimeInterval:15];
-            
-            NSLog(@"....keep live tag[1,3] [2]");
             
         }
     });
@@ -100,8 +115,8 @@ static SocketService *instance;
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-//    NSLog(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
-   
+  
+    //NSLog(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -114,9 +129,21 @@ static SocketService *instance;
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    NSLog(@"socketDidDisconnect:%p withError: %@", sock, err);
+     NSLog(@"socketDidDisconnect:%p withError: %@", sock, err);
+    if(err!=nil){
+        [[[UIApplication sharedApplication] keyWindow] makeToast:@"连接已断开"];
+    }
+   
 }
 
-
+- (void)applicationWillResignActive:(UIApplication *)application{
+    [self disconnect];
+     NSLog(@"断开连接。。。");
+}
+- (void)applicationDidBecomeActive:(UIApplication *)application{
+    
+    [self reconnect];
+    
+}
 
 @end

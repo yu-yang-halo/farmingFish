@@ -8,10 +8,13 @@
 
 #import "MainViewController.h"
 #import "UIColor+hexStr.h"
-#import "UIViewController+BGColor.h"
+#import "UIViewController+Extension.h"
 #import "VideoViewController.h"
 #import "FService.h"
 #import "AppDelegate.h"
+#import "SocketService.h"
+#import "UIButton+BGColor.h"
+#import "RealDataViewController.h"
 @interface MainViewController (){
     NSArray *items;
 }
@@ -29,6 +32,7 @@
     [super viewDidLoad];
     
      self.title=@"主页";
+    [self navigationBarInit];
     items=@[@"我的设备",@"我的视频",@"实时数据",@"历史数据"];
     //初始化页面背景色
     [self viewControllerBGInit];
@@ -40,23 +44,24 @@
         AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
         
         
-//        [[FService shareInstance] GetCollectorInfo:delegate.customerNo userAccount:delegate.userAccount];
-//        
-//        [[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
-//        
-//        [[FService shareInstance] GetCollectorData:delegate.customerNo dateTime:@"2016-09-18"];
+        [[FService shareInstance] GetCollectorInfo:delegate.customerNo userAccount:delegate.userAccount];
+        
+        [[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
+        
+        [[FService shareInstance] GetCollectorData:delegate.customerNo dateTime:@"2016-09-18"];
         
         
     });
     
-    
+   
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO];
     [self animationStart];
+   
+}
+-(void)viewWillDisappear:(BOOL)animated{
     
-    
-
 }
 
 -(void)animationStart{
@@ -146,8 +151,11 @@
     [self.view addSubview:_realDataButton];
     [self.view addSubview:_historyDataButton];
     
-    
+     [_myVideoButton setTag:1];
     [_myVideoButton addTarget:self action:@selector(redirectTo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_realDataButton setTag:2];
+    [_realDataButton addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
     
    
     
@@ -155,20 +163,20 @@
     /*
         我的设备button 样式 EDE41A
      */
-    [self styleInitToButton:_deviceMenuButton data:@{@"backgroundColor":@"EDE41A",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_deviceMenuButton data:@{@"selBgColor":@"90EDE41A",@"backgroundColor":@"EDE41A",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     /*
      我的视频button 样式
      */
-    [self styleInitToButton:_myVideoButton data:@{@"backgroundColor":@"68E668",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_myVideoButton data:@{@"selBgColor":@"9068E668",@"backgroundColor":@"68E668",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     /*
      实时数据button 样式
      */
-    [self styleInitToButton:_realDataButton data:@{@"backgroundColor":@"2194ED",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_realDataButton data:@{@"selBgColor":@"902194ED",@"backgroundColor":@"2194ED",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
     /*
      历史数据button 样式
      */
-    [self styleInitToButton:_historyDataButton data:@{@"backgroundColor":@"F55959",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_historyDataButton data:@{@"selBgColor":@"90F55959",@"backgroundColor":@"F55959",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
 
     
@@ -176,20 +184,30 @@
 }
 
 -(void)redirectTo:(UIButton *)sender{
+    if(sender.tag==1){
+        [self performSegueWithIdentifier:@"toVideo" sender:sender];
+    }else{
+        [self performSegueWithIdentifier:@"toRealData" sender:sender];
+    }
     
-    [self performSegueWithIdentifier:@"toVideo" sender:sender];
 }
 
 -(void)styleInitToButton:(UIButton *)button data:(NSDictionary *)dic{
     button.layer.cornerRadius=_deviceMenuButton.frame.size.width/2;
-    button.layer.backgroundColor=[[UIColor colorWithHexString:[dic objectForKey:@"backgroundColor"]] CGColor];
+
+    [button setTitleColor:[UIColor colorWithWhite:1 alpha:0.8] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithWhite:1 alpha:0.3] forState:UIControlStateHighlighted];
+    
+    
+    [button setBackgroundColor:[UIColor colorWithHexString:[dic objectForKey:@"backgroundColor"]]  forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor colorWithHexString:[dic objectForKey:@"selBgColor"]]  forState:UIControlStateHighlighted];
     
     button.layer.borderColor=[[UIColor colorWithHexString:[dic objectForKey:@"borderColor"]] CGColor];
-    button.layer.borderWidth=1;
+    button.layer.borderWidth=5;
     button.layer.opacity=0.85;
     
     button.layer.shadowColor=[[UIColor colorWithHexString:[dic objectForKey:@"shadowColor"]] CGColor];
-    button.layer.shadowRadius=5;
+    button.layer.shadowRadius=10;
     // 设置layer的透明度
     button.layer.shadowOpacity = 1.0f;
     button.layer.shadowOffset=CGSizeMake(0,1);

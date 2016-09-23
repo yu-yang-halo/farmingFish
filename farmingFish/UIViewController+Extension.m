@@ -6,7 +6,7 @@
 //  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
 //
 
-#import "UIViewController+BGColor.h"
+#import "UIViewController+Extension.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
 @implementation UIViewController (BGColor)
 -(void)viewControllerBGInit{
@@ -68,4 +68,19 @@
     
 }
 
+@end
+
+@implementation UIViewController (NavigationBar)
+
+-(void)navigationBarInit{
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"alph0"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
+}
+-(void)back:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

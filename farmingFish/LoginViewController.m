@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "UIViewController+BGColor.h"
+#import "UIViewController+Extension.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <UIView+Toast.h>
 #import "AppDelegate.h"
@@ -105,7 +105,7 @@ const static NSString *KEY_PASSWORD=@"password-key";
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *customerNo=[[FService shareInstance] loginName:username password:password];
-        [[SocketService shareInstance] sendControlCmd:1 number:1 devId:@""];
+       
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

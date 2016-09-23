@@ -16,3 +16,8 @@
 -(void)flyIconToFace;
 
 @end
+
+
+@interface UIViewController (NavigationBar)
+-(void)navigationBarInit;
+@end

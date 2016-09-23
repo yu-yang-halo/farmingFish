@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
 
-@interface VideoViewController : BaseViewController
+@interface VideoViewController : UIViewController
 - (void)previewPlay:(int*)iPlayPort playView:(UIView*)playView;
 - (void)stopPreviewPlay:(int*)iPlayPort;
 @end

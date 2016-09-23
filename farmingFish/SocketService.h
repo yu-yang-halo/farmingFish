@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface SocketService : NSObject
+#import <UIKit/UIKit.h>
+@interface SocketService : NSObject<UIApplicationDelegate>
 
 +(instancetype)shareInstance;
 
 -(void)connect;
+-(void)disconnect;
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
 
 @end
