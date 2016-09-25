@@ -9,7 +9,7 @@
 #import "SPackage.h"
 
 @implementation SPackage
-+(void)reservePackageInfo:(NSData *)data{
++(void)reservePackageInfo:(NSData *)data StatusBlock:(StatusBlock)block{
     Byte* bytes=[data bytes];
     NSLog(@"package length %ld", data.length);
     
@@ -34,16 +34,13 @@
         for(int i=0;i<len;i++){
             NSLog(@"序号[%d]%02x",i+23,bytes[i+23]);
         }
-        Byte realData[40]={0};
-        Byte realData2[4]={0};
+        Byte realData[45]={0};
+        
         if(len==45){
             //
-            memcpy(realData,bytes+23,40);
-            [self resolveStatusData:realData];
-            if(bytes[63]==0x1e){
-                memcpy(realData2,bytes+64,4);
-                [self resolveDeviceStatus:realData2];
-            }
+            memcpy(realData,bytes+23,45);
+            [self resolveStatusData:realData StatusBlock:block];
+            
            
         }
         
@@ -56,7 +53,7 @@
     NSLog(@"序号[%d-%d]校验和%02x%02x",len+23,len+24,bytes[len+23],bytes[len+24]);
     NSLog(@"序号[%d]帧尾%02x",len+25,bytes[len+25]);
 }
-+(void)resolveDeviceStatus:(Byte *)devstatus{
++(NSString *)resolveDeviceStatus:(Byte *)devstatus{
     NSMutableString *st=[NSMutableString new];
     for (int i=0;i<4;i++) {
         
@@ -64,74 +61,107 @@
         
     }
     NSLog(@"电机状态 %@",st);
+    return st;
 }
-+(void)resolveStatusData:(Byte *)status{
++(void)resolveStatusData:(Byte *)status StatusBlock:(StatusBlock)block {
+    NSMutableDictionary *dic=[NSMutableDictionary new];
     int i=0;
     while (i<40) {
         unsigned char pmem[]={status[i+4],status[i+3],status[i+2],status[i+1]};
         
         float *p=(float *)pmem;
+        if(*p<=0){
+            i=i+5;
+            continue;
+        }
 
         switch(status[i]){
             case 0x01://溶氧
-                NSLog(@"溶氧 %f",*p);
+               // NSLog(@"溶氧 %f",*p); 属性名 当前值 最大值 单位
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"溶氧",*p,20.0,@"mg/L"] forKey:@(status[i])];
+                
                 break;
             case 0x02://溶氧饱和度
-                NSLog(@"溶氧饱和度 %f",*p);
+               // NSLog(@"溶氧饱和度 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"溶氧饱和度",*p,1.0,@"%"] forKey:@(status[i])];
                 break;
             case 0x03://PH
-                NSLog(@"PH %f",*p);
+                //NSLog(@"PH %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"PH",*p,14.0,@""] forKey:@(status[i])];
                 break;
             case 0x04://氨氮
-                NSLog(@"氨氮 %f",*p);
+                //NSLog(@"氨氮 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"氨氮",*p,10.0,@"mg/L"] forKey:@(status[i])];
                 break;
             case 0x05://温度
-                NSLog(@"温度 %f",*p);
+                //NSLog(@"温度 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"温度",*p,40.0,@"℃"] forKey:@(status[i])];
                 break;
             case 0x06://亚硝酸盐
-                NSLog(@"亚硝酸盐 %f",*p);
+                //NSLog(@"亚硝酸盐 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"亚硝酸盐",*p,10.0,@"mg/L"] forKey:@(status[i])];
                 break;
             case 0x07://液位
-                NSLog(@"液位 %f",*p);
+                //NSLog(@"液位 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"液位",*p] forKey:@(status[i])];
                 break;
             case 0x08://硫化氢
-                NSLog(@"硫化氢 %f",*p);
+                //NSLog(@"硫化氢 %f",*p);
+                 [dic setObject:[NSString stringWithFormat:@"%@|%f",@"硫化氢",*p] forKey:@(status[i])];
                 break;
             case 0x09://浊度
-                NSLog(@"浊度 %f",*p);
+               // NSLog(@"浊度 %f",*p);
+                 [dic setObject:[NSString stringWithFormat:@"%@|%f",@"浊度",*p] forKey:@(status[i])];
                 break;
             case 0x0a://盐度
-                NSLog(@"盐度 %f",*p);
+                //NSLog(@"盐度 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"盐度",*p] forKey:@(status[i])];
                 break;
             case 0x0b://电导率
-                NSLog(@"电导率 %f",*p);
+               // NSLog(@"电导率 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"电导率",*p] forKey:@(status[i])];
                 break;
             case 0x0c://化学需量
                 NSLog(@"化学需量%f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"化学需量",*p] forKey:@(status[i])];
                 break;
             case 0x0d://大气压
                 NSLog(@"大气压 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"大气压",*p] forKey:@(status[i])];
                 break;
             case 0x0e://风速
                 NSLog(@"风速 %f",*p);
+                 [dic setObject:[NSString stringWithFormat:@"%@|%f",@"风速",*p] forKey:@(status[i])];
                 break;
             case 0x0f://风向
                 NSLog(@"风向 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"风向",*p] forKey:@(status[i])];
                 break;
             case 0x10://叶绿素
                 NSLog(@"叶绿素 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"叶绿素",*p] forKey:@(status[i])];
                 break;
             case 0x11://大气温度
                 NSLog(@"大气温度 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"大气温度",*p] forKey:@(status[i])];
                 break;
             case 0x12://大气湿度
                 NSLog(@"大气湿度 %f",*p);
+                [dic setObject:[NSString stringWithFormat:@"%@|%f",@"大气湿度",*p] forKey:@(status[i])];
                 break;
                 
         }
         
         i=i+5;
     }
+    Byte realData2[4]={0};
+    if(status[40]==0x1e){
+        memcpy(realData2,status+41,4);
+        NSString *devOnOffStatus=[self resolveDeviceStatus:realData2];
+        [dic setObject:devOnOffStatus forKey:@"status"];
+    }
+    
+    block(dic);
 }
 +(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)devId{
     Byte req[28]={0};

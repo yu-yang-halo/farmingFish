@@ -76,6 +76,9 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
 
 }
 -(id)GetUserVideoInfo:(NSString *)userAccount{
+    if(userAccount==nil){
+        return nil;
+    }
     NSDictionary *parameters=@{@"userAccount":userAccount};
     
     NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetUserVideoInfo",WEBSERVICE_URL];
@@ -85,7 +88,7 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     
     
     NSDictionary *retObj=[retResult objectFromJSONData];
-    NSLog(@"GetUserVideoInfo::: %@", retObj);
+    // NSLog(@"GetUserVideoInfo::: %@", retObj);
     
     return retObj;
 }

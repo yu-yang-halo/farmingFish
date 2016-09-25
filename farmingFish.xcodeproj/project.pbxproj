@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		181796981D818806000953BF /* FService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181796971D818806000953BF /* FService.m */; };
+		1836931D1D962C6D00353868 /* YYStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836931C1D962C6D00353868 /* YYStatusView.m */; };
 		1861B7541D8824E5008CD63C /* File.java in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7531D8824E5008CD63C /* File.java */; };
 		1861B7571D883118008CD63C /* SocketService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7561D883118008CD63C /* SocketService.m */; };
 		187BC9661D22A05200FB5678 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 187BC9651D22A05200FB5678 /* main.m */; };
@@ -22,6 +23,9 @@
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
 		18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */; };
 		18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EBA9241D839D0A00184A6F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18EC4EEB1D976F55009246C2 /* RealDataTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4EEA1D976F55009246C2 /* RealDataTableView.m */; };
+		18EC4EEF1D977301009246C2 /* RealDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4EED1D977301009246C2 /* RealDataTableViewCell.m */; };
+		18EC4EF01D977301009246C2 /* RealDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4EEE1D977301009246C2 /* RealDataTableViewCell.xib */; };
 		18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */; };
 		18EDAB371D4363DA0071FFE8 /* libAudioEngine_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB311D4363DA0071FFE8 /* libAudioEngine_64.a */; };
 		18EDAB381D4363DA0071FFE8 /* libHCCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB321D4363DA0071FFE8 /* libHCCore.a */; };
@@ -58,6 +62,8 @@
 /* Begin PBXFileReference section */
 		181796961D818806000953BF /* FService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FService.h; sourceTree = "<group>"; };
 		181796971D818806000953BF /* FService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FService.m; sourceTree = "<group>"; };
+		1836931B1D962C6D00353868 /* YYStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStatusView.h; sourceTree = "<group>"; };
+		1836931C1D962C6D00353868 /* YYStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStatusView.m; sourceTree = "<group>"; };
 		1861B7531D8824E5008CD63C /* File.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = File.java; sourceTree = "<group>"; };
 		1861B7551D883118008CD63C /* SocketService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketService.h; sourceTree = "<group>"; };
 		1861B7561D883118008CD63C /* SocketService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketService.m; sourceTree = "<group>"; };
@@ -84,6 +90,11 @@
 		18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+hexStr.m"; sourceTree = "<group>"; };
 		18EBA9231D839D0A00184A6F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		18EBA9241D839D0A00184A6F /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		18EC4EE91D976F55009246C2 /* RealDataTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealDataTableView.h; sourceTree = "<group>"; };
+		18EC4EEA1D976F55009246C2 /* RealDataTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealDataTableView.m; sourceTree = "<group>"; };
+		18EC4EEC1D977301009246C2 /* RealDataTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealDataTableViewCell.h; sourceTree = "<group>"; };
+		18EC4EED1D977301009246C2 /* RealDataTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealDataTableViewCell.m; sourceTree = "<group>"; };
+		18EC4EEE1D977301009246C2 /* RealDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RealDataTableViewCell.xib; sourceTree = "<group>"; };
 		18EDAB2A1D4360D40071FFE8 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VideoViewController.mm; sourceTree = "<group>"; };
 		18EDAB2F1D4362EA0071FFE8 /* hcnetsdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hcnetsdk.h; sourceTree = "<group>"; };
@@ -194,6 +205,7 @@
 		180F0F571D23E4690021760A /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
+				18EC4EE81D976C2D009246C2 /* tableview */,
 				18EDAB291D4360BB0071FFE8 /* video */,
 				187BC96A1D22A05200FB5678 /* LoginViewController.h */,
 				187BC96B1D22A05200FB5678 /* LoginViewController.m */,
@@ -261,6 +273,18 @@
 			name = JSONKit;
 			sourceTree = "<group>";
 		};
+		18EC4EE81D976C2D009246C2 /* tableview */ = {
+			isa = PBXGroup;
+			children = (
+				18EC4EE91D976F55009246C2 /* RealDataTableView.h */,
+				18EC4EEA1D976F55009246C2 /* RealDataTableView.m */,
+				18EC4EEC1D977301009246C2 /* RealDataTableViewCell.h */,
+				18EC4EED1D977301009246C2 /* RealDataTableViewCell.m */,
+				18EC4EEE1D977301009246C2 /* RealDataTableViewCell.xib */,
+			);
+			name = tableview;
+			sourceTree = "<group>";
+		};
 		18EDAB291D4360BB0071FFE8 /* video */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +305,8 @@
 				18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */,
 				84D2E3E71D93ACEC00BD0002 /* UIButton+BGColor.h */,
 				84D2E3E81D93ACEC00BD0002 /* UIButton+BGColor.m */,
+				1836931B1D962C6D00353868 /* YYStatusView.h */,
+				1836931C1D962C6D00353868 /* YYStatusView.m */,
 			);
 			name = extension;
 			sourceTree = "<group>";
@@ -402,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				187BC9741D22A05200FB5678 /* LaunchScreen.storyboard in Resources */,
+				18EC4EF01D977301009246C2 /* RealDataTableViewCell.xib in Resources */,
 				187BC9711D22A05200FB5678 /* Assets.xcassets in Resources */,
 				18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */,
 				187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */,
@@ -465,8 +492,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				187BC96C1D22A05200FB5678 /* LoginViewController.m in Sources */,
+				1836931D1D962C6D00353868 /* YYStatusView.m in Sources */,
 				84EA6A7D1D90E9B30075433D /* SPackage.m in Sources */,
 				1861B7571D883118008CD63C /* SocketService.m in Sources */,
+				18EC4EEF1D977301009246C2 /* RealDataTableViewCell.m in Sources */,
 				84D2E3EC1D94F4B500BD0002 /* RealDataViewController.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
 				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
@@ -474,6 +503,7 @@
 				181796981D818806000953BF /* FService.m in Sources */,
 				18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */,
 				18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */,
+				18EC4EEB1D976F55009246C2 /* RealDataTableView.m in Sources */,
 				18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */,
 				18A72EF81D4431F700E15141 /* Preview.mm in Sources */,
 				84D2E3E91D93ACEC00BD0002 /* UIButton+BGColor.m in Sources */,

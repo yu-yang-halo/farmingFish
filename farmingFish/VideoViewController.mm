@@ -37,6 +37,7 @@ VideoViewController *g_pController = NULL;
     int    m_nPreviewPort;
     int selectIndex;
 }
+@property(nonatomic,strong) NSDictionary *configParams;
 @property(nonatomic,strong) UICollectionView *collectionView;
 @property(nonatomic,strong) UIScrollView     *scrollView;
 @property(nonatomic,strong) UIPageControl    *pageControl;
@@ -47,6 +48,14 @@ VideoViewController *g_pController = NULL;
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.title=@"我的视频";
+    
+    
+    NSArray *arr=[_videoInfo objectForKey:@"GetUserVideoInfoResult"];
+    if(arr!=nil&&[arr count]>0){
+        self.configParams=arr[0];
+    }
+
+    
     [self navigationBarInit];
     
     g_pController=self;
@@ -348,8 +357,11 @@ VideoViewController *g_pController = NULL;
     DeviceInfo *deviceInfo = [[DeviceInfo alloc] init];
     deviceInfo.chDeviceAddr = ipAndPortArr[0];
     deviceInfo.nDevicePort = [ipAndPortArr[1] intValue];
-    deviceInfo.chLoginName = @"admin";//账户名
-    deviceInfo.chPassWord = @"12345678tld";//密码
+    
+    
+    
+    deviceInfo.chLoginName = [_configParams objectForKey:@"F_UserName"];//账户名
+    deviceInfo.chPassWord = [_configParams objectForKey:@"F_UserPwd"];;//密码
     
     // device login
     NET_DVR_DEVICEINFO_V30 logindeviceInfo = {0};
@@ -449,6 +461,13 @@ VideoViewController *g_pController = NULL;
 
 /**获取动态ip port**/
 -(NSArray *)domainIpAndPort{
+    NSString *F_OutIPAddr=[_configParams objectForKey:@"F_OutIPAddr"];
+    
+    NSArray *params=[F_OutIPAddr componentsSeparatedByString:@"|"];
+    
+    NSString *ipAddr=params[0];
+    NSString *nickname=params[1];
+    
     
     BOOL bRet = NET_DVR_Init();
     if (!bRet)
@@ -461,7 +480,8 @@ VideoViewController *g_pController = NULL;
     NET_DVR_QUERY_COUNTRYID_COND	struCountryIDCond = {0};
     NET_DVR_QUERY_COUNTRYID_RET		struCountryIDRet = {0};
     struCountryIDCond.wCountryID = 248;//China
-    memcpy(struCountryIDCond.szSvrAddr, "www.hik-online.com", strlen("www.hik-online.com"));
+    
+    memcpy(struCountryIDCond.szSvrAddr, ipAddr.UTF8String, strlen(ipAddr.UTF8String));
     memcpy(struCountryIDCond.szClientVersion, "iOS NetSDK Demo", strlen("iOS NetSDK Demo"));
     if(NET_DVR_GetAddrInfoByServer(QUERYSVR_BY_COUNTRYID, &struCountryIDCond, sizeof(struCountryIDCond), &struCountryIDRet, sizeof(struCountryIDRet)))
     {
@@ -479,7 +499,7 @@ VideoViewController *g_pController = NULL;
     NET_DVR_CHECK_DDNS_RET	struDDNSCheckRet = {0};
     memcpy(struDDNSCond.szClientVersion, "iOS NetSDK Fish", strlen("iOS NetSDK Fish"));
     memcpy(struDDNSCond.szResolveSvrAddr, struCountryIDRet.szResolveSvrAddr, strlen(struCountryIDRet.szResolveSvrAddr));
-    memcpy(struDDNSCond.szDevNickName, "tld22345678", strlen("tld22345678"));//your dvr/ipc nickname
+    memcpy(struDDNSCond.szDevNickName, nickname.UTF8String, strlen(nickname.UTF8String));//your dvr/ipc nickname
     if(NET_DVR_GetAddrInfoByServer(QUERYDEV_BY_NICKNAME_DDNS, &struDDNSCond, sizeof(struDDNSCond), &struDDNSQueryRet, sizeof(struDDNSQueryRet)))
     {
         NSLog(@"QUERYDEV_BY_NICKNAME_DDNS succ,ip[%s],sdk port[%d]:", struDDNSQueryRet.szDevIP, struDDNSQueryRet.wCmdPort);

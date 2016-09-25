@@ -20,6 +20,16 @@
     self=[super init];
     if(self!=nil){
         NSLog(@"UIButton class catagery bgcolor init");
+        [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
+        
+    }
+    return self;
+}
+-(instancetype)initWithFrame:(CGRect)frame{
+    self=[super initWithFrame:frame];
+    if(self){
+        
+        [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
     }
     return self;
 }
@@ -36,8 +46,12 @@
     
     objc_setAssociatedObject(self, (__bridge const void *)(key),color, OBJC_ASSOCIATION_RETAIN);
     
-    [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
     
+    
+}
+-(void)dealloc{
+    
+    [self removeObserver:self forKeyPath:@"self.highlighted" context:CONTEXT_NEW_VALUE];
     
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
@@ -46,9 +60,15 @@
         //  NSLog(@"change value %@",value);
         if([value intValue]==1){
             UIColor *color=objc_getAssociatedObject(self,UICONTROL_STATE_HIGHTLIGHT);
+//            if(color==nil){
+//                return;
+//            }
             [self setBackgroundColor:color];
         }else{
             UIColor *color=objc_getAssociatedObject(self,UICONTROL_STATE_NORMAL);
+//            if(color==nil){
+//                return;
+//            }
             [self setBackgroundColor:color];
         }
     }

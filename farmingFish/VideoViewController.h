@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface VideoViewController : UIViewController
+@property(nonatomic,strong) NSDictionary *videoInfo;
 - (void)previewPlay:(int*)iPlayPort playView:(UIView*)playView;
 - (void)stopPreviewPlay:(int*)iPlayPort;
 @end

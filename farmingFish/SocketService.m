@@ -20,7 +20,7 @@ static SocketService *instance;
 {
     GCDAsyncSocket *asyncSocket;
 }
-
+@property (readwrite, nonatomic, copy) StatusBlock mblock;
 @end
 
 @implementation SocketService
@@ -44,6 +44,7 @@ static SocketService *instance;
 }
 
 -(void)connect{
+   [[[UIApplication sharedApplication] keyWindow] makeToast:@"数据连接中..."];
    dispatch_queue_t mainQueue = dispatch_get_main_queue();
     if(asyncSocket==nil){
         asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
@@ -79,8 +80,8 @@ static SocketService *instance;
     
 
     
-//    [sock writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:0];
-//    [sock readDataWithTimeout:-1 tag:0];
+    [sock writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:0];
+    [sock readDataWithTimeout:-1 tag:0];
     
     [self keepLive];
     
@@ -122,11 +123,14 @@ static SocketService *instance;
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     NSLog(@"socket:%p didReadData:withTag:%ld %@", sock, tag,data);
-    
-    [SPackage reservePackageInfo:data];
+    if(_mblock!=nil){
+        [SPackage reservePackageInfo:data StatusBlock:_mblock];
+    }
     
 }
-
+-(void)setStatusBlock:(StatusBlock)block{
+    self.mblock=block;
+}
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
      NSLog(@"socketDidDisconnect:%p withError: %@", sock, err);

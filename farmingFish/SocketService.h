@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+typedef void (^StatusBlock)(NSDictionary *dic);
 @interface SocketService : NSObject<UIApplicationDelegate>
 
 +(instancetype)shareInstance;
@@ -15,5 +16,8 @@
 -(void)connect;
 -(void)disconnect;
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
+
+-(void)setStatusBlock:(StatusBlock)block;
+
 
 @end
