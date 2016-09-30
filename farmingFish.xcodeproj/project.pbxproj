@@ -53,8 +53,15 @@
 		18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB611D4376230071FFE8 /* VideoCollectionViewCell.m */; };
 		18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EDAB621D4376230071FFE8 /* VideoCollectionViewCell.xib */; };
 		18EDCCAD1D8A21510075D436 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EDCCAC1D8A21510075D436 /* InfoPlist.strings */; };
+		8414DC8F1D9A027900CBC8CC /* DeviceControlTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8414DC8E1D9A027900CBC8CC /* DeviceControlTableView.m */; };
+		8414DC931D9A030F00CBC8CC /* DeviceControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8414DC911D9A030F00CBC8CC /* DeviceControlTableViewCell.m */; };
+		8414DC941D9A030F00CBC8CC /* DeviceControlTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8414DC921D9A030F00CBC8CC /* DeviceControlTableViewCell.xib */; };
+		8470027B1D9E555E006384CC /* TouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470027A1D9E555E006384CC /* TouchView.m */; };
 		84D2E3E91D93ACEC00BD0002 /* UIButton+BGColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D2E3E81D93ACEC00BD0002 /* UIButton+BGColor.m */; };
 		84D2E3EC1D94F4B500BD0002 /* RealDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D2E3EB1D94F4B500BD0002 /* RealDataViewController.m */; };
+		84E97BE71D9E1E6E00D3D25B /* SQMenuShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E97BE31D9E1E6E00D3D25B /* SQMenuShowCell.m */; };
+		84E97BE81D9E1E6E00D3D25B /* SQMenuShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E97BE41D9E1E6E00D3D25B /* SQMenuShowCell.xib */; };
+		84E97BE91D9E1E6E00D3D25B /* SQMenuShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E97BE61D9E1E6E00D3D25B /* SQMenuShowView.m */; };
 		84EA6A7D1D90E9B30075433D /* SPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA6A7C1D90E9B30075433D /* SPackage.m */; };
 		FFDE393AD2F17246DCE58F9F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F6052DAE2A7CF05DE2AF1A /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -129,10 +136,22 @@
 		18EDCCAC1D8A21510075D436 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		20AC3B5524FCEFA94D89DB7A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5776164CD3410B17457C5A99 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8414DC8D1D9A027900CBC8CC /* DeviceControlTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceControlTableView.h; sourceTree = "<group>"; };
+		8414DC8E1D9A027900CBC8CC /* DeviceControlTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceControlTableView.m; sourceTree = "<group>"; };
+		8414DC901D9A030F00CBC8CC /* DeviceControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceControlTableViewCell.h; sourceTree = "<group>"; };
+		8414DC911D9A030F00CBC8CC /* DeviceControlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceControlTableViewCell.m; sourceTree = "<group>"; };
+		8414DC921D9A030F00CBC8CC /* DeviceControlTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceControlTableViewCell.xib; sourceTree = "<group>"; };
+		847002791D9E555E006384CC /* TouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchView.h; sourceTree = "<group>"; };
+		8470027A1D9E555E006384CC /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchView.m; sourceTree = "<group>"; };
 		84D2E3E71D93ACEC00BD0002 /* UIButton+BGColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BGColor.h"; sourceTree = "<group>"; };
 		84D2E3E81D93ACEC00BD0002 /* UIButton+BGColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BGColor.m"; sourceTree = "<group>"; };
 		84D2E3EA1D94F4B500BD0002 /* RealDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealDataViewController.h; sourceTree = "<group>"; };
 		84D2E3EB1D94F4B500BD0002 /* RealDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealDataViewController.m; sourceTree = "<group>"; };
+		84E97BE21D9E1E6E00D3D25B /* SQMenuShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQMenuShowCell.h; sourceTree = "<group>"; };
+		84E97BE31D9E1E6E00D3D25B /* SQMenuShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQMenuShowCell.m; sourceTree = "<group>"; };
+		84E97BE41D9E1E6E00D3D25B /* SQMenuShowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SQMenuShowCell.xib; sourceTree = "<group>"; };
+		84E97BE51D9E1E6E00D3D25B /* SQMenuShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQMenuShowView.h; sourceTree = "<group>"; };
+		84E97BE61D9E1E6E00D3D25B /* SQMenuShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQMenuShowView.m; sourceTree = "<group>"; };
 		84EA6A7B1D90E9B30075433D /* SPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPackage.h; sourceTree = "<group>"; };
 		84EA6A7C1D90E9B30075433D /* SPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPackage.m; sourceTree = "<group>"; };
 		B0F6052DAE2A7CF05DE2AF1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,6 +300,11 @@
 				18EC4EEC1D977301009246C2 /* RealDataTableViewCell.h */,
 				18EC4EED1D977301009246C2 /* RealDataTableViewCell.m */,
 				18EC4EEE1D977301009246C2 /* RealDataTableViewCell.xib */,
+				8414DC8D1D9A027900CBC8CC /* DeviceControlTableView.h */,
+				8414DC8E1D9A027900CBC8CC /* DeviceControlTableView.m */,
+				8414DC901D9A030F00CBC8CC /* DeviceControlTableViewCell.h */,
+				8414DC911D9A030F00CBC8CC /* DeviceControlTableViewCell.m */,
+				8414DC921D9A030F00CBC8CC /* DeviceControlTableViewCell.xib */,
 			);
 			name = tableview;
 			sourceTree = "<group>";
@@ -301,12 +325,15 @@
 		18EDAB2D1D4361F00071FFE8 /* extension */ = {
 			isa = PBXGroup;
 			children = (
+				84E97BE11D9E1E6E00D3D25B /* SQMenuShowView */,
 				18E7BE891D268BC600729DCA /* UIColor+hexStr.h */,
 				18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */,
 				84D2E3E71D93ACEC00BD0002 /* UIButton+BGColor.h */,
 				84D2E3E81D93ACEC00BD0002 /* UIButton+BGColor.m */,
 				1836931B1D962C6D00353868 /* YYStatusView.h */,
 				1836931C1D962C6D00353868 /* YYStatusView.m */,
+				847002791D9E555E006384CC /* TouchView.h */,
+				8470027A1D9E555E006384CC /* TouchView.m */,
 			);
 			name = extension;
 			sourceTree = "<group>";
@@ -355,6 +382,18 @@
 				B0F6052DAE2A7CF05DE2AF1A /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84E97BE11D9E1E6E00D3D25B /* SQMenuShowView */ = {
+			isa = PBXGroup;
+			children = (
+				84E97BE21D9E1E6E00D3D25B /* SQMenuShowCell.h */,
+				84E97BE31D9E1E6E00D3D25B /* SQMenuShowCell.m */,
+				84E97BE41D9E1E6E00D3D25B /* SQMenuShowCell.xib */,
+				84E97BE51D9E1E6E00D3D25B /* SQMenuShowView.h */,
+				84E97BE61D9E1E6E00D3D25B /* SQMenuShowView.m */,
+			);
+			path = SQMenuShowView;
 			sourceTree = "<group>";
 		};
 		AC3B53D671AB214CFD64E869 /* Pods */ = {
@@ -429,8 +468,10 @@
 			files = (
 				187BC9741D22A05200FB5678 /* LaunchScreen.storyboard in Resources */,
 				18EC4EF01D977301009246C2 /* RealDataTableViewCell.xib in Resources */,
+				8414DC941D9A030F00CBC8CC /* DeviceControlTableViewCell.xib in Resources */,
 				187BC9711D22A05200FB5678 /* Assets.xcassets in Resources */,
 				18EDAB641D4376230071FFE8 /* VideoCollectionViewCell.xib in Resources */,
+				84E97BE81D9E1E6E00D3D25B /* SQMenuShowCell.xib in Resources */,
 				187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */,
 				18EDCCAD1D8A21510075D436 /* InfoPlist.strings in Resources */,
 			);
@@ -496,16 +537,21 @@
 				84EA6A7D1D90E9B30075433D /* SPackage.m in Sources */,
 				1861B7571D883118008CD63C /* SocketService.m in Sources */,
 				18EC4EEF1D977301009246C2 /* RealDataTableViewCell.m in Sources */,
+				84E97BE91D9E1E6E00D3D25B /* SQMenuShowView.m in Sources */,
 				84D2E3EC1D94F4B500BD0002 /* RealDataViewController.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
 				18EDAB5F1D43697E0071FFE8 /* DeviceInfo.m in Sources */,
 				1888AF771D8B9900000ECAF5 /* UIViewController+Extension.m in Sources */,
 				181796981D818806000953BF /* FService.m in Sources */,
 				18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */,
+				8414DC931D9A030F00CBC8CC /* DeviceControlTableViewCell.m in Sources */,
 				18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */,
+				84E97BE71D9E1E6E00D3D25B /* SQMenuShowCell.m in Sources */,
 				18EC4EEB1D976F55009246C2 /* RealDataTableView.m in Sources */,
+				8470027B1D9E555E006384CC /* TouchView.m in Sources */,
 				18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */,
 				18A72EF81D4431F700E15141 /* Preview.mm in Sources */,
+				8414DC8F1D9A027900CBC8CC /* DeviceControlTableView.m in Sources */,
 				84D2E3E91D93ACEC00BD0002 /* UIButton+BGColor.m in Sources */,
 				18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */,
 				187BC9661D22A05200FB5678 /* main.m in Sources */,

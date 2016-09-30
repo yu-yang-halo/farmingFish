@@ -19,8 +19,10 @@ static SocketService *instance;
 @interface SocketService()<GCDAsyncSocketDelegate>
 {
     GCDAsyncSocket *asyncSocket;
+    BOOL enableListenserBackground;
 }
 @property (readwrite, nonatomic, copy) StatusBlock mblock;
+@property (readwrite, nonatomic, copy) OnlineStatusBlock onlineBlock;
 @end
 
 @implementation SocketService
@@ -77,11 +79,12 @@ static SocketService *instance;
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     NSLog(@"socket:%@ didConnectToHost:%@ port:%hu", sock, host, port);
-    
+     _onlineBlock(YES);
 
+    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:3];
+    [asyncSocket readDataWithTimeout:-1 tag:3];
     
-    [sock writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:0];
-    [sock readDataWithTimeout:-1 tag:0];
+    [NSThread sleepForTimeInterval:1];
     
     [self keepLive];
     
@@ -131,23 +134,38 @@ static SocketService *instance;
 -(void)setStatusBlock:(StatusBlock)block{
     self.mblock=block;
 }
+
+-(void)setOnlineStatusBlock:(OnlineStatusBlock)block{
+    self.onlineBlock=block;
+}
+
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
      NSLog(@"socketDidDisconnect:%p withError: %@", sock, err);
     if(err!=nil){
         [[[UIApplication sharedApplication] keyWindow] makeToast:@"连接已断开"];
     }
+    
+    _onlineBlock(NO);
    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application{
-    [self disconnect];
-     NSLog(@"断开连接。。。");
+    if(enableListenserBackground){
+        [self disconnect];
+        NSLog(@"断开连接。。。");
+    }
+  
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application{
-    
-    [self reconnect];
+    if(enableListenserBackground){
+        [self reconnect];
+    }
+
+   
     
 }
-
+-(void)enableListenser:(BOOL)isEnable{
+    enableListenserBackground=isEnable;
+}
 @end

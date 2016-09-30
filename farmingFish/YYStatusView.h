@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface YYStatusView : UIView
+
 @property(nonatomic,assign) float statusValue;
 @property(nonatomic,assign) float maxValue;
 
--(void)startAnimation;
+-(void)startAnimation:(BOOL)animated;
 @end

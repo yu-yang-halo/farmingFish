@@ -24,31 +24,51 @@
     //0003 3--内容  19--设置信息  15--电机控制状态
     NSLog(@"序号[18-19]操作命令字%02x%02x",bytes[18],bytes[19]);
     
+    int controlCMD=(bytes[18]<<8)+bytes[19];
+    
     NSLog(@"序号[20]操作标志%02x",bytes[20]);
     int len=(bytes[21]<<8)+bytes[22];
     NSLog(@"序号[21-22]数据包长度%02x%02x  len:%d",bytes[21],bytes[22],len);
-    if(len>0){
-        //[23--23+40) 实时基本数据
-        //[23+40]==0x1e  [23+41--23+44] 2byte 8bit 设备状态1开0关
-        NSLog(@"具体数据------------start [%d-%d]",23,22+len);
-        for(int i=0;i<len;i++){
-            NSLog(@"序号[%d]%02x",i+23,bytes[i+23]);
-        }
-        Byte realData[45]={0};
-        
-        if(len==45){
-            //
-            memcpy(realData,bytes+23,45);
-            [self resolveStatusData:realData StatusBlock:block];
+    
+    if(controlCMD==3){
+        if(len>0){
+            //[23--23+40) 实时基本数据
+            //[23+40]==0x1e  [23+41--23+44] 2byte 8bit 设备状态1开0关
+            NSLog(@"具体数据------------start [%d-%d]",23,22+len);
+            for(int i=0;i<len;i++){
+                NSLog(@"序号[%d]%02x",i+23,bytes[i+23]);
+            }
+            Byte realData[45]={0};
             
-           
+            if(len==45){
+                //
+                memcpy(realData,bytes+23,45);
+                [self resolveStatusData:realData StatusBlock:block];
+                
+            }
+            NSLog(@"具体数据------------end");
+        }else{
+            NSLog(@"没有具体数据");
         }
-        
-        
-        NSLog(@"具体数据------------end");
-    }else{
-        NSLog(@"没有具体数据");
+    }else if(controlCMD==15){
+        if(len>0){
+             //[23--23+16) 开闭状态
+            NSLog(@"具体数据------------start [%d-%d]",23,22+len);
+            for(int i=0;i<len;i++){
+                NSLog(@"序号[%d]%02x",i+23,bytes[i+23]);
+            }
+            Byte statusData[16]={0};
+            if(len==16){
+                //01 01 02 00 03 00 ...
+                //转化为10000000
+                memcpy(statusData,bytes+23,16);
+                [self resolveSwitchData:statusData StatusBlock:block];
+                
+            }
+        }
     }
+    
+    
    
     NSLog(@"序号[%d-%d]校验和%02x%02x",len+23,len+24,bytes[len+23],bytes[len+24]);
     NSLog(@"序号[%d]帧尾%02x",len+25,bytes[len+25]);
@@ -62,6 +82,19 @@
     }
     NSLog(@"电机状态 %@",st);
     return st;
+}
+
++(void)resolveSwitchData:(Byte *)status StatusBlock:(StatusBlock)block{
+    NSMutableString *st=[NSMutableString new];
+    for (int i=1;i<16;i=i+2) {
+        
+        [st appendString:[NSString stringWithFormat:@"%d",status[i]]];
+        
+    }
+    NSLog(@"电机状态 %@",st);
+    NSMutableDictionary *dic=[NSMutableDictionary new];
+    [dic setObject:st forKey:@"status"];
+    block(dic);
 }
 +(void)resolveStatusData:(Byte *)status StatusBlock:(StatusBlock)block {
     NSMutableDictionary *dic=[NSMutableDictionary new];
@@ -91,15 +124,15 @@
                 break;
             case 0x04://氨氮
                 //NSLog(@"氨氮 %f",*p);
-                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"氨氮",*p,10.0,@"mg/L"] forKey:@(status[i])];
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"氨氮",*p,1.0,@"mg/L"] forKey:@(status[i])];
                 break;
             case 0x05://温度
                 //NSLog(@"温度 %f",*p);
-                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"温度",*p,40.0,@"℃"] forKey:@(status[i])];
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"温度",*p,50.0,@"℃"] forKey:@(status[i])];
                 break;
             case 0x06://亚硝酸盐
                 //NSLog(@"亚硝酸盐 %f",*p);
-                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"亚硝酸盐",*p,10.0,@"mg/L"] forKey:@(status[i])];
+                [dic setObject:[NSString stringWithFormat:@"%@|%f|%f|%@",@"亚硝酸盐",*p,1.0,@"mg/L"] forKey:@(status[i])];
                 break;
             case 0x07://液位
                 //NSLog(@"液位 %f",*p);

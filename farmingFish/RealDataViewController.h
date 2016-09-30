@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RealDataViewController : UIViewController
-
+@property(nonatomic,strong) NSDictionary *deviceData;
 @end

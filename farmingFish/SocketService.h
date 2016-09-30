@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 typedef void (^StatusBlock)(NSDictionary *dic);
+typedef void (^OnlineStatusBlock)(BOOL onlineYN);
 @interface SocketService : NSObject<UIApplicationDelegate>
 
 +(instancetype)shareInstance;
@@ -18,6 +19,8 @@ typedef void (^StatusBlock)(NSDictionary *dic);
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
 
 -(void)setStatusBlock:(StatusBlock)block;
+-(void)setOnlineStatusBlock:(OnlineStatusBlock)block;
+-(void)enableListenser:(BOOL)isEnable;
 
 
 @end

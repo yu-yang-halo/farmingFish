@@ -16,6 +16,7 @@
 #import "SocketService.h"
 #import "UIButton+BGColor.h"
 #import "RealDataViewController.h"
+
 @interface MainViewController (){
     NSArray *items;
 }
@@ -29,7 +30,7 @@
  *params data
  */
 @property(nonatomic,strong) NSDictionary *videoInfo;
-
+@property(nonatomic,strong) NSDictionary *devicesInfo;
 @end
 
 @implementation MainViewController
@@ -50,10 +51,12 @@
         AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
         
         
-       self.videoInfo=[[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
+        self.videoInfo=[[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
+        self.devicesInfo=[[FService shareInstance] GetCollectorInfo:delegate.customerNo  userAccount:delegate.userAccount];
         
-       NSLog(@"GetUserVideoInfo::: %@", _videoInfo);
         
+        NSLog(@"GetUserVideoInfo::: %@", _videoInfo);
+        NSLog(@"GetCollectorInfo::: %@", _devicesInfo);
         
     });
 
@@ -230,9 +233,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender {
     if(sender.tag==0){
-        
+        [(VideoViewController *)(segue.destinationViewController) setVideoInfo:_videoInfo];
     }else if(sender.tag==1){
-        
+        [(RealDataViewController *)(segue.destinationViewController) setDeviceData:_devicesInfo];
     }
 }
 

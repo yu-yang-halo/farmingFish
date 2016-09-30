@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VideoViewController : UIViewController
+@protocol PTZDelegate <NSObject>
+
+-(void)ptzControl:(int)channel ptzDirect:(int)pd;
+
+@end
+
+@interface VideoViewController : UIViewController<PTZDelegate>
 @property(nonatomic,strong) NSDictionary *videoInfo;
 - (void)previewPlay:(int*)iPlayPort playView:(UIView*)playView;
 - (void)stopPreviewPlay:(int*)iPlayPort;
+
+
+
 @end

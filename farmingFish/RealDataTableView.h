@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RealDataTableView : UITableView
+@interface RealDataTableView : UITableView<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) NSArray *realDatas;
 @end

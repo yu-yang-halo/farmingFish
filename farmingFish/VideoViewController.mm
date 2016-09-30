@@ -21,6 +21,9 @@
 #include <sys/poll.h>
 #include <net/if.h>
 #include <map>
+#import "JSONKit.h"
+#import "SQMenuShowView.h"
+#import "TouchView.h"
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     int layoutMode;//1 2 3 4
@@ -33,50 +36,49 @@ VideoViewController *g_pController = NULL;
     int m_lUserID;
     BOOL m_bPreview;
     int m_lRealPlayID;
-    UIView  *m_multiView[MAX_VIEW_NUM];
+    TouchView  *m_multiView[MAX_VIEW_NUM];
     int    m_nPreviewPort;
-    int selectIndex;
+    int singleSelectIndex;
+    int sIndex;
 }
 @property(nonatomic,strong) NSDictionary *configParams;
 @property(nonatomic,strong) UICollectionView *collectionView;
 @property(nonatomic,strong) UIScrollView     *scrollView;
 @property(nonatomic,strong) UIPageControl    *pageControl;
+@property(nonatomic,strong) SQMenuShowView   *showView;
+@property(nonatomic,assign) BOOL   isShow;
 @end
 
 @implementation VideoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.title=@"我的视频";
-    
-    
-    NSArray *arr=[_videoInfo objectForKey:@"GetUserVideoInfoResult"];
+    self.title=@"我的视频";
+    NSArray *arr=[[_videoInfo objectForKey:@"GetUserVideoInfoResult"] objectFromJSONString];
     if(arr!=nil&&[arr count]>0){
-        self.configParams=arr[0];
+       self.configParams=arr[0];
     }
-
-    
     [self navigationBarInit];
+    
+    [self viewControllerBGInit];
+    
+   
+    
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"浏览模式" style: UIBarButtonItemStyleDone target:self action:@selector(popupView:)];
+    
+    
     
     g_pController=self;
     Screen_bounds=self.view.bounds;
+    Screen_bounds.size.height=Screen_bounds.size.width-40;
+   
     
-    UIColor *startColor = [UIColor uig_emeraldWaterStartColor];
-    UIColor *endColor = [UIColor uig_emeraldWaterEndColor];
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame =self.view.bounds;
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1,1);
-    gradient.colors = @[(id)[startColor CGColor], (id)[endColor CGColor]];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
     
     
     layoutMode=4;
     
-    float side=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
-    
+    float width=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
+    float height=(Screen_bounds.size.height-(layoutMode-1))/layoutMode;
     
     /*
      * UICollectionView layout
@@ -84,13 +86,13 @@ VideoViewController *g_pController = NULL;
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
     //设置布局方向为垂直流布局
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.itemSize=CGSizeMake(side, side);
+    flowLayout.itemSize=CGSizeMake(width, height);
     
     flowLayout.minimumLineSpacing=1;
     flowLayout.minimumInteritemSpacing=1;
    
     
-    self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,Screen_bounds.size.width,Screen_bounds.size.width) collectionViewLayout:flowLayout];
+    self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,Screen_bounds.size.width,Screen_bounds.size.height) collectionViewLayout:flowLayout];
     
     self.collectionView.backgroundColor=[UIColor whiteColor];
     self.collectionView.delegate=self;
@@ -108,25 +110,63 @@ VideoViewController *g_pController = NULL;
 
     
     for(int i=0;i<MAX_VIEW_NUM;i++){
-        m_multiView[i]=[[UIView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        m_multiView[i]=[[TouchView alloc] initWithFrame:CGRectMake(0,0,0,0)];
         [m_multiView[i] setBackgroundColor:[UIColor blackColor]];
         [m_multiView[i] setTag:i];
+        [m_multiView[i] setPtzDelegate:self];
     }
     
     
     
     [self scaleViewLayout];
     
+    [self initPopupView];
    
+}
+/*
+ * 初始化popupView
+ */
+-(void)initPopupView{
+    self.showView=[[SQMenuShowView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)-100-10, 64+5,100,0) items:@[@"1x1",@"2x2",@"3x3",@"4x4"] showPoint:CGPointMake(CGRectGetWidth(self.view.frame)-25,10)];
+    __weak typeof(self) weakSelf=self;
     
+    [_showView setSelectBlock:^(SQMenuShowView *view, NSInteger index) {
+        weakSelf.isShow=NO;
+        singleSelectIndex=-1;
+        layoutMode=(index+1);
+        [weakSelf layoutReload];
+    }];
     
+    _showView.sq_backGroundColor=[UIColor whiteColor];
+    [self.view addSubview:_showView];
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self dismissView];
+}
+-(void)dismissView{
+    _isShow=NO;
+    [self.showView dismissView];
 
 }
+-(void)poppupViewHideOrShow{
+    _isShow= !_isShow;
+    if(_isShow){
+        [self.showView showView];
+    }else{
+        [self.showView dismissView];
+    }
+}
+-(void)popupView:(id)sender{
+    [self poppupViewHideOrShow];
+}
+
+
+
 -(void)viewWillAppear:(BOOL)animated{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
          [self loginHCSystem];
          [self playVideo];
-        
     });
     
 }
@@ -138,29 +178,9 @@ VideoViewController *g_pController = NULL;
 }
 
 -(void)scaleViewLayout{
-    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0,_collectionView.frame.origin.y+_collectionView.frame.size.height,Screen_bounds.size.width, 50)];
+    UIView *ptzview=[[UIView alloc] initWithFrame:CGRectMake(0,_collectionView.frame.origin.y+_collectionView.frame.size.height,Screen_bounds.size.width, 50)];
     
-    float h_space=(Screen_bounds.size.width-40*4)/5;
-    
-    for (int i=0; i<4; i++) {
-        
-        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(h_space*(i+1)+40*(i),(50-40)/2, 40, 40)];
-        
-        [btn setTitle:[NSString stringWithFormat:@"%d",(i+1)*(i+1)] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor purpleColor]];
-        
-        [btn setTag:(i+1)];
-        [btn addTarget:self action:@selector(modeShow:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [view addSubview:btn];
-    }
-    
-    [self.view addSubview:view ];
-    
-    
-    UIView *ptzview=[[UIView alloc] initWithFrame:CGRectMake(0,view.frame.origin.y+view.frame.size.height,Screen_bounds.size.width, 50)];
-    
+
     float h_space1=(Screen_bounds.size.width-40*4)/5;
     NSArray *titles=@[@"上",@"下",@"左",@"右"];
     
@@ -184,6 +204,47 @@ VideoViewController *g_pController = NULL;
     
     
 }
+
+
+-(void)ptzControl:(int)channel ptzDirect:(int)pd{
+    int PTZ_DIRECT=PAN_AUTO;
+    
+    if(pd==1){
+        PTZ_DIRECT=TILT_UP;
+    }else if(pd==2){
+        PTZ_DIRECT=TILT_DOWN;
+    }else if (pd==3){
+        PTZ_DIRECT=PAN_LEFT;
+    }else if (pd==4){
+        PTZ_DIRECT=PAN_RIGHT;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+channel, PTZ_DIRECT, 0))
+        {
+            NSLog(@"start  failed with[%d]", NET_DVR_GetLastError());
+        }
+        else
+        {
+            NSLog(@"start  succ");
+        }
+        
+        if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+channel, PTZ_DIRECT, 1))
+        {
+            NSLog(@"stop  failed with[%d]", NET_DVR_GetLastError());
+        }
+        else
+        {
+            NSLog(@"stop  succ");
+        }
+
+    });
+    
+    
+
+}
+
 -(void)ptzModeStop:(UIButton *)sender{
     int mode=sender.tag;
     int PTZ_DIRECT=PAN_AUTO;
@@ -199,7 +260,7 @@ VideoViewController *g_pController = NULL;
     }
     
     
-    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+selectIndex, PTZ_DIRECT, 1))
+    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+singleSelectIndex, PTZ_DIRECT, 1))
     {
         NSLog(@"stop  failed with[%d]", NET_DVR_GetLastError());
     }
@@ -210,7 +271,7 @@ VideoViewController *g_pController = NULL;
 
 }
 -(void)ptzMode:(UIButton *)sender{
-    NSLog(@"selectIndex %d",selectIndex);
+    NSLog(@"singleSelectIndex %d",singleSelectIndex);
     int mode=sender.tag;
     int PTZ_DIRECT=PAN_AUTO;
     if(mode==1){
@@ -225,7 +286,7 @@ VideoViewController *g_pController = NULL;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+selectIndex, PTZ_DIRECT, 0))
+        if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+singleSelectIndex, PTZ_DIRECT, 0))
         {
             NSLog(@"start  failed with[%d]", NET_DVR_GetLastError());
         }
@@ -238,20 +299,19 @@ VideoViewController *g_pController = NULL;
     
     
 }
--(void)modeShow:(UIButton *)sender{
-     selectIndex=-1;
-    layoutMode=sender.tag;
-    
-    
+
+
+
+
+-(void)layoutReload{
     UICollectionViewFlowLayout *flowLayout=_collectionView.collectionViewLayout;
-    float side=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
-    flowLayout.itemSize=CGSizeMake(side, side);
+    float width=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
+    float height=(Screen_bounds.size.height-(layoutMode-1))/layoutMode;
+    flowLayout.itemSize=CGSizeMake(width, height);
     
     [_collectionView setCollectionViewLayout:flowLayout animated:YES];
     
     [_collectionView reloadData];
-    
-    
 }
 
 
@@ -266,17 +326,17 @@ VideoViewController *g_pController = NULL;
 
     VideoCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"videoCell" forIndexPath:indexPath];
    
-    if(selectIndex>0){
-         [m_multiView[selectIndex] removeFromSuperview];
-         [cell.videoView addSubview:m_multiView[selectIndex]];
-        [m_multiView[selectIndex] mas_makeConstraints:^(MASConstraintMaker *make) {
+    if(singleSelectIndex>0){
+         [m_multiView[singleSelectIndex] removeFromSuperview];
+         [cell.videoView addSubview:m_multiView[singleSelectIndex]];
+        [m_multiView[singleSelectIndex] mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.height.equalTo(@[cell.videoView.mas_height,m_multiView[selectIndex].mas_height]);
-            make.width.equalTo(@[cell.videoView.mas_width,m_multiView[selectIndex].mas_width]);
+            make.height.equalTo(@[cell.videoView.mas_height,m_multiView[singleSelectIndex].mas_height]);
+            make.width.equalTo(@[cell.videoView.mas_width,m_multiView[singleSelectIndex].mas_width]);
             
-            make.leading.equalTo(@[cell.videoView.mas_leading,m_multiView[selectIndex].mas_leading]);
+            make.leading.equalTo(@[cell.videoView.mas_leading,m_multiView[singleSelectIndex].mas_leading]);
             
-            make.top.equalTo(@[cell.videoView.mas_top,m_multiView[selectIndex].mas_top]);
+            make.top.equalTo(@[cell.videoView.mas_top,m_multiView[singleSelectIndex].mas_top]);
             
         }];
     }else{
@@ -294,54 +354,65 @@ VideoViewController *g_pController = NULL;
         }];
     }
     
-   
-    
-    
+    for(UIGestureRecognizer *gr in cell.videoView.gestureRecognizers){
+        [cell.videoView removeGestureRecognizer:gr];
+    }
     
     UITapGestureRecognizer *tapGR1=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectVideo:)];
     [tapGR1 setNumberOfTapsRequired:1];
+
     
     
     UITapGestureRecognizer *tapGR2=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(modeSwitch:)];
+   
+    
     [tapGR2 setNumberOfTapsRequired:2];
     
     cell.videoView.tag=indexPath.row;
+    
+    if(sIndex==indexPath.row){
+        cell.layer.borderWidth=2;
+        cell.layer.borderColor=[[UIColor yellowColor] CGColor];
+        
+    }else{
+        cell.layer.borderWidth=0;
+        
+    }
+    
     [cell.videoView setUserInteractionEnabled:YES];
     
     [cell.videoView addGestureRecognizer:tapGR1];
     [cell.videoView addGestureRecognizer:tapGR2];
-    
-    
+   
+    [tapGR1 requireGestureRecognizerToFail:tapGR2];
+   
+
     return cell;
 }
 -(void)selectVideo:(UIGestureRecognizer *)gr{
+    [self dismissView];
     int index=gr.view.tag;
-    selectIndex=index;
+    sIndex=index;
+    
+    [_collectionView reloadData];
 }
 -(void)modeSwitch:(UIGestureRecognizer *)gr{
+    [self dismissView];
     int index=gr.view.tag;
     
     if(layoutMode!=1){
         lastMode=layoutMode;
         layoutMode=1;
-        selectIndex=index;
+        singleSelectIndex=index;
     }else{
         if(lastMode!=0){
             layoutMode=lastMode;
         }
-        selectIndex=-1;
+        singleSelectIndex=-1;
     }
-    UICollectionViewFlowLayout *flowLayout=_collectionView.collectionViewLayout;
-    float side=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
-    flowLayout.itemSize=CGSizeMake(side, side);
-    
-    [_collectionView setCollectionViewLayout:flowLayout animated:YES];
-    
-    
-    [_collectionView reloadData];
+    [self layoutReload];
 
 }
-
 
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -16,8 +16,8 @@
 }
 -(void)setViewBGColor:(UIView *)_mView{
     
-    UIColor *startColor = [UIColor uig_emeraldWaterStartColor];
-    UIColor *endColor = [UIColor uig_emeraldWaterEndColor];
+    UIColor *startColor = [UIColor uig_lemonTwistStartColor];
+    UIColor *endColor = [UIColor uig_lemonTwistEndColor];
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame =_mView.bounds;

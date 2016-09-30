@@ -8,7 +8,7 @@
 
 #import "RealDataTableView.h"
 #import "RealDataTableViewCell.h"
-@interface RealDataTableView()<UITableViewDataSource,UITableViewDelegate>
+@interface RealDataTableView()
 {
     
 }
@@ -21,6 +21,7 @@
     if(self!=nil){
         self.dataSource=self;
         self.delegate=self;
+        [self setScrollEnabled:NO];
     }
     return self;
     
@@ -45,13 +46,20 @@
     if(arrs!=nil&&[arrs count]==4){
        
         cell.propNameLabel.text=arrs[0];
-        cell.valueLabel.text=[NSString stringWithFormat:@"%@%@",arrs[1],arrs[3]];
+        
+        cell.valueLabel.text=[NSString stringWithFormat:@"%.2f%@",[arrs[1] floatValue],arrs[3]];
         [cell.statusView setStatusValue:[arrs[1] floatValue]];
         [cell.statusView setMaxValue:[arrs[2] floatValue]];
-        [cell.statusView startAnimation];
+        [cell.statusView startAnimation:YES];
     }
-    
+    [cell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1]];
+    [cell setUserInteractionEnabled:NO];
     return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 50;
+    
 }
 
 @end
