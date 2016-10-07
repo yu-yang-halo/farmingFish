@@ -40,6 +40,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.title=@"实时数据";
+    
+    self.automaticallyAdjustsScrollViewInsets = NO; 
+    
     [self navigationBarInit];
     [self viewControllerBGInit];
     

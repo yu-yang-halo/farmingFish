@@ -14,7 +14,19 @@
 
 @end
 
-@interface VideoViewController : UIViewController<PTZDelegate>
+@interface VideoViewController : UIViewController<PTZDelegate>{
+    
+    int  g_iStartChan;
+    int  g_iPreviewChanNum;
+    int  m_lUserID;
+    BOOL m_bPreview;
+    int  m_lRealPlayID;
+    int  m_lPlaybackID;
+    int  m_nPlaybackPort;
+    int  m_nPreviewPort;
+    bool m_bRecord;
+    bool m_bVoiceTalk;
+}
 @property(nonatomic,strong) NSDictionary *videoInfo;
 - (void)previewPlay:(int*)iPlayPort playView:(UIView*)playView;
 - (void)stopPreviewPlay:(int*)iPlayPort;

@@ -8,6 +8,7 @@
 #import "UIViewController+Extension.h"
 #import "VideoViewController.h"
 #import "UIColor+hexStr.h"
+#import "UIButton+BGColor.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
 #import "hcnetsdk.h"
 #import "DeviceInfo.h"
@@ -24,20 +25,18 @@
 #import "JSONKit.h"
 #import "SQMenuShowView.h"
 #import "TouchView.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <UIView+Toast.h>
+#import "VoiceTalk.h"
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     int layoutMode;//1 2 3 4
     int lastMode;
     
     CGRect Screen_bounds;
-    
-    int g_iStartChan;
-    int g_iPreviewChanNum;
-    int m_lUserID;
-    BOOL m_bPreview;
-    int m_lRealPlayID;
+
+
     TouchView  *m_multiView[MAX_VIEW_NUM];
-    int    m_nPreviewPort;
     int singleSelectIndex;
     int sIndex;
 }
@@ -51,9 +50,19 @@ VideoViewController *g_pController = NULL;
 
 @implementation VideoViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"我的视频";
+    
+    m_lUserID = -1;
+    m_lRealPlayID = -1;
+    m_lPlaybackID = -1;
+    m_nPreviewPort = -1;
+    m_nPlaybackPort = -1;
+    m_bRecord = false;
+    m_bVoiceTalk=false;
+
     NSArray *arr=[[_videoInfo objectForKey:@"GetUserVideoInfoResult"] objectFromJSONString];
     if(arr!=nil&&[arr count]>0){
        self.configParams=arr[0];
@@ -117,11 +126,52 @@ VideoViewController *g_pController = NULL;
     }
     
     
+   
+    self.scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, _collectionView.frame.origin.y+_collectionView.frame.size.height,CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-_collectionView.frame.origin.y-_collectionView.frame.size.height)];
     
-    [self scaleViewLayout];
+    [self.scrollView setBackgroundColor:[UIColor whiteColor]];
+    
+    
+    [self.view addSubview:_scrollView];
+    
+    NSArray *functions=@[@"拍照",@"录像",@"图片",@"对讲"];
+    
+    for (int i=0; i<[functions count];i++) {
+        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake((i%2)*CGRectGetWidth(self.view.frame)/2, i/2*30, CGRectGetWidth(self.view.frame)/2, 30)];
+        
+        [btn setTitle:functions[i] forState:UIControlStateNormal];
+        [btn setTag:i];
+        [btn setBackgroundColor:[UIColor colorWithHexString:@"#C04848"] forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor colorWithHexString:@"#80C04848"] forState:(UIControlStateHighlighted)];
+        
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self.scrollView addSubview:btn];
+    }
+
     
     [self initPopupView];
+    
+    
    
+}
+-(void)clickBtn:(UIButton *)sender{
+    switch (sender.tag) {
+        case 0:
+            [self captureBtnClicked:sIndex];
+            break;
+        case 1:
+            [self recordBtnClicked:sender];
+            break;
+        case 2:
+            [self openAlbum:sender];
+            break;
+        case 3:
+            [self talkBtnClicked:sender];
+            break;
+    }
+    
 }
 /*
  * 初始化popupView
@@ -177,35 +227,6 @@ VideoViewController *g_pController = NULL;
     });
 }
 
--(void)scaleViewLayout{
-    UIView *ptzview=[[UIView alloc] initWithFrame:CGRectMake(0,_collectionView.frame.origin.y+_collectionView.frame.size.height,Screen_bounds.size.width, 50)];
-    
-
-    float h_space1=(Screen_bounds.size.width-40*4)/5;
-    NSArray *titles=@[@"上",@"下",@"左",@"右"];
-    
-    for (int i=0; i<4; i++) {
-        
-        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(h_space1*(i+1)+40*(i),(50-40)/2, 40, 40)];
-        
-        [btn setTitle:[NSString stringWithFormat:@"%@",titles[i]] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor purpleColor]];
-        
-        [btn setTag:(i+1)];
-        [btn addTarget:self action:@selector(ptzMode:) forControlEvents:UIControlEventTouchDown];
-        
-        [btn addTarget:self action:@selector(ptzModeStop:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [ptzview addSubview:btn];
-    }
-    
-    [self.view addSubview:ptzview ];
-    
-    
-}
-
-
 -(void)ptzControl:(int)channel ptzDirect:(int)pd{
     int PTZ_DIRECT=PAN_AUTO;
     
@@ -230,6 +251,8 @@ VideoViewController *g_pController = NULL;
             NSLog(@"start  succ");
         }
         
+        [NSThread sleepForTimeInterval:0.1];
+        
         if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+channel, PTZ_DIRECT, 1))
         {
             NSLog(@"stop  failed with[%d]", NET_DVR_GetLastError());
@@ -244,62 +267,6 @@ VideoViewController *g_pController = NULL;
     
 
 }
-
--(void)ptzModeStop:(UIButton *)sender{
-    int mode=sender.tag;
-    int PTZ_DIRECT=PAN_AUTO;
-    
-    if(mode==1){
-        PTZ_DIRECT=TILT_UP;
-    }else if(mode==2){
-        PTZ_DIRECT=TILT_DOWN;
-    }else if (mode==3){
-        PTZ_DIRECT=PAN_LEFT;
-    }else if (mode==4){
-        PTZ_DIRECT=PAN_RIGHT;
-    }
-    
-    
-    if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+singleSelectIndex, PTZ_DIRECT, 1))
-    {
-        NSLog(@"stop  failed with[%d]", NET_DVR_GetLastError());
-    }
-    else
-    {
-        NSLog(@"stop  succ");
-    }
-
-}
--(void)ptzMode:(UIButton *)sender{
-    NSLog(@"singleSelectIndex %d",singleSelectIndex);
-    int mode=sender.tag;
-    int PTZ_DIRECT=PAN_AUTO;
-    if(mode==1){
-        PTZ_DIRECT=TILT_UP;
-    }else if(mode==2){
-        PTZ_DIRECT=TILT_DOWN;
-    }else if (mode==3){
-        PTZ_DIRECT=PAN_LEFT;
-    }else if (mode==4){
-        PTZ_DIRECT=PAN_RIGHT;
-    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        if(!NET_DVR_PTZControl_Other(m_lUserID, g_iStartChan+singleSelectIndex, PTZ_DIRECT, 0))
-        {
-            NSLog(@"start  failed with[%d]", NET_DVR_GetLastError());
-        }
-        else
-        {
-            NSLog(@"start  succ");
-        }
-    });
-    
-    
-    
-}
-
 
 
 
@@ -475,6 +442,7 @@ VideoViewController *g_pController = NULL;
 }
 -(void)previewPlay:(int*)iPlayPort playView:(UIView *)playView
 {
+    NSLog(@"m_nPreviewPort %d",*iPlayPort);
     m_nPreviewPort = *iPlayPort;
     int iRet = PlayM4_Play(*iPlayPort,(__bridge void *)playView);
     PlayM4_PlaySound(*iPlayPort);
@@ -599,7 +567,131 @@ VideoViewController *g_pController = NULL;
     return ipAndPortArr;
     
 }
- 
+
+
+
+
+
+/*
+ *  视频功能
+ */
+//talk button click
+-(void)talkBtnClicked:(UIButton *)sender
+{
+    NSLog(@"talkBtnClicked");
+#if !TARGET_IPHONE_SIMULATOR
+    if(!m_bVoiceTalk)
+    {
+        if(startVoiceTalk(m_lUserID) >= 0)
+        {
+            m_bVoiceTalk = true;
+        }
+    }
+    else
+    {
+        stopVoiceTalk();
+        m_bVoiceTalk = false;
+    }
+#endif
+}
+
+// capture button click
+-(void)captureBtnClicked:(int)previewPort
+{
+    NSLog(@"captureBtnClicked");
+    if (m_lRealPlayID < 0) {
+        NSLog(@"Please start realplay first!");
+        return;
+    }
+    int nHeight = 0;
+    int nWidth = 0;
+    if (!PlayM4_GetPictureSize(previewPort, &nWidth, &nHeight)){
+        NSLog(@"PlayM4_GetPictureSize fialed with[%d]", PlayM4_GetLastError(previewPort));
+        return;
+    }
+    //2cif -> 4cif
+    if (nWidth == 704 && (nHeight == 288 || nHeight == 240)) {
+        nHeight <<= 1;
+    }
+    
+    int nSize = 5 * nWidth * nHeight;
+    char *pBuf = new char[nSize];
+    
+    memset(pBuf, 0, nSize);
+    unsigned int  dwRet = 0;
+    if (!PlayM4_GetBMP(previewPort, (unsigned char*)pBuf, nSize, &dwRet))
+    {
+        delete []pBuf;
+        pBuf = NULL;
+        NSLog(@"PlayM4_GetBMP failed with[%d]", PlayM4_GetLastError(previewPort));
+        return;
+    }
+    
+    NSData *content =[NSData dataWithBytes:pBuf length:nSize];
+    UIImage *testImage =[UIImage imageWithData:content];
+    
+    UIImageWriteToSavedPhotosAlbum(testImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+
+    
+}
+// record button click while realplay
+-(void)recordBtnClicked:(UIButton *)sender
+{
+    NSLog(@"recordBtnClicked");
+    if (m_bRecord == false)
+    {
+        if (m_lRealPlayID < 0) {
+            NSLog(@"Please start realplay first!");
+            return;
+        }
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        char szFileName[256] = {0};
+        NSString* date;
+        NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"YYYY-MM-dd-hh-mm-ss"];
+        date = [formatter stringFromDate:[NSDate date]];
+        sprintf(szFileName, "%s/%s.mp4", (char*)documentsDirectory.UTF8String, (char*)date.UTF8String);
+        if (!NET_DVR_SaveRealData(m_lRealPlayID, szFileName)) {
+            NSLog(@"NET_DVR_SaveRealData failed with[%d]", NET_DVR_GetLastError());
+            return;
+        }
+        NSLog(@"NET_DVR_SaveRealData succ [%s]", szFileName);
+        
+        m_bRecord = true;
+        [sender setTitle:@"停止录像" forState:UIControlStateNormal];
+    }
+    else
+    {
+        NET_DVR_StopSaveRealData(m_lRealPlayID);
+        m_bRecord = false;
+        [sender setTitle:@"开始录像" forState:UIControlStateNormal];
+    }
+}
+-(void)openAlbum:(id)sender{
+    //从相册选择
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    //资源类型为图片库
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
+    //设置选择后的图片可被编辑
+    picker.allowsEditing = NO;
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
+}
+// 指定回调方法
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if(!error){
+        NSLog(@"save success");
+        [self.view makeToast:@"保存成功"];
+    }else{
+        NSLog(@"save failed");
+        [self.view makeToast:@"保存失败"];
+    }
+}
  
 
 @end

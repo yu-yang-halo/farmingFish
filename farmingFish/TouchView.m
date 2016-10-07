@@ -16,7 +16,7 @@ static CGFloat min_trigger=30;
 @implementation TouchView
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    NSLog(@"touchesBegan...");
+    // NSLog(@"touchesBegan...");
     
     [touches enumerateObjectsUsingBlock:^(UITouch * _Nonnull obj, BOOL * _Nonnull stop) {
         beginPoint=[obj locationInView:self];
@@ -24,7 +24,7 @@ static CGFloat min_trigger=30;
     
 }
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-     NSLog(@"touchesEnded...");
+    // NSLog(@"touchesEnded...");
     [touches enumerateObjectsUsingBlock:^(UITouch * _Nonnull obj, BOOL * _Nonnull stop) {
         endPoint=[obj locationInView:self];
     }];
@@ -33,34 +33,34 @@ static CGFloat min_trigger=30;
     if(fabsf(beginPoint.x-endPoint.x)-fabsf(beginPoint.y-endPoint.y)>0){
         
         if(endPoint.x-beginPoint.x>=min_trigger){
-            NSLog(@"RIGHT");
-            [_ptzDelegate ptzControl:self.tag ptzDirect:4];
+            NSLog(@"手势向右拖拽，视频界面向左转动");
+            [_ptzDelegate ptzControl:self.tag ptzDirect:3];
         }
         if(beginPoint.x-endPoint.x>=min_trigger){
-            NSLog(@"LEFT");
-             [_ptzDelegate ptzControl:self.tag ptzDirect:3];
+            NSLog(@"手势向左拖拽，视频界面向右转动");
+             [_ptzDelegate ptzControl:self.tag ptzDirect:4];
         }
         
     }else{
         
         if(beginPoint.y-endPoint.y>=min_trigger){
-            NSLog(@"UP");
-             [_ptzDelegate ptzControl:self.tag ptzDirect:1];
+            NSLog(@"手势向上拖拽，视频界面向下转动");
+             [_ptzDelegate ptzControl:self.tag ptzDirect:2];
         }
         if(endPoint.y-beginPoint.y>=min_trigger){
-            NSLog(@"DOWN");
-             [_ptzDelegate ptzControl:self.tag ptzDirect:2];
+            NSLog(@"手势向下拖拽，视频界面向上转动");
+             [_ptzDelegate ptzControl:self.tag ptzDirect:1];
         }
     }
    
   
 }
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-     NSLog(@"touchesMoved...");
+    // NSLog(@"touchesMoved...");
     
 }
 -(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-     NSLog(@"touchesCancelled...");
+    // NSLog(@"touchesCancelled...");
     
 }
 
