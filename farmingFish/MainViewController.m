@@ -16,15 +16,21 @@
 #import "SocketService.h"
 #import "UIButton+BGColor.h"
 #import "RealDataViewController.h"
-
+#import "YYTabViewController.h"
+#import "YYWeatherService.h"
 @interface MainViewController (){
     NSArray *items;
+    
+    NSArray *colors;
+    NSArray *alphcolors;
 }
 @property (strong, nonatomic)  UIButton *item0;
 @property (strong, nonatomic)  UIButton *item1;
 @property (strong, nonatomic)  UIButton *item2;
 @property (strong, nonatomic)  UIButton *item3;
-@property (strong, nonatomic)  UIImageView *logoView;
+@property (strong, nonatomic)  UIButton *item4;
+@property (strong, nonatomic)  UIButton *item5;
+@property (strong, nonatomic)  UIButton *logoItem;
 
 /*
  *params data
@@ -40,7 +46,10 @@
     
      self.title=@"主页";
     [self navigationBarInit];
-    items=@[@"我的视频",@"实时数据",@"历史数据",@"新闻中心"];
+    items=@[@"我的视频",@"实时数据",@"设备控制",@"历史数据",@"设置",@"养殖知识"];
+ colors=@[@"5ac6aa",@"20938b",@"f18c9d",@"375c95",@"f96441",@"feb900",@"903e661a"];
+    alphcolors=@[@"905ac6aa",@"9020938b",@"90f18c9d",@"90375c95",@"90f96441",@"90feb900",@"903e661a"];
+    
     //初始化页面背景色
     [self viewControllerBGInit];
     [self buttonStyleInit];
@@ -52,12 +61,15 @@
         
         
         self.videoInfo=[[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
+        
         self.devicesInfo=[[FService shareInstance] GetCollectorInfo:delegate.customerNo  userAccount:delegate.userAccount];
         
+        delegate.videoInfo=_videoInfo;
+        delegate.deviceData=_devicesInfo;
         
-        NSLog(@"GetUserVideoInfo::: %@", _videoInfo);
-        NSLog(@"GetCollectorInfo::: %@", _devicesInfo);
+        [[YYWeatherService defaultService] downloadWeatherData:@"合肥"];
         
+       
     });
 
    
@@ -77,7 +89,9 @@
     CGRect frame1=_item1.frame;
     CGRect frame2=_item2.frame;
     CGRect frame3=_item3.frame;
-    CGRect logoFrame=_logoView.frame;
+    CGRect frame4=_item4.frame;
+    CGRect frame5=_item5.frame;
+    CGRect logoFrame=_logoItem.frame;
     
     CGFloat alpha_0=0.0;
     CGFloat alpha_1=1.0;
@@ -87,11 +101,15 @@
         _item1.frame=logoFrame;
         _item2.frame=logoFrame;
         _item3.frame=logoFrame;
+        _item4.frame=logoFrame;
+        _item5.frame=logoFrame;
         
         _item0.alpha=alpha_0;
         _item1.alpha=alpha_0;
         _item2.alpha=alpha_0;
         _item3.alpha=alpha_0;
+        _item4.alpha=alpha_0;
+        _item5.alpha=alpha_0;
         
     } completion:^(BOOL finished) {
         
@@ -101,11 +119,15 @@
             _item1.frame=frame1;
             _item2.frame=frame2;
             _item3.frame=frame3;
+            _item4.frame=frame4;
+            _item5.frame=frame5;
             
             _item0.alpha=alpha_1;
             _item1.alpha=alpha_1;
             _item2.alpha=alpha_1;
             _item3.alpha=alpha_1;
+            _item4.alpha=alpha_1;
+            _item5.alpha=alpha_1;
             
         } completion:^(BOOL finished) {
             
@@ -118,10 +140,12 @@
 
 -(void)buttonStyleInit{
     CGRect bounds=self.view.bounds;
-    self.logoView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    self.logoItem=[[UIButton alloc] initWithFrame:CGRectZero];
     
-    _logoView.frame=CGRectMake((bounds.size.width-80)/2, (bounds.size.height-80)/2, 80, 80);
-    [_logoView setAlpha:0.15];
+    _logoItem.frame=CGRectMake((bounds.size.width-80)/2, (bounds.size.height-80)/2, 80, 80);
+ 
+    [_logoItem setTitle:@"拓立德" forState:UIControlStateNormal];
+    [_logoItem setEnabled:NO];
     self.item0=[[UIButton alloc] initWithFrame:CGRectZero];
     [_item0 setTitle:items[0] forState:UIControlStateNormal];
     self.item1=[[UIButton alloc] initWithFrame:CGRectZero];
@@ -131,44 +155,62 @@
     self.item3=[[UIButton alloc] initWithFrame:CGRectZero];
     [_item3 setTitle:items[3] forState:UIControlStateNormal];
     
+    self.item4=[[UIButton alloc] initWithFrame:CGRectZero];
+    [_item4 setTitle:items[4] forState:UIControlStateNormal];
     
-    CGFloat WH=100;
-    CGFloat SPACE=60;
+    self.item5=[[UIButton alloc] initWithFrame:CGRectZero];
+    [_item5 setTitle:items[5] forState:UIControlStateNormal];
     
+    
+    CGFloat WH=70;
+    CGFloat SPACE=80;
+    float angel=3.1415926/6;
     
     [_item0 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item0 setCenter:CGPointMake(_logoView.center.x-SPACE, _logoView.center.y-SPACE)];
+    [_item0 setCenter:CGPointMake(_logoItem.center.x-SPACE*sin(angel), _logoItem.center.y-SPACE*cos(angel))];
     
     [_item1 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item1 setCenter:CGPointMake(_logoView.center.x+SPACE, _logoView.center.y-SPACE)];
+    [_item1 setCenter:CGPointMake(_logoItem.center.x+SPACE*sin(angel), _logoItem.center.y-SPACE*cos(angel))];
     
     [_item2 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item2 setCenter:CGPointMake(_logoView.center.x-SPACE, _logoView.center.y+SPACE)];
+    [_item2 setCenter:CGPointMake(_logoItem.center.x-SPACE, _logoItem.center.y+0)];
     
     
     [_item3 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item3 setCenter:CGPointMake(_logoView.center.x+SPACE, _logoView.center.y+SPACE)];
+    [_item3 setCenter:CGPointMake(_logoItem.center.x+SPACE, _logoItem.center.y+0)];
+    
+    
+    [_item4 setFrame:CGRectMake(0, 0, WH, WH)];
+    [_item4 setCenter:CGPointMake(_logoItem.center.x-SPACE*sin(angel), _logoItem.center.y+SPACE*cos(angel))];
+    
+    [_item5 setFrame:CGRectMake(0, 0, WH, WH)];
+    [_item5 setCenter:CGPointMake(_logoItem.center.x+SPACE*sin(angel), _logoItem.center.y+SPACE*cos(angel))];
     
     
     
-    [self.view addSubview:_logoView];
+    [self.view addSubview:_logoItem];
     
     [self.view addSubview:_item0];
     [self.view addSubview:_item1];
     [self.view addSubview:_item2];
     [self.view addSubview:_item3];
+    [self.view addSubview:_item4];
+    [self.view addSubview:_item5];
     
     [_item0 setTag:0];
     [_item1 setTag:1];
     [_item2 setTag:2];
     [_item3 setTag:3];
+    [_item4 setTag:4];
+    [_item5 setTag:5];
     
     [_item0 addTarget:self action:@selector(redirectTo:) forControlEvents:UIControlEventTouchUpInside];
     [_item1 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
     [_item2 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
 
     [_item3 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
-
+    [_item4 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
+    [_item5 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
     
    
     
@@ -176,33 +218,33 @@
     /*
         我的设备button 样式 EDE41A
      */
-    [self styleInitToButton:_item0 data:@{@"selBgColor":@"90EDE41A",@"backgroundColor":@"EDE41A",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_item0 data:@{@"selBgColor":alphcolors[0],@"backgroundColor":colors[0],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
    
-    [self styleInitToButton:_item1 data:@{@"selBgColor":@"9068E668",@"backgroundColor":@"68E668",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_item1 data:@{@"selBgColor":alphcolors[1],@"backgroundColor":colors[1],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
-    [self styleInitToButton:_item2 data:@{@"selBgColor":@"902194ED",@"backgroundColor":@"2194ED",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_item2 data:@{@"selBgColor":alphcolors[2],@"backgroundColor":colors[2],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
     
-    [self styleInitToButton:_item3 data:@{@"selBgColor":@"90F55959",@"backgroundColor":@"F55959",@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self styleInitToButton:_item3 data:@{@"selBgColor":alphcolors[3],@"backgroundColor":colors[3],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
+     [self styleInitToButton:_item4 data:@{@"selBgColor":alphcolors[4],@"backgroundColor":colors[4],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    
+     [self styleInitToButton:_item5 data:@{@"selBgColor":alphcolors[5],@"backgroundColor":colors[5],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
 
+    
+    [self styleInitToButton:_logoItem data:@{@"selBgColor":alphcolors[6],@"backgroundColor":colors[6],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
     
 }
 
 -(void)redirectTo:(UIButton *)sender{
-    if(sender.tag==0){
-        if(_videoInfo==nil){
-            [self.view makeToast:@"视频数据无法找到～"];
-            return;
-        }
-        
-        [self performSegueWithIdentifier:@"toVideo" sender:sender];
-    }else  if(sender.tag==1){
-        [self performSegueWithIdentifier:@"toRealData" sender:sender];
-    }
+  [self performSegueWithIdentifier:@"tabVC" sender:sender];
 }
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender{
+    YYTabViewController *tabBarVC=segue.destinationViewController;
+    
+    [tabBarVC setDefaultIndex:sender.tag];
+}
 
 
 -(void)styleInitToButton:(UIButton *)button data:(NSDictionary *)dic{
@@ -224,6 +266,7 @@
     // 设置layer的透明度
     button.layer.shadowOpacity = 1.0f;
     button.layer.shadowOffset=CGSizeMake(0,1);
+    [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -231,12 +274,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender {
-    if(sender.tag==0){
-        [(VideoViewController *)(segue.destinationViewController) setVideoInfo:_videoInfo];
-    }else if(sender.tag==1){
-        [(RealDataViewController *)(segue.destinationViewController) setDeviceData:_devicesInfo];
-    }
-}
 
 @end

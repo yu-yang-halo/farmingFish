@@ -1,0 +1,13 @@
+//
+//  DataControlViewController.h
+//  farmingFish
+//
+//  Created by admin on 16/10/12.
+//  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface DataControlViewController : UIViewController
+@property(nonatomic,strong) NSDictionary *deviceData;
+@end

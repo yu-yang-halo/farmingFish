@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PTZDelegate <NSObject>
+@protocol PlayDelegate <NSObject>
 
--(void)ptzControl:(int)channel ptzDirect:(int)pd;
+-(void)play:(int)index;
 
 @end
 
-@interface VideoViewController : UIViewController<PTZDelegate>{
+@interface VideoViewController : UIViewController<PlayDelegate>{
     
     int  g_iStartChan;
     int  g_iPreviewChanNum;

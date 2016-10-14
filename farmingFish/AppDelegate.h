@@ -18,5 +18,10 @@
 @property(nonatomic,strong) NSString *customerNo;
 @property(nonatomic,strong) NSString *userAccount;
 
+//视频数据
+@property(nonatomic,strong) NSDictionary *videoInfo;
+//设备数据
+@property(nonatomic,strong) NSDictionary *deviceData;
+
 @end
 

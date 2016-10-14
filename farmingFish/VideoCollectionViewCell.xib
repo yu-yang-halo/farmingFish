@@ -13,23 +13,23 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="143" height="125"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xaH-gv-HTJ">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NT-O1-5ot">
                         <rect key="frame" x="0.0" y="0.0" width="143" height="125"/>
-                        <color key="backgroundColor" red="0.18235908551573599" green="0.16543714664103945" blue="0.19162660256410258" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.026398354388297851" green="0.026398354388297851" blue="0.026398354388297851" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.14626420285352526" green="1" blue="0.20653944814448066" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="xaH-gv-HTJ" secondAttribute="bottom" id="Eew-xh-9sf"/>
-                <constraint firstItem="xaH-gv-HTJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="g4j-bq-EbA"/>
-                <constraint firstItem="xaH-gv-HTJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hFV-ns-Ggn"/>
-                <constraint firstAttribute="trailing" secondItem="xaH-gv-HTJ" secondAttribute="trailing" id="jyZ-f9-xrd"/>
+                <constraint firstItem="4NT-O1-5ot" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1KC-CL-e5P"/>
+                <constraint firstItem="4NT-O1-5ot" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8ET-EK-IUL"/>
+                <constraint firstAttribute="trailing" secondItem="4NT-O1-5ot" secondAttribute="trailing" id="f8r-mv-uaZ"/>
+                <constraint firstAttribute="bottom" secondItem="4NT-O1-5ot" secondAttribute="bottom" id="oxv-Hk-rfG"/>
             </constraints>
             <size key="customSize" width="143" height="125"/>
             <connections>
-                <outlet property="videoView" destination="xaH-gv-HTJ" id="AEH-PE-0yU"/>
+                <outlet property="containerView" destination="4NT-O1-5ot" id="9Mc-Wg-coC"/>
             </connections>
             <point key="canvasLocation" x="280.5" y="214.5"/>
         </collectionViewCell>

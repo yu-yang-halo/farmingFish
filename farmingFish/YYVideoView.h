@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoViewController.h"
-@interface TouchView : UIView
-@property(nonatomic,weak) id<PTZDelegate> ptzDelegate;
+@interface YYVideoView : UIView
+
+@property(nonatomic,weak) id<PlayDelegate> playDelegate;
+@property(nonatomic,assign) BOOL isVaildYN;
+
 @end

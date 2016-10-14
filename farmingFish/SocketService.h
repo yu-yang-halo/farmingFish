@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 typedef void (^StatusBlock)(NSDictionary *dic);
-typedef void (^OnlineStatusBlock)(BOOL onlineYN);
+typedef void (^OnlineStatusBlock)(BOOL onlineYN,NSString *customNO);
 @interface SocketService : NSObject<UIApplicationDelegate>
 
 +(instancetype)shareInstance;
 
--(void)connect;
+-(void)connect:(NSString *)customerNO;
 -(void)disconnect;
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
 

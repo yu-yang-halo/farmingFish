@@ -18,7 +18,9 @@
     NSLog(@"序号[1-2]厂家信息%02x%02x",bytes[1],bytes[2]);
     NSLog(@"序号[3]版本号%02x",bytes[3]);
     NSLog(@"序号[4-5]设备类型%02x%02x",bytes[4],bytes[5]);
-    NSLog(@"序号[6-9]设备地址%02x%02x%02x%02x",bytes[6],bytes[7],bytes[8],bytes[9]);
+    NSString *customNo=[NSString stringWithFormat:@"%02x-%02x-%02x-%02x",bytes[6],bytes[7],bytes[8],bytes[9]];
+
+    NSLog(@"序号[6-9]设备地址%02x%02x%02x%02x  customNO:%@",bytes[6],bytes[7],bytes[8],bytes[9],customNo);
     
     NSLog(@"序号[10-17]命令流水号%02x%02x%02x%02x%02x%02x%02x%02x",bytes[10],bytes[11],bytes[12],bytes[13],bytes[14],bytes[15],bytes[16],bytes[17]);
     //0003 3--内容  19--设置信息  15--电机控制状态
@@ -43,7 +45,7 @@
             if(len==45){
                 //
                 memcpy(realData,bytes+23,45);
-                [self resolveStatusData:realData StatusBlock:block];
+                [self resolveStatusData:realData StatusBlock:block customNo:customNo];
                 
             }
             NSLog(@"具体数据------------end");
@@ -62,7 +64,7 @@
                 //01 01 02 00 03 00 ...
                 //转化为10000000
                 memcpy(statusData,bytes+23,16);
-                [self resolveSwitchData:statusData StatusBlock:block];
+                [self resolveSwitchData:statusData StatusBlock:block customNo:customNo];
                 
             }
         }
@@ -84,7 +86,7 @@
     return st;
 }
 
-+(void)resolveSwitchData:(Byte *)status StatusBlock:(StatusBlock)block{
++(void)resolveSwitchData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo{
     NSMutableString *st=[NSMutableString new];
     for (int i=1;i<16;i=i+2) {
         
@@ -94,9 +96,10 @@
     NSLog(@"电机状态 %@",st);
     NSMutableDictionary *dic=[NSMutableDictionary new];
     [dic setObject:st forKey:@"status"];
+    [dic setObject:customNo forKey:@"customNo"];
     block(dic);
 }
-+(void)resolveStatusData:(Byte *)status StatusBlock:(StatusBlock)block {
++(void)resolveStatusData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo {
     NSMutableDictionary *dic=[NSMutableDictionary new];
     int i=0;
     while (i<40) {
@@ -192,11 +195,12 @@
         memcpy(realData2,status+41,4);
         NSString *devOnOffStatus=[self resolveDeviceStatus:realData2];
         [dic setObject:devOnOffStatus forKey:@"status"];
+       
     }
-    
+    [dic setObject:customNo forKey:@"customNo"];
     block(dic);
 }
-+(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)devId{
++(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO{
     Byte req[28]={0};
     
     req[0]='*';
@@ -206,7 +210,7 @@
     //水产
     req[4]=0x00;
     req[5]=(Byte)0xFE;
-    NSString *customerNO=@"00-00-04-01";
+   // NSString *customerNO=@"00-00-04-01";
     NSArray *arr=[customerNO componentsSeparatedByString:@"-"];
     int index=0;
     for(NSString *str in arr){
@@ -261,7 +265,7 @@
     
 }
 
-+(NSData *)buildSocketPackage_WATER{
++(NSData *)buildSocketPackage_WATER:(NSString *)customerNO{
     Byte req[27]={0};
     
     req[0]='*';
@@ -271,7 +275,7 @@
     //水产
     req[4]=0x00;
     req[5]=(Byte)0xFE;
-    NSString *customerNO=@"00-00-04-01";
+    //NSString *customerNO=@"00-00-04-01";
     NSArray *arr=[customerNO componentsSeparatedByString:@"-"];
     int index=0;
     for(NSString *str in arr){
@@ -322,7 +326,7 @@
     
 }
 
-+(NSData *)buildSocketPackage_mobile_client{
++(NSData *)buildSocketPackage_mobile_client:(NSString *)customerNO{
     Byte req[26]={0};
     req[0]='*';
     req[1]='T';
@@ -344,7 +348,7 @@
     //Android设备
     req[4]=0x00;
     req[5]=(Byte)0xFE;
-    NSString *customerNO=@"00-00-04-01";
+    //NSString *customerNO=@"00-00-04-01";
     NSArray *arr=[customerNO componentsSeparatedByString:@"-"];
     int index=0;
     for(NSString *str in arr){

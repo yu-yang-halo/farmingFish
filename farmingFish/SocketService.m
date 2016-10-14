@@ -23,6 +23,8 @@ static SocketService *instance;
 }
 @property (readwrite, nonatomic, copy) StatusBlock mblock;
 @property (readwrite, nonatomic, copy) OnlineStatusBlock onlineBlock;
+@property(nonatomic,strong) NSString *customerNO;
+@property(nonatomic,strong) NSString *tmpCNO;
 @end
 
 @implementation SocketService
@@ -41,12 +43,14 @@ static SocketService *instance;
     if(asyncSocket==nil){
         return;
     }
-    [self connect];
+    [self connect:_customerNO];
     NSLog(@"重新连接。。。");
 }
 
--(void)connect{
-   [[[UIApplication sharedApplication] keyWindow] makeToast:@"数据连接中..."];
+-(void)connect:(NSString *)customerNO{
+    self.tmpCNO=customerNO;
+    [self disconnect];
+  // [[[UIApplication sharedApplication] keyWindow] makeToast:@"数据连接中..."];
    dispatch_queue_t mainQueue = dispatch_get_main_queue();
     if(asyncSocket==nil){
         asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
@@ -79,12 +83,13 @@ static SocketService *instance;
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     NSLog(@"socket:%@ didConnectToHost:%@ port:%hu", sock, host, port);
-     _onlineBlock(YES);
-
-    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:3];
+    
+    self.customerNO=_tmpCNO;
+     _onlineBlock(YES,_customerNO);
+    
+    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:3];
     [asyncSocket readDataWithTimeout:-1 tag:3];
     
-    [NSThread sleepForTimeInterval:1];
     
     [self keepLive];
     
@@ -96,10 +101,10 @@ static SocketService *instance;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(asyncSocket!=nil&&asyncSocket.isConnected){
             NSLog(@"保持心跳....");
-            [asyncSocket writeData:[SPackage buildSocketPackage_WATER]withTimeout:-1 tag:2];
+            [asyncSocket writeData:[SPackage buildSocketPackage_WATER:_customerNO]withTimeout:-1 tag:2];
             [asyncSocket readDataWithTimeout:-1 tag:2];
             
-            [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client] withTimeout:-1 tag:3];
+            [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:3];
             [asyncSocket readDataWithTimeout:-1 tag:3];
             
             [NSThread sleepForTimeInterval:15];
@@ -146,7 +151,7 @@ static SocketService *instance;
         [[[UIApplication sharedApplication] keyWindow] makeToast:@"连接已断开"];
     }
     
-    _onlineBlock(NO);
+    _onlineBlock(NO,_customerNO);
    
 }
 

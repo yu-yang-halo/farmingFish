@@ -14,25 +14,21 @@
 #import "DeviceControlTableView.h"
 #import "JSONKit.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "AppDelegate.h"
+#import "FService.h"
+#import "BeanObjectHelper.h"
+#import "MyExpandTableView.h"
+#import "WeatherShowManager.h"
 @interface RealDataViewController (){
     MBProgressHUD *hud;
 }
 @property(nonatomic,strong) UIScrollView *globalView;
 /**
- ** 实时数据 + 设备控制
+ ** 实时数据
  **/
 @property(nonatomic,strong) RealDataTableView *realDataView;
-@property(nonatomic,strong) DeviceControlTableView *devControlView;
-/**
- ** statusArr 实时数据值集合
- ** devArr    后台设备数据 Electrics
- **/
-@property(nonatomic,strong) NSMutableArray *statusArr;
-@property(nonatomic,strong) NSArray *devArr;
-/**
- ** devStatus 设备状态值 @“10000000”
- **/
-@property(nonatomic,strong) NSString *devStatus;
+@property(nonatomic,strong) NSMutableArray<YYCollectorInfo *> *collectorInfos;
+
 @end
 
 @implementation RealDataViewController
@@ -49,147 +45,55 @@
   
     [[SocketService shareInstance] enableListenser:YES];
     
+   
     
+    AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+    self.deviceData=delegate.deviceData;
+    
+
     if(_deviceData!=nil){
         NSArray *arr=[[_deviceData objectForKey:@"GetCollectorInfoResult"] objectFromJSONString];
-        
+        self.collectorInfos=[NSMutableArray new];
         if(arr!=nil&&[arr count]>0){
-            NSString *electrics=[arr[0] objectForKey:@"Electrics"];
-            if(electrics!=nil){
-               self.devArr=[electrics componentsSeparatedByString:@","];
+            
+            for(NSDictionary *dict in arr){
+                YYCollectorInfo *info=[[YYCollectorInfo alloc] init];
+                [BeanObjectHelper dictionaryToBeanObject:dict beanObj:info];
                 
+                NSString *electrics=[dict objectForKey:@"Electrics"];
+                if(electrics!=nil){
+                    info.electricsArr=[electrics componentsSeparatedByString:@","];
+                    
+                }
+                [_collectorInfos addObject:info];
+              
             }
+            
         }
         
     }
     
-      [self viewInit];
+    WeatherShowManager *viewManager =[[WeatherShowManager alloc] init];
+    UIView *weatherView=viewManager.weatherView;
+    [viewManager refreshDataAndShow:WEATHER_DAY_TODAY];
+    weatherView.frame=CGRectMake(0, 64, self.view.frame.size.width,94);//94
+    [self.view addSubview:weatherView];
+    
+    MyExpandTableView *expandTableView=[[MyExpandTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weatherView.frame), self.view.frame.size.width, self.view.frame.size.height-64-30-100)];
+    [expandTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [expandTableView setCollectorInfos:_collectorInfos];
+    
+    [expandTableView setBackgroundColor:[UIColor clearColor]];
+
+
+    [self.view addSubview:expandTableView];
+    
     
 }
 -(void)dealloc{
      [[SocketService shareInstance] enableListenser:NO];
 }
-/*
- *代码布局view
- */
--(void)viewInit{
-    self.globalView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
 
-    
-    self.realDataView=[[RealDataTableView alloc] initWithFrame:CGRectMake(10,10, _globalView.frame.size.width-20, 0)];
-    
-    _realDataView.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.1] CGColor];
-    _realDataView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
-
-    _realDataView.layer.borderWidth=1;
-    _realDataView.layer.cornerRadius=2;
-    [_realDataView setBackgroundColor:[UIColor colorWithWhite:0.8 alpha:0.1]];
-    
-    self.devControlView=[[DeviceControlTableView alloc] initWithFrame:CGRectMake(10,10, _globalView.frame.size.width-20, 0)];
-    
-    _devControlView.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.1] CGColor];
-    _devControlView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
-    _devControlView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
-    
-    _devControlView.layer.borderWidth=1;
-    _devControlView.layer.cornerRadius=2;
-    [_devControlView setBackgroundColor:[UIColor colorWithWhite:0.8 alpha:0.1]];
-    
-    [_devControlView setDeviceDatas:_devArr];
-    
-    
-    CGRect frame2=_devControlView.frame;
-    frame2.size.height=[_devArr count]*50;
-    [_devControlView setFrame:frame2];
-
-    
-    [self.globalView addSubview:_realDataView];
-    [self.globalView addSubview:_devControlView];
-    
-    [self.view addSubview:_globalView];
-    
-    [_devControlView reloadData];
-    
-}
--(void)viewWillAppear:(BOOL)animated{
-    hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = @"获取实时数据...";
-    
-    [hud showAnimated:YES];
-    
-    [[SocketService shareInstance] connect];
-    
-    [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN) {
-       
-        if(onlineYN){
-             self.title=@"实时数据";
-        }else{
-             self.title=@"实时数据(离线)";
-        }
-        
-    }];
-    
-    [[SocketService shareInstance] setStatusBlock:^(NSDictionary *dic) {
-        if(hud!=nil){
-            [hud hideAnimated:YES];
-        }
-        NSLog(@"%@",dic);
-        self.statusArr=[NSMutableArray new];
-        [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-            
-            if([key isKindOfClass:[NSNumber class]]){
-                /*
-                 * 属性名称 当前值 最大值 单位 filter
-                 */
-                NSArray* contents=[obj componentsSeparatedByString:@"|"];
-                if(contents!=nil&&[contents count]==4){
-                    [_statusArr addObject:obj];
-                }
-            }else if([key isKindOfClass:[NSString class]]){
-                if([key isEqualToString:@"status"]){
-                    NSLog(@"status %@",obj);
-                    self.devStatus=obj;
-                }
-            }
-
-            
-        }];
-        
-        if(_statusArr!=nil&&[_statusArr count]>0){
-            [_realDataView setRealDatas:_statusArr];
-            [_realDataView reloadData];
-            CGRect frame=_realDataView.frame;
-            frame.size.height=[_statusArr count]*50;
-            
-            [_realDataView setFrame:frame];
-        }
-        
-        [_devControlView setRealStatus:_devStatus];
-        [_devControlView setDeviceDatas:_devArr];
-        [_devControlView reloadData];
-        
-        CGRect frame2=_devControlView.frame;
-        frame2.origin.y=_realDataView.frame.origin.y+_realDataView.frame.size.height+10;
-        frame2.size.height=[_devArr count]*50;
-        
-        [_devControlView setFrame:frame2];
-        
-        
-        float totalHeight=_realDataView.frame.origin.x+_realDataView.frame.size.height+_devControlView.frame.origin.x+_devControlView.frame.size.height;
-        
-        
-        [_globalView setContentSize:CGSizeMake(self.view.bounds.size.width, totalHeight+10)];
-        
-    }];
-}
-/*
- status = 10000000;
- 3 = "PH|7.300000";
- 6 = "\U4e9a\U785d\U9178\U76d0|0.030000";
- 5 = "\U6e29\U5ea6|24.450001";
- 1 = "\U6eb6\U6c27|4.090000";
- 4 = "\U6c28\U6c2e|0.140000";
- */
 -(void)viewWillDisappear:(BOOL)animated{
     [[SocketService shareInstance] disconnect];
     [[SocketService shareInstance] setStatusBlock:nil];

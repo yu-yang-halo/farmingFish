@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - BaiduMapKit (3.0.0)
   - CocoaAsyncSocket (7.5.0):
     - CocoaAsyncSocket/GCD (= 7.5.0)
   - CocoaAsyncSocket/GCD (7.5.0)
@@ -24,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - BaiduMapKit
   - CocoaAsyncSocket
   - Masonry
   - MBProgressHUD (~> 1.0.0)
@@ -32,6 +34,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a

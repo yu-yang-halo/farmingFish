@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YYVideoView.h"
 @interface VideoCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIView *videoView;
+
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end

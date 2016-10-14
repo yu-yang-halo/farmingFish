@@ -99,9 +99,12 @@ const static NSString *KEY_PASSWORD=@"password-key";
     }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+ 
+   
+   
     hud.label.text = @"登录中...";
    // [self performSegueWithIdentifier:@"toMainPage" sender:sender];
+   
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *customerNo=[[FService shareInstance] loginName:username password:password];
