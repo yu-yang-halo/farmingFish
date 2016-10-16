@@ -18,6 +18,7 @@
 #import "RealDataViewController.h"
 #import "YYTabViewController.h"
 #import "YYWeatherService.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 @interface MainViewController (){
     NSArray *items;
     
@@ -54,7 +55,10 @@
     [self viewControllerBGInit];
     [self buttonStyleInit];
     
-    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud.bezelView setColor:[UIColor clearColor]];
+    [hud.bezelView setStyle:MBProgressHUDBackgroundStyleSolidColor];
+   
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
@@ -67,7 +71,11 @@
         delegate.videoInfo=_videoInfo;
         delegate.deviceData=_devicesInfo;
         
-        [[YYWeatherService defaultService] downloadWeatherData:@"合肥"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [hud hideAnimated:YES];
+            
+        });
         
        
     });
@@ -238,10 +246,41 @@
 }
 
 -(void)redirectTo:(UIButton *)sender{
-  [self performSegueWithIdentifier:@"tabVC" sender:sender];
+  
+    if(sender.tag==0){
+        if(_videoInfo==nil){
+             [self.view.window makeToast:@"暂无视频数据信息,请重试"];
+            return;
+        }
+    }else if(sender.tag==1||sender.tag==2){
+        if(_devicesInfo==nil){
+            [self.view.window makeToast:@"暂无设备数据信息,请重试"];
+            return;
+        }
+    }
+    
+    
+    
+    [self performSegueWithIdentifier:@"tabVC" sender:sender];
+    
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender{
     YYTabViewController *tabBarVC=segue.destinationViewController;
+    
+    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
+    UIViewController *videoVC=[storyBoard instantiateViewControllerWithIdentifier:@"videoVC"];
+    UIViewController *realDataVC=[storyBoard instantiateViewControllerWithIdentifier:@"realDataVC"];
+    UIViewController *controlVC=[storyBoard instantiateViewControllerWithIdentifier:@"controlVC"];
+    
+    UIViewController *newsVC=[storyBoard instantiateViewControllerWithIdentifier:@"newsVC"];
+    
+    UIViewController *historyVC=[storyBoard instantiateViewControllerWithIdentifier:@"historyVC"];
+    
+    UIViewController *settingsVC=[storyBoard instantiateViewControllerWithIdentifier:@"settingsVC"];
+    
+    
+    [tabBarVC setViewControllers:@[videoVC,realDataVC,controlVC,historyVC,settingsVC,newsVC]];
     
     [tabBarVC setDefaultIndex:sender.tag];
 }

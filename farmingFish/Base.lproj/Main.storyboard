@@ -121,23 +121,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="Hhw-Eo-xmY" kind="relationship" relationship="viewControllers" id="dBL-Qa-2S7"/>
-                        <segue destination="VjK-0D-Nqw" kind="relationship" relationship="viewControllers" id="Xsj-nA-Pln"/>
-                        <segue destination="xEa-sV-xCA" kind="relationship" relationship="viewControllers" id="dsD-uh-Vyq"/>
-                        <segue destination="zkK-ck-aPL" kind="relationship" relationship="viewControllers" id="7aa-5X-YGZ"/>
-                        <segue destination="HNh-EK-6IQ" kind="relationship" relationship="viewControllers" id="Ey4-Ah-6dj"/>
-                        <segue destination="GVl-wK-2jT" kind="relationship" relationship="viewControllers" id="02B-9V-LIc"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRQ-2V-X3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794" y="401"/>
+            <point key="canvasLocation" x="-464" y="127"/>
         </scene>
         <!--历史数据-->
         <scene sceneID="q84-Ug-l6l">
             <objects>
-                <viewController title="历史数据" id="zkK-ck-aPL" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="historyVC" title="历史数据" id="zkK-ck-aPL" customClass="HistoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xDN-VL-6WL"/>
                         <viewControllerLayoutGuide type="bottom" id="z39-Xr-PlK"/>
@@ -151,12 +143,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sML-VJ-TUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-345" y="1246"/>
+            <point key="canvasLocation" x="599" y="299"/>
         </scene>
         <!--设置-->
         <scene sceneID="YSh-Dc-9tD">
             <objects>
-                <viewController title="设置" id="GVl-wK-2jT" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsVC" title="设置" id="GVl-wK-2jT" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QiZ-B7-01C"/>
                         <viewControllerLayoutGuide type="bottom" id="B9r-yz-sxN"/>
@@ -170,12 +162,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SlJ-lo-X4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1107" y="1158"/>
+            <point key="canvasLocation" x="234" y="290"/>
         </scene>
         <!--养殖知识-->
         <scene sceneID="8Pv-mB-eDE">
             <objects>
-                <viewController title="养殖知识" id="HNh-EK-6IQ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newsVC" title="养殖知识" id="HNh-EK-6IQ" customClass="NewsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="b0m-Sk-HqK"/>
                         <viewControllerLayoutGuide type="bottom" id="sky-ld-zTE"/>
@@ -189,12 +181,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQT-8p-TON" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-699" y="1158"/>
+            <point key="canvasLocation" x="-125" y="290"/>
         </scene>
         <!--设备控制-->
         <scene sceneID="PcS-Ay-22W">
             <objects>
-                <viewController title="设备控制" id="xEa-sV-xCA" customClass="DataControlViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="controlVC" title="设备控制" id="xEa-sV-xCA" customClass="DataControlViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yTq-3o-0GK"/>
                         <viewControllerLayoutGuide type="bottom" id="KmO-Dy-LRP"/>
@@ -208,12 +200,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkK-rA-9gt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-351" y="556"/>
+            <point key="canvasLocation" x="611" y="-386"/>
         </scene>
         <!--实时数据-->
         <scene sceneID="JfP-KC-lj0">
             <objects>
-                <viewController title="实时数据" id="VjK-0D-Nqw" customClass="RealDataViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="realDataVC" title="实时数据" id="VjK-0D-Nqw" customClass="RealDataViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Ix-gs-9OC"/>
                         <viewControllerLayoutGuide type="bottom" id="9lg-2Q-tS4"/>
@@ -228,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIn-fT-tHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-176" y="189"/>
+            <point key="canvasLocation" x="250" y="-377"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="JAs-vJ-uzD">
@@ -255,7 +247,7 @@
         <!--我的视频-->
         <scene sceneID="AwH-e2-evG">
             <objects>
-                <viewController title="我的视频" automaticallyAdjustsScrollViewInsets="NO" id="Hhw-Eo-xmY" customClass="VideoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="videoVC" title="我的视频" automaticallyAdjustsScrollViewInsets="NO" id="Hhw-Eo-xmY" customClass="VideoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2zy-ED-vBz"/>
                         <viewControllerLayoutGuide type="bottom" id="kDV-cs-pEJ"/>
@@ -270,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agW-Yw-xOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-600" y="-47"/>
+            <point key="canvasLocation" x="-96" y="-377"/>
         </scene>
     </scenes>
     <resources>

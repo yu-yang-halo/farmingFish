@@ -39,7 +39,6 @@ VideoViewController *g_pController = NULL;
 
     YYVideoView  *m_multiView[MAX_VIEW_NUM];
     int singleSelectIndex;
-    int sIndex;
     
     //真实视频数
     int videoCount;
@@ -63,7 +62,7 @@ VideoViewController *g_pController = NULL;
     [super viewDidLoad];
     self.title=@"我的视频";
     waitViewDidLoad=YES;
-    singleSelectIndex=-1;
+    singleSelectIndex=0;
     
     AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
     
@@ -83,6 +82,7 @@ VideoViewController *g_pController = NULL;
     }else{
         videoCount=0;
     }
+    videoCount=5;
     
     for(int i=0;i<MAX_VIEW_NUM;i++){
         m_multiView[i]=[[YYVideoView alloc] initWithFrame:CGRectMake(0,0,0,0)];
@@ -129,7 +129,7 @@ VideoViewController *g_pController = NULL;
     self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,Screen_bounds.size.width,Screen_bounds.size.height) collectionViewLayout:flowLayout];
     
     self.pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame), Screen_bounds.size.width, 10)];
-    [_pageControl setNumberOfPages:videoCount];
+    [_pageControl setNumberOfPages:videoCount/(layoutMode*layoutMode)];
     
     self.collectionView.backgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
     self.collectionView.delegate=self;
@@ -244,8 +244,10 @@ VideoViewController *g_pController = NULL;
     
     [_showView setSelectBlock:^(SQMenuShowView *view, NSInteger index) {
         weakSelf.isShow=NO;
-        singleSelectIndex=-1;
         layoutMode=(index+1);
+        if(singleSelectIndex>=videoCount){
+            singleSelectIndex=0;
+        }
         [weakSelf layoutReload];
     }];
     
@@ -319,12 +321,10 @@ VideoViewController *g_pController = NULL;
     [_collectionView setCollectionViewLayout:flowLayout animated:YES];
     if(layoutMode==1&&singleSelectIndex>=0){
          [_collectionView setContentOffset:CGPointMake(width*singleSelectIndex, 0)];
-          [_pageControl setNumberOfPages:videoCount];
          [_pageControl setCurrentPage:singleSelectIndex];
-        
-    }else{
-         [_pageControl setNumberOfPages:videoCount];
     }
+    
+    [_pageControl setNumberOfPages:videoCount/(layoutMode*layoutMode)];
    
     [_collectionView reloadData];
 }
@@ -341,15 +341,11 @@ VideoViewController *g_pController = NULL;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(layoutMode==1&&singleSelectIndex>=0){
-        if(singleSelectIndex<0){
-            singleSelectIndex=0;
-        }
+      
         float width=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
         singleSelectIndex=scrollView.contentOffset.x/width;
         [_pageControl setNumberOfPages:videoCount];
         [_pageControl setCurrentPage:singleSelectIndex];
-        
-        
     }
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -372,7 +368,7 @@ VideoViewController *g_pController = NULL;
      [tapGR2 setNumberOfTapsRequired:2];
     
     
-    if(sIndex==indexPath.row||singleSelectIndex!=-1){
+    if(singleSelectIndex==indexPath.row){
         cell.layer.borderWidth=1;
         cell.layer.borderColor=[[UIColor yellowColor] CGColor];
     }else{
@@ -391,15 +387,8 @@ VideoViewController *g_pController = NULL;
     return cell;
 }
 -(void)selectVideo:(UIGestureRecognizer *)gr{
-    if(singleSelectIndex!=-1){
-        return;
-    }
-    
-
     [self dismissView];
-    int index=gr.view.tag;
-    sIndex=index;
-    [self playVideo:index];
+    singleSelectIndex=gr.view.tag;
     
 
     [_collectionView reloadData];
@@ -409,18 +398,22 @@ VideoViewController *g_pController = NULL;
 
 -(void)modeSwitch:(UIGestureRecognizer *)gr{
     [self dismissView];
-    int index=gr.view.tag;
+    if(gr.view.tag>=videoCount){
+        [self.view.window makeToast:@"当前窗口无视频～"];
+        return;
+    }
+    
+    
+     singleSelectIndex=gr.view.tag;
+    
     
     if(layoutMode!=1){
         lastMode=layoutMode;
         layoutMode=1;
-        singleSelectIndex=index;
-        sIndex=index;
     }else{
         if(lastMode!=0){
             layoutMode=lastMode;
         }
-        singleSelectIndex=-1;
     }
     [self layoutReload];
 

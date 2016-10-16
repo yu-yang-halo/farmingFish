@@ -23,7 +23,7 @@
     if(self){
         
         [[NSBundle mainBundle] loadNibNamed:@"weatherView" owner:self options:nil];
-        self.weeks=@[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期日"];
+        self.weeks=@[@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"];
         
     }
     return self;
@@ -45,7 +45,9 @@
     }else{
        
         NSString *cityName=[[NSUserDefaults standardUserDefaults] objectForKey:@"city"];
-        
+        if(cityName==nil){
+            cityName=@"北京";
+        }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
            
             [[YYWeatherService defaultService] downloadWeatherData:cityName];
@@ -70,7 +72,7 @@
 -(void)layoutWeatherUI:(NSDictionary *)dict{
     [_cityLabel setText:[dict objectForKey:@"city_name"]];
     int week=[[dict objectForKey:@"week"] intValue];
-    [_timeLabel setText:[NSString stringWithFormat:@"%@     %@",[dict objectForKey:@"date"],_weeks[week-1]]];
+    [_timeLabel setText:[NSString stringWithFormat:@"%@     %@",[dict objectForKey:@"date"],_weeks[week]]];
     NSDictionary *weather=[dict objectForKey:@"weather"];
     [_tempLabel setText:[NSString stringWithFormat:@"%@℃ %@ ",[weather objectForKey:@"temperature"],[weather objectForKey:@"info"]]];
     int imageId=[[weather objectForKey:@"img"] intValue];

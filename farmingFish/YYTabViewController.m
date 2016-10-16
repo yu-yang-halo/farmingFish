@@ -9,9 +9,12 @@
 #import "YYTabViewController.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
 #import "UIButton+BGColor.h"
-@interface YYTabViewController ()
+@interface YYTabViewController (){
+    CGFloat buttonWidth;
+}
 @property(nonatomic,strong) UIScrollView *tabBarView;
 @property(nonatomic,strong) NSArray *items;
+
 @end
 
 @implementation YYTabViewController
@@ -28,11 +31,11 @@
     [self.tabBarView setBackgroundColor:[UIColor uig_lemonTwistStartColor]];
     [self.tabBarView setAlpha:0.8];
     
-    float width=CGRectGetWidth(self.view.frame)/4;
+    buttonWidth=CGRectGetWidth(self.view.frame)/4;
     
     for (int i=0;i<[_items count]; i++) {
         
-        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(width*i,0, width,30)];
+        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(buttonWidth*i,0, buttonWidth,30)];
         [btn setTitle:_items[i] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateSelected)];
         [btn setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:(UIControlStateNormal)];
@@ -43,11 +46,18 @@
         [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1] forState:UIControlStateHighlighted];
         [_tabBarView addSubview:btn];
     }
-    self.tabBarView.contentSize=CGSizeMake(width*_items.count, 30);
+    self.tabBarView.contentSize=CGSizeMake(buttonWidth*_items.count, 30);
     [self.tabBarView setShowsHorizontalScrollIndicator:NO];
-    
+    [_tabBarView setPagingEnabled:YES];
     [self.view addSubview:_tabBarView];
     
+    [self tabBarViewInit:_defaultIndex];
+ 
+    [self.moreNavigationController.navigationBar setHidden:YES];
+}
+
+-(void)setDefaultIndex:(int)defaultIndex{
+    _defaultIndex=defaultIndex;
     [self tabBarViewInit:_defaultIndex];
     
 }
@@ -64,6 +74,13 @@
                 [(UIButton *)view setSelected:NO];
             }
         }
+    }
+    //[0,1,2,3,4,5]
+    //计算中心点
+    if(selectedIndex>=3){
+        [_tabBarView setContentOffset:CGPointMake(buttonWidth*2, 0) animated:YES];
+    }else{
+         [_tabBarView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     
 }
