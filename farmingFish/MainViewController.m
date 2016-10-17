@@ -150,7 +150,7 @@
     CGRect bounds=self.view.bounds;
     self.logoItem=[[UIButton alloc] initWithFrame:CGRectZero];
     
-    _logoItem.frame=CGRectMake((bounds.size.width-80)/2, (bounds.size.height-80)/2, 80, 80);
+    _logoItem.frame=CGRectMake((bounds.size.width-80)/2, (bounds.size.height-80)/2, 85, 85);
  
     [_logoItem setTitle:@"拓立德" forState:UIControlStateNormal];
     [_logoItem setEnabled:NO];
@@ -170,8 +170,8 @@
     [_item5 setTitle:items[5] forState:UIControlStateNormal];
     
     
-    CGFloat WH=70;
-    CGFloat SPACE=80;
+    CGFloat WH=90;
+    CGFloat SPACE=95;
     float angel=3.1415926/6;
     
     [_item0 setFrame:CGRectMake(0, 0, WH, WH)];
@@ -305,7 +305,7 @@
     // 设置layer的透明度
     button.layer.shadowOpacity = 1.0f;
     button.layer.shadowOffset=CGSizeMake(0,1);
-    [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:16]];
 }
 
 - (void)didReceiveMemoryWarning {

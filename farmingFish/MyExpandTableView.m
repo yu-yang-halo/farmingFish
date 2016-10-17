@@ -11,6 +11,7 @@
 #import "UIButton+BGColor.h"
 #import "SocketService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "AppDelegate.h"
 #define HEAD_HEIGHT 40
 @interface MyExpandTableView(){
     int clickParentIndex;
@@ -53,7 +54,13 @@
     self.dataSource=self;
     self.delegate=self;
     
-    self.realDataCache=[NSMutableDictionary new];
+    AppDelegate *delegate=[UIApplication sharedApplication].delegate;
+    
+    if(delegate.realDataCache==nil){
+        delegate.realDataCache=[NSMutableDictionary new];
+    }
+    
+    self.realDataCache=delegate.realDataCache;
     self.onlineTable=[NSMutableDictionary new];
     [self setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
 }
@@ -150,8 +157,8 @@
     
     UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(70,0,250,HEAD_HEIGHT)];
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setFont:[UIFont systemFontOfSize:15]];
-    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.6]];
+    [label setFont:[UIFont systemFontOfSize:16]];
+    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
     label.text=[[_collectorInfos objectAtIndex:section] CustomerNo];
    
     [backgroundView addSubview:arrowImageView];

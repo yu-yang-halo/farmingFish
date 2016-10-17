@@ -145,8 +145,8 @@
     
     UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(70,0,250,HEAD_HEIGHT)];
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setFont:[UIFont systemFontOfSize:15]];
-    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.6]];
+    [label setFont:[UIFont systemFontOfSize:16]];
+    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
     label.text=[[_collectorInfos objectAtIndex:section] CustomerNo];
     
     [backgroundView addSubview:arrowImageView];

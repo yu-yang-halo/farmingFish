@@ -8,6 +8,7 @@
 
 #import "YYTabViewController.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import "UIColor+hexStr.h"
 #import "UIButton+BGColor.h"
 @interface YYTabViewController (){
     CGFloat buttonWidth;
@@ -26,10 +27,11 @@
     [self.tabBar setHidden:YES];
 
     self.tabBarView=[[UIScrollView alloc] initWithFrame:CGRectMake(0,CGRectGetHeight(self.view.frame)-30, CGRectGetWidth(self.view.frame), 49)];
-    
+    self.tabBarView.layer.borderWidth=1;
+    self.tabBarView.layer.borderColor=[[UIColor colorWithHexString:@"#b2b2b2"] CGColor];
   
-    [self.tabBarView setBackgroundColor:[UIColor uig_lemonTwistStartColor]];
-    [self.tabBarView setAlpha:0.8];
+    [self.tabBarView setBackgroundColor:[UIColor colorWithHexString:@"#e7e7e7"]];
+    [self.tabBarView setAlpha:1];
     
     buttonWidth=CGRectGetWidth(self.view.frame)/4;
     
@@ -37,8 +39,8 @@
         
         UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(buttonWidth*i,0, buttonWidth,30)];
         [btn setTitle:_items[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateSelected)];
-        [btn setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:(UIControlStateNormal)];
+        [btn setTitleColor:[UIColor uig_lemonTwistStartColor] forState:(UIControlStateSelected)];
+        [btn setTitleColor:[UIColor colorWithWhite:0.2 alpha:0.8] forState:(UIControlStateNormal)];
         [btn setTag:i];
         
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:(UIControlEventTouchUpInside)];

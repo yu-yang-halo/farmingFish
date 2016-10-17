@@ -82,8 +82,7 @@ VideoViewController *g_pController = NULL;
     }else{
         videoCount=0;
     }
-    videoCount=5;
-    
+   
     for(int i=0;i<MAX_VIEW_NUM;i++){
         m_multiView[i]=[[YYVideoView alloc] initWithFrame:CGRectMake(0,0,0,0)];
         [m_multiView[i] setBackgroundColor:[UIColor blackColor]];
@@ -129,7 +128,7 @@ VideoViewController *g_pController = NULL;
     self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,Screen_bounds.size.width,Screen_bounds.size.height) collectionViewLayout:flowLayout];
     
     self.pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame), Screen_bounds.size.width, 10)];
-    [_pageControl setNumberOfPages:videoCount/(layoutMode*layoutMode)];
+    [_pageControl setNumberOfPages:[self pageNums]];
     
     self.collectionView.backgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
     self.collectionView.delegate=self;
@@ -154,7 +153,7 @@ VideoViewController *g_pController = NULL;
    
     self.scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageControl.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(_pageControl.frame)-30)];
     
-    [self.scrollView setBackgroundColor:[UIColor colorWithHexString:@"#80FFFFFF"]];
+    [self.scrollView setBackgroundColor:[UIColor colorWithHexString:@"#20FFFFFF"]];
     float space=3;
     float btn_width=(_scrollView.frame.size.width-space*4)/3;
     float btn_heigth=(_scrollView.frame.size.height-space*4)/3;
@@ -202,30 +201,26 @@ VideoViewController *g_pController = NULL;
     g_iPreviewChanNum=0;
     
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-       
-        [self loginHCSystem];
-        [self playAllVideo];
-         waitViewDidLoad=NO;
-    
-    });
-    
 }
 
 
 -(void)viewWillAppear:(BOOL)animated{
      self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"浏览模式" style: UIBarButtonItemStyleDone target:self action:@selector(popupView:)];
     
-    if(!waitViewDidLoad){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-             [self playAllVideo];
-            
-        });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
       
-    }
-    
+        if(!waitViewDidLoad){
+            [self playAllVideo];
+        }else{
+            [self loginHCSystem];
+            [self playAllVideo];
+             waitViewDidLoad=NO;
+        }
+        
+        
+    });
+   
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -324,29 +319,58 @@ VideoViewController *g_pController = NULL;
          [_pageControl setCurrentPage:singleSelectIndex];
     }
     
-    [_pageControl setNumberOfPages:videoCount/(layoutMode*layoutMode)];
+    [_pageControl setNumberOfPages:[self pageNums]];
    
     [_collectionView reloadData];
 }
-
+-(int)pageNums{
+    
+    return videoCount%(layoutMode*layoutMode)==0?videoCount/(layoutMode*layoutMode):videoCount/(layoutMode*layoutMode)+1;
+}
 
 #pragma mark collectionView delegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
-    if(videoCount>layoutMode*layoutMode){
-        return videoCount;
+    //视频数 videoCount
+    //单页最大显示数 1x1  2x2  3x3  4x4
+    int result=0;
+    switch (layoutMode) {
+        case 1:
+            result=videoCount;
+            break;
+        case 2:
+            if(videoCount<=2*2){
+                result=2*2;
+            }else{
+                result=2*2*2;
+            }
+            break;
+        case 3:
+            if(videoCount<=3*3){
+                result=3*3;
+            }else{
+                result=3*3*2;
+            }
+            break;
+        case 4:
+            if(videoCount<=4*4){
+                result=4*4;
+            }else{
+                result=4*4*2;
+            }
+            break;
     }
-    return layoutMode*layoutMode;
+ 
+    return result;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if(layoutMode==1&&singleSelectIndex>=0){
-      
-        float width=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
-        singleSelectIndex=scrollView.contentOffset.x/width;
-        [_pageControl setNumberOfPages:videoCount];
-        [_pageControl setCurrentPage:singleSelectIndex];
+    float width=Screen_bounds.size.width;
+    int currentPage=scrollView.contentOffset.x/width;
+    if(layoutMode==1){
+         singleSelectIndex=currentPage;
     }
+    [_pageControl setNumberOfPages:[self pageNums]];
+    [_pageControl setCurrentPage:currentPage];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     

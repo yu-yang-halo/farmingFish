@@ -23,5 +23,8 @@
 //设备数据
 @property(nonatomic,strong) NSDictionary *deviceData;
 
+
+@property(nonatomic,strong) NSMutableDictionary *realDataCache;
+
 @end
 
