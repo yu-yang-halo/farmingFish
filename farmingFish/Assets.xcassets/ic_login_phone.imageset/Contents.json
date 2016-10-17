@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "ic_login_phone.png",
       "scale" : "1x"
     },
     {
@@ -10,7 +11,6 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "拓立德科技LOGO 设计定稿-1.jpg",
       "scale" : "3x"
     }
   ],

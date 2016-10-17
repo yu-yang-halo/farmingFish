@@ -18,7 +18,8 @@
     
     UIColor *startColor = [UIColor uig_lemonTwistStartColor];
     UIColor *endColor = [UIColor uig_lemonTwistEndColor];
-    
+    //uig_lemonTwistStartColor
+    //uig_lemonTwistEndColor
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame =_mView.bounds;
     gradient.startPoint = CGPointMake(0, 0);

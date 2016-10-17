@@ -32,20 +32,20 @@ const static NSString *KEY_PASSWORD=@"password-key";
     /*
      *  界面样式设置
      */
-    self.loginButton.layer.cornerRadius=5;
-    self.loginButton.layer.borderWidth=1;
-    self.loginButton.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.6] CGColor];
-    
-    [self.loginButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
-    
+    self.loginButton.layer.cornerRadius=23;
+//    self.loginButton.layer.borderWidth=1;
+//    self.loginButton.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.6] CGColor];
+//    
+//    [self.loginButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+//    
     
     _usernameTF.delegate=self;
     _passwordTF.delegate=self;
     
     
     
-    [self viewControllerBGInit];
-    
+    //[self viewControllerBGInit];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
       
     [self initUsernameOrPwd];
     
