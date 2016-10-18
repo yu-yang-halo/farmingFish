@@ -10,15 +10,30 @@
 #import "UIViewController+Extension.h"
 @interface NewsViewController ()
 
+@property(nonatomic,strong) UIWebView *webView;
+
 @end
 
 @implementation NewsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title=@"养殖知识";
+     // Do any additional setup after loading the view.
+     self.title=@"养殖知识";
     [self viewControllerBGInit];
+    
+
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    
+    self.webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-30)];
+    [self.webView setBackgroundColor:[UIColor clearColor]];
+    
+    
+   
+    
+    [self.view addSubview:_webView];
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
     
 }
 

@@ -23,6 +23,7 @@
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
 		18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */; };
 		18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EBA9241D839D0A00184A6F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18EC36841DB661BE001149FE /* ExpandHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC36831DB661BE001149FE /* ExpandHistoryView.m */; };
 		18EC4EEB1D976F55009246C2 /* RealDataTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4EEA1D976F55009246C2 /* RealDataTableView.m */; };
 		18EC4EEF1D977301009246C2 /* RealDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4EED1D977301009246C2 /* RealDataTableViewCell.m */; };
 		18EC4EF01D977301009246C2 /* RealDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4EEE1D977301009246C2 /* RealDataTableViewCell.xib */; };
@@ -112,6 +113,8 @@
 		18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+hexStr.m"; sourceTree = "<group>"; };
 		18EBA9231D839D0A00184A6F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		18EBA9241D839D0A00184A6F /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		18EC36821DB661BE001149FE /* ExpandHistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandHistoryView.h; sourceTree = "<group>"; };
+		18EC36831DB661BE001149FE /* ExpandHistoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandHistoryView.m; sourceTree = "<group>"; };
 		18EC4EE91D976F55009246C2 /* RealDataTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealDataTableView.h; sourceTree = "<group>"; };
 		18EC4EEA1D976F55009246C2 /* RealDataTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealDataTableView.m; sourceTree = "<group>"; };
 		18EC4EEC1D977301009246C2 /* RealDataTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealDataTableViewCell.h; sourceTree = "<group>"; };
@@ -365,6 +368,8 @@
 				8414DC921D9A030F00CBC8CC /* DeviceControlTableViewCell.xib */,
 				8416228F1DAE3232000D269A /* ExpandControlView.h */,
 				841622901DAE3232000D269A /* ExpandControlView.m */,
+				18EC36821DB661BE001149FE /* ExpandHistoryView.h */,
+				18EC36831DB661BE001149FE /* ExpandHistoryView.m */,
 			);
 			name = tableview;
 			sourceTree = "<group>";
@@ -648,6 +653,7 @@
 				84485B851DACC230000AF2EC /* DateHelper.m in Sources */,
 				18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */,
 				18A72EF81D4431F700E15141 /* Preview.mm in Sources */,
+				18EC36841DB661BE001149FE /* ExpandHistoryView.m in Sources */,
 				8414DC8F1D9A027900CBC8CC /* DeviceControlTableView.m in Sources */,
 				84D2E3E91D93ACEC00BD0002 /* UIButton+BGColor.m in Sources */,
 				84485B7D1DACA8C7000AF2EC /* YYWeatherService.m in Sources */,
