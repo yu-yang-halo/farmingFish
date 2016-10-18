@@ -15,12 +15,14 @@
 #import "SocketService.h"
 const static NSString *KEY_USERNAME=@"username-key";
 const static NSString *KEY_PASSWORD=@"password-key";
+const static NSString *KEY_REMEMBER=@"remember-key";
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)loginClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *checkBtn;
 
 @end
 
@@ -53,6 +55,17 @@ const static NSString *KEY_PASSWORD=@"password-key";
     [self flyIconToFace];
     
    
+    [_checkBtn addTarget:self action:@selector(checkClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    
+    
+    
+}
+-(void)checkClick:(UIButton *)sender{
+    [sender setSelected:!sender.selected];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@(sender.selected) forKey:KEY_REMEMBER];
+    [self initUsernameOrPwd];
 }
 
 -(void)initUsernameOrPwd{
@@ -62,9 +75,29 @@ const static NSString *KEY_PASSWORD=@"password-key";
     if(username!=nil){
         _usernameTF.text=username;
     }
-    if(pwd!=nil){
-        _passwordTF.text=pwd;
+    id rememberObj=[[NSUserDefaults standardUserDefaults] objectForKey:KEY_REMEMBER];
+    if(rememberObj==nil){
+        [_checkBtn setSelected:NO];
+    }else{
+        if([rememberObj boolValue]){
+             [_checkBtn setSelected:YES];
+        }else{
+             [_checkBtn setSelected:NO];
+        }
     }
+    
+    if(_checkBtn.selected){
+        if(pwd!=nil){
+            _passwordTF.text=pwd;
+        }
+    }else{
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:KEY_PASSWORD];
+        _passwordTF.text=@"";
+    }
+        
+    
+    
+    
     
 }
 
