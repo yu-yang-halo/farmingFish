@@ -19,7 +19,7 @@
 -(instancetype)init{
     self=[super init];
     if(self!=nil){
-        NSLog(@"UIButton class catagery bgcolor init");
+        NSLog(@"%@ class catagery bgcolor init",self.class);
         [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
         
     }
@@ -60,15 +60,15 @@
         //  NSLog(@"change value %@",value);
         if([value intValue]==1){
             UIColor *color=objc_getAssociatedObject(self,UICONTROL_STATE_HIGHTLIGHT);
-//            if(color==nil){
-//                return;
-//            }
+            if(color==nil){
+                return;
+            }
             [self setBackgroundColor:color];
         }else{
             UIColor *color=objc_getAssociatedObject(self,UICONTROL_STATE_NORMAL);
-//            if(color==nil){
-//                return;
-//            }
+            if(color==nil){
+                return;
+            }
             [self setBackgroundColor:color];
         }
     }
