@@ -14,6 +14,11 @@
     [self setViewBGColor:self.view];
 
 }
+-(void)viewControllerBGInit:(UIView *)view{
+    
+    [self setViewBGColor:view];
+    
+}
 -(void)setViewBGColor:(UIView *)_mView{
     
     UIColor *startColor = [UIColor uig_lemonTwistStartColor];

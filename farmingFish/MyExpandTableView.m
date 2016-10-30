@@ -93,7 +93,7 @@
         cell=[[YYRealDataUITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
         [cell setBackgroundColor:[UIColor clearColor]];
         
-        realDataView=[[RealDataTableView alloc] initWithFrame:CGRectMake(10,10, cell.frame.size.width-20, 0)];
+        realDataView=[[RealDataTableView alloc] initWithFrame:CGRectMake(10,10, self.frame.size.width-20, 0)];
         
         realDataView.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.1] CGColor];
         realDataView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
@@ -159,7 +159,7 @@
     [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont systemFontOfSize:16]];
     [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
-    label.text=[[_collectorInfos objectAtIndex:section] CustomerNo];
+    label.text=[[_collectorInfos objectAtIndex:section] PondName];
    
     [backgroundView addSubview:arrowImageView];
     [backgroundView addSubview:label];

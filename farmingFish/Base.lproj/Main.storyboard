@@ -229,7 +229,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRQ-2V-X3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-464" y="127"/>
+            <point key="canvasLocation" x="-480" y="69"/>
         </scene>
         <!--历史数据-->
         <scene sceneID="q84-Ug-l6l">
@@ -249,6 +249,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sML-VJ-TUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="599" y="299"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="XGw-yk-Tcp">
+            <objects>
+                <viewController storyboardIdentifier="webVC" id="req-j3-DI4" customClass="UIWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jUk-cC-awv"/>
+                        <viewControllerLayoutGuide type="bottom" id="KGc-DM-4my"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V2E-dZ-ler">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zch-rA-6Uj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tDW-TQ-ip5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-507" y="689"/>
         </scene>
         <!--设置-->
         <scene sceneID="YSh-Dc-9tD">

@@ -9,12 +9,18 @@
 #import "NewsViewController.h"
 #import "UIViewController+Extension.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-@interface NewsViewController ()<UIWebViewDelegate>{
+#import "FService.h"
+#import "BeanObject.h"
+#import "BeanObjectHelper.h"
+#import "JSONKit.h"
+#import "UIWebViewController.h"
+@interface NewsViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
 }
 
-@property(nonatomic,strong) UIWebView *webView;
+@property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) MBProgressHUD *hud;
+@property(nonatomic,strong) NSMutableArray *newsList;
 
 @end
 
@@ -29,72 +35,116 @@
 
     self.automaticallyAdjustsScrollViewInsets=NO;
     
-    self.webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-30)];
-    [self.webView setBackgroundColor:[UIColor clearColor]];
-    _webView.opaque=NO;
+    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-30)];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    
+    _tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
     
     
-    [_webView setDelegate:self];
-   
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
     
-    [self.view addSubview:_webView];
-    
-    NSString *url=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"fish.html"];
-    NSLog(@"URL %@",url);
- 
-    
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    [self.view addSubview:_tableView];
     
     
-  
+    [self loadNewsData];
+}
+
+-(void)loadNewsData{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
+        id retObj=[[FService shareInstance] GetNewsList:CATEGORYID_KNOWLEDGE number:10];
+        
+        self.newsList=[NSMutableArray new];
+        
+        if(retObj!=nil){
+            NSArray *arr=[[retObj objectForKey:@"GetNewsListResult"] objectFromJSONString];
+            if(arr!=nil&&[arr count]>0){
+                
+                for(NSDictionary *dict in arr){
+                    YYNews *news=[[YYNews alloc] init];
+                    [BeanObjectHelper dictionaryToBeanObject:dict beanObj:news];
+                    
+                    NSLog(@"news :: %@",news);
+                    
+                    
+                    [self.newsList addObject:news];
+                    
+                }
+            }
+        }
+
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
+        });
+    });
     
 }
+
 -(void)click:(id)sender{
     NSLog(@"sender %@",sender);
-    if(_webView.canGoBack){
-        [_webView goBack];
-    }
+
 }
 -(void)viewWillAppear:(BOOL)animated{
     
     
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-    self.hud=[MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
-    [_hud showAnimated:YES];
-    
-   
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [_hud hideAnimated:YES];
-    if(_webView.canGoBack){
-         self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"上一页" style:UIBarButtonItemStyleDone target:self action:@selector(click:)];
-    }else{
-         self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(click:)];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(_newsList==nil){
+        return 0;
     }
+    return [_newsList count];
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
+
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    if(cell==nil){
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        
+    }
+    [cell setBackgroundColor:[UIColor clearColor]];
+    UIView *selView=[[UIView alloc] initWithFrame:cell.bounds];
+    [selView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+    [cell setSelectedBackgroundView:selView];
+    
+    
+    YYNews *yyNews=[_newsList objectAtIndex:indexPath.row];
+    
+    
+    cell.textLabel.text=yyNews.title;
+    
+    cell.textLabel.textColor=[UIColor whiteColor];
+    
+    return cell;
     
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+    
+    YYNews *yyNews=[_newsList objectAtIndex:indexPath.row];
+    
+
+    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
+    UIWebViewController *webVC=[storyBoard instantiateViewControllerWithIdentifier:@"webVC"];
+    
+    webVC.url=yyNews.url;
+    webVC.title=yyNews.title;
+    
+    [self.tabBarController.navigationController pushViewController:webVC animated:YES];
+    
+}
+
 
 @end

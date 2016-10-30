@@ -86,7 +86,7 @@
         cell=[[YYControlDataUITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell2"];
         [cell setBackgroundColor:[UIColor clearColor]];
         
-        devControlView=[[DeviceControlTableView alloc] initWithFrame:CGRectMake(10,10, cell.frame.size.width-20, 0)];
+        devControlView=[[DeviceControlTableView alloc] initWithFrame:CGRectMake(10,10, self.frame.size.width-20, 0)];
         devControlView.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.1] CGColor];
         devControlView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
         devControlView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
@@ -147,7 +147,7 @@
     [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont systemFontOfSize:16]];
     [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
-    label.text=[[_collectorInfos objectAtIndex:section] CustomerNo];
+    label.text=[[_collectorInfos objectAtIndex:section] PondName];
     
     [backgroundView addSubview:arrowImageView];
     [backgroundView addSubview:label];

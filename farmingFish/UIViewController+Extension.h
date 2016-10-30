@@ -12,7 +12,7 @@
 @interface UIViewController (BGColor)
 
 -(void)viewControllerBGInit;
-
+-(void)viewControllerBGInit:(UIView *)view;
 -(void)flyIconToFace;
 
 @end

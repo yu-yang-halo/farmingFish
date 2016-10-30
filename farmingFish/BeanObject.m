@@ -13,5 +13,8 @@
 @end
 @implementation YYCollectorInfo
 
+@end
+
+@implementation YYNews
 
 @end

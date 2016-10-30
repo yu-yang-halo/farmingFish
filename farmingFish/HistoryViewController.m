@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "JSONKit.h"
 #import "BeanObjectHelper.h"
+#import "FService.h"
 @interface HistoryViewController ()
 @property(nonatomic,strong) NSDictionary *deviceData;
 @property(nonatomic,strong) NSMutableArray *collectorInfos;
@@ -59,6 +60,22 @@
     [controlView setBackgroundColor:[UIColor clearColor]];
     
     [self.view addSubview:controlView];
+    
+    [self loadHistoryData];
+}
+
+
+-(void)loadHistoryData{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       
+        [[FService shareInstance] GetCollectorData:@"00-00-04-01" dateTime:@"2016-10-29"];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+        
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,13 +85,12 @@
 }
 
 /*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+ GetCollectorData::: {
+ GetCollectorDataResult = "[{\"F_ReceivedTime\":0,\"F_Param1\":6.59,\"F_Param3\":7.99,\"F_Param4\":0.28,\"F_Param5\":15.30,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":1,\"F_Param1\":6.46,\"F_Param3\":7.96,\"F_Param4\":0.26,\"F_Param5\":15.25,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":2,\"F_Param1\":6.47,\"F_Param3\":7.96,\"F_Param4\":0.28,\"F_Param5\":15.24,\"F_Param6\":0.07,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":3,\"F_Param1\":6.99,\"F_Param3\":7.96,\"F_Param4\":0.28,\"F_Param5\":14.90,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":4,\"F_Param1\":7.27,\"F_Param3\":7.97,\"F_Param4\":0.28,\"F_Param5\":14.72,\"F_Param6\":0.07,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":5,\"F_Param1\":7.32,\"F_Param3\":7.92,\"F_Param4\":0.25,\"F_Param5\":14.56,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":6,\"F_Param1\":7.26,\"F_Param3\":7.90,\"F_Param4\":0.27,\"F_Param5\":14.48,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":7,\"F_Param1\":6.79,\"F_Param3\":7.92,\"F_Param4\":0.28,\"F_Param5\":14.57,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":8,\"F_Param1\":6.93,\"F_Param3\":7.86,\"F_Param4\":0.28,\"F_Param5\":14.42,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":9,\"F_Param1\":6.89,\"F_Param3\":7.87,\"F_Param4\":0.27,\"F_Param5\":14.40,\"F_Param6\":0.07,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":10,\"F_Param1\":7.12,\"F_Param3\":7.92,\"F_Param4\":0.30,\"F_Param5\":14.31,\"F_Param6\":0.07,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":11,\"F_Param1\":7.31,\"F_Param3\":7.91,\"F_Param4\":0.26,\"F_Param5\":14.30,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":12,\"F_Param1\":7.15,\"F_Param3\":7.88,\"F_Param4\":0.27,\"F_Param5\":14.31,\"F_Param6\":0.08,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null},{\"F_ReceivedTime\":13,\"F_Param1\":7.28,\"F_Param3\":7.82,\"F_Param4\":0.26,\"F_Param5\":14.29,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null}]";
+ }
+
+ 
 */
 
 @end

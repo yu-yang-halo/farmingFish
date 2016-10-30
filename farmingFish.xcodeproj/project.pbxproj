@@ -22,6 +22,7 @@
 		18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EFA1D44373F00E15141 /* VoiceTalk.mm */; };
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
 		18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */; };
+		18EA3FBC1DC4C9BB008475B6 /* UIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA3FBA1DC4C9BB008475B6 /* UIWebViewController.m */; };
 		18EBA9251D839D0A00184A6F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EBA9241D839D0A00184A6F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18EC36841DB661BE001149FE /* ExpandHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC36831DB661BE001149FE /* ExpandHistoryView.m */; };
 		18EC4EEB1D976F55009246C2 /* RealDataTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4EEA1D976F55009246C2 /* RealDataTableView.m */; };
@@ -112,6 +113,8 @@
 		18E7BE871D26891000729DCA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		18E7BE891D268BC600729DCA /* UIColor+hexStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+hexStr.h"; sourceTree = "<group>"; };
 		18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+hexStr.m"; sourceTree = "<group>"; };
+		18EA3FB91DC4C9BB008475B6 /* UIWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebViewController.h; sourceTree = "<group>"; };
+		18EA3FBA1DC4C9BB008475B6 /* UIWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewController.m; sourceTree = "<group>"; };
 		18EBA9231D839D0A00184A6F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		18EBA9241D839D0A00184A6F /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		18EC36821DB661BE001149FE /* ExpandHistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandHistoryView.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				18EEBFF41DB3707F00CED79A /* SettingsViewController.m */,
 				18EEBFF61DB370AD00CED79A /* HistoryViewController.h */,
 				18EEBFF71DB370AD00CED79A /* HistoryViewController.m */,
+				18EA3FB91DC4C9BB008475B6 /* UIWebViewController.h */,
+				18EA3FBA1DC4C9BB008475B6 /* UIWebViewController.m */,
 			);
 			name = viewcontroller;
 			sourceTree = "<group>";
@@ -655,6 +660,7 @@
 				18EC4EEB1D976F55009246C2 /* RealDataTableView.m in Sources */,
 				8470027B1D9E555E006384CC /* YYVideoView.m in Sources */,
 				84485B851DACC230000AF2EC /* DateHelper.m in Sources */,
+				18EA3FBC1DC4C9BB008475B6 /* UIWebViewController.m in Sources */,
 				18EDAB631D4376230071FFE8 /* VideoCollectionViewCell.m in Sources */,
 				18A72EF81D4431F700E15141 /* Preview.mm in Sources */,
 				18EC36841DB661BE001149FE /* ExpandHistoryView.m in Sources */,

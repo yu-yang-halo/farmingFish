@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef NS_ENUM(NSUInteger, CATEGORYID) {
+    CATEGORYID_NEWS        = 0x0001,
+    CATEGORYID_KNOWLEDGE   = 0x0002
+};
 
 @interface FService : NSObject
 +(instancetype)shareInstance;
@@ -21,6 +25,10 @@
 
 
 -(id)GetCollectorData:(NSString *)customerNo dateTime:(NSString *)date;
+
+//新闻数据 categoryId 1:新闻 2:知识库
+-(id)GetNewsList:(CATEGORYID)categoryId number:(int)num;
+
 
 
 @end

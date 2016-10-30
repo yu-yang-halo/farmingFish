@@ -107,6 +107,20 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     return retObj;
  
 }
+-(id)GetNewsList:(CATEGORYID)categoryId number:(int)num{
+    NSDictionary *parameters=@{@"categoryId":@(categoryId),@"num":@(num)};
+    
+    NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetNewsList",WEBSERVICE_URL];
+    
+    NSData *retResult=[self requestURLSyncPOST:collectorInfoREQ_URL postBody:[parameters JSONData]];
+    
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetNewsList::: %@", retObj);
+    
+    return retObj;
+}
 
 -(NSData *)requestURLSyncPOST:(NSString *)service postBody:(NSData *)postBody{
     NSURL* url=[NSURL URLWithString:service];
