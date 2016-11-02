@@ -25,7 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
-  - BaiduMapKit
+  - BaiduMapKit (~> 3.0.0)
   - CocoaAsyncSocket
   - Masonry
   - MBProgressHUD (~> 1.0.0)

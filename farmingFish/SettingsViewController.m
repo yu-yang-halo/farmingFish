@@ -16,6 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    
 
     self.title=@"设置";
     [self viewControllerBGInit];

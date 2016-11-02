@@ -66,7 +66,10 @@
         [_hud hideAnimated:YES];
     }
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
-    NSLog(@"error:%@",error);
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if(error!=nil){
+         NSLog(@"error:%@",error);
+    }
+   
 }
 @end

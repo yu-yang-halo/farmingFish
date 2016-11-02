@@ -76,13 +76,15 @@
     
     
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        
         for (CLPlacemark *mark in placemarks) {
-              NSLog(@"%@ : %@ ",mark.thoroughfare,mark.locality);
+            NSLog(@"%@ : %@ ",mark.thoroughfare,mark.locality);
             
             [[NSUserDefaults standardUserDefaults] setObject:mark.locality forKey:@"city"];
-            
-            
         }
+        
+        
     }];
     
     
