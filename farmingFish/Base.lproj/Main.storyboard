@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="XPK-8u-O5D">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="XPK-8u-O5D">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -19,7 +23,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2k-BI-G5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1757" y="197"/>
+            <point key="canvasLocation" x="-2039" y="77"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -30,55 +34,55 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拓立德物联网系统" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toa-Si-yUf">
-                                <rect key="frame" x="28" y="154" width="265" height="51"/>
+                                <rect key="frame" x="55" y="203.5" width="265" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="P7e-JK-A2P"/>
                                     <constraint firstAttribute="width" constant="265" id="uUI-1D-Idy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <color key="textColor" red="0.19344951923076925" green="0.19344951923076925" blue="0.19344951923076925" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.19344951923076925" green="0.19344951923076925" blue="0.19344951923076925" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前版本  v1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfN-eM-LRB">
-                                <rect key="frame" x="84" y="515" width="152" height="21"/>
+                                <rect key="frame" x="111.5" y="614" width="152" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="152" id="5Mf-c5-wGY"/>
                                     <constraint firstAttribute="height" constant="21" id="rAg-JX-NYm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.62668269230769225" green="0.62668269230769225" blue="0.62668269230769225" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.62668269230769225" green="0.62668269230769225" blue="0.62668269230769225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系电话：18905606894" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfy-Qb-sUn">
-                                <rect key="frame" x="86" y="540" width="148" height="21"/>
+                                <rect key="frame" x="113.5" y="639" width="148" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="9Zl-hK-ZcB"/>
                                     <constraint firstAttribute="width" constant="148" id="q87-jf-tOY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.62682291666666667" green="0.62682291666666667" blue="0.62682291666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.62682291666666667" green="0.62682291666666667" blue="0.62682291666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login_phone" translatesAutoresizingMaskIntoConstraints="NO" id="CyC-ij-JhY">
-                                <rect key="frame" x="66" y="542" width="16" height="16"/>
+                                <rect key="frame" x="93.5" y="641" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="O2f-9H-X1Y"/>
                                     <constraint firstAttribute="height" constant="16" id="WAJ-h6-u8d"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="95Z-IY-X8m">
-                                <rect key="frame" x="0.0" y="210" width="320" height="250"/>
+                                <rect key="frame" x="27.5" y="259.5" width="320" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dIJ-J5-Yu7">
                                         <rect key="frame" x="82" y="85" width="220" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Tl5-ty-9b7"/>
                                         </constraints>
-                                        <color key="textColor" red="0.40100160260000001" green="0.40100160260000001" blue="0.40100160260000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.40100160260000001" green="0.40100160260000001" blue="0.40100160260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -87,19 +91,19 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="jQ4-ZE-Lns"/>
                                         </constraints>
-                                        <color key="textColor" red="0.41995192310000001" green="0.41995192310000001" blue="0.41995192310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.41995192310000001" green="0.41995192310000001" blue="0.41995192310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-AV-PIy">
                                         <rect key="frame" x="18" y="201" width="284" height="46"/>
-                                        <color key="backgroundColor" red="0.17259869259768579" green="0.62748517362453615" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.17259869259768579" green="0.62748517362453615" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="Pex-Af-x68"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="登录">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="loginClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VqN-ew-Q7Z"/>
@@ -138,7 +142,7 @@
                                             <constraint firstAttribute="width" constant="83" id="hgs-TD-l9Q"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.19124599358974359" green="0.19124599358974359" blue="0.19124599358974359" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.19124599358974359" green="0.19124599358974359" blue="0.19124599358974359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RiW-Mk-IxD">
@@ -180,14 +184,14 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="g47-1i-cOo">
-                                <rect key="frame" x="68" y="72" width="184" height="87"/>
+                                <rect key="frame" x="95.5" y="121.5" width="184" height="87"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="4Md-X4-9lf"/>
                                     <constraint firstAttribute="height" constant="87" id="gEv-Db-2MI"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YfN-eM-LRB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9y7-8P-hTo"/>
                             <constraint firstItem="toa-Si-yUf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EjW-T4-KyR"/>
@@ -214,7 +218,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1365" y="77"/>
+            <point key="canvasLocation" x="-1592" y="77"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="5hL-J8-XYR">
@@ -224,12 +228,12 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="yC0-2J-e49">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRQ-2V-X3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-480" y="69"/>
+            <point key="canvasLocation" x="-678" y="-609"/>
         </scene>
         <!--历史数据-->
         <scene sceneID="q84-Ug-l6l">
@@ -240,15 +244,52 @@
                         <viewControllerLayoutGuide type="bottom" id="z39-Xr-PlK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="E5e-K2-H8r">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="TjX-Ot-Wnb"/>
+                    <navigationItem key="navigationItem" id="ZSS-Sa-JaY"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sML-VJ-TUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="599" y="299"/>
+            <point key="canvasLocation" x="-509" y="77"/>
+        </scene>
+        <!--更多-->
+        <scene sceneID="kPU-cL-AdL">
+            <objects>
+                <viewController storyboardIdentifier="moreVC" title="更多" id="SVo-6i-ZEZ" customClass="MoreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Uba-t6-eW4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q4G-4a-TCl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Qn-dN-xKw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kVS-iT-DhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="680" y="372"/>
+        </scene>
+        <!--Alert View Controller-->
+        <scene sceneID="KKe-qF-9Jx">
+            <objects>
+                <viewController storyboardIdentifier="alertVC" id="S7F-ym-EJ6" customClass="YYAlertViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ww9-b3-Nkw"/>
+                        <viewControllerLayoutGuide type="bottom" id="4nR-EE-Gfi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nUb-sG-Q8J">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sZw-eY-ycZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1091" y="348"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="XGw-yk-Tcp">
@@ -259,15 +300,15 @@
                         <viewControllerLayoutGuide type="bottom" id="KGc-DM-4my"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="V2E-dZ-ler">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="zch-rA-6Uj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tDW-TQ-ip5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-507" y="689"/>
+            <point key="canvasLocation" x="-1706" y="897"/>
         </scene>
         <!--设置-->
         <scene sceneID="YSh-Dc-9tD">
@@ -278,36 +319,40 @@
                         <viewControllerLayoutGuide type="bottom" id="B9r-yz-sxN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e3d-TB-fTg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7S-Sv-i9P">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeZ-jL-5DV">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="溶氧下限:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiN-nt-cHR">
                                                 <rect key="frame" x="17" y="9" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mg/L" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKw-s0-QeK">
                                                 <rect key="frame" x="223" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-pU-qmJ">
                                                 <rect key="frame" x="102" y="5" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="自动状态下，溶氧达到下限，自动开启增氧机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSL-re-mDx">
                                                 <rect key="frame" x="17" y="35" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -316,29 +361,33 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQZ-Tm-Qcr">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="55" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="溶氧上限:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSa-Mc-byt">
                                                 <rect key="frame" x="17" y="9" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mg/L" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-2p-Xps">
                                                 <rect key="frame" x="223" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UM9-Xc-9lt">
                                                 <rect key="frame" x="102" y="5" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="自动状态下，溶氧达到上限，自动停止增氧机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnz-7k-JuW">
                                                 <rect key="frame" x="17" y="34" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -347,29 +396,33 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVc-Bi-MZq">
-                                        <rect key="frame" x="0.0" y="110" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="110" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="溶氧高限:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwT-KZ-Ph3">
                                                 <rect key="frame" x="17" y="9" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mg/L" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qR4-Cv-8hL">
                                                 <rect key="frame" x="223" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8P-ny-Usw">
                                                 <rect key="frame" x="102" y="5" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="自动状态下，在午间补养时段达到高限将启动增氧机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVI-3k-q5d">
                                                 <rect key="frame" x="17" y="35" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -378,29 +431,33 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iZS-Gr-LH4">
-                                        <rect key="frame" x="0.0" y="358" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="358" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="池塘盐度:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9to-tK-gnJ">
                                                 <rect key="frame" x="17" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9D-k7-BIX">
                                                 <rect key="frame" x="102" y="6" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="填写池塘盐度，获取更加准确的测量数据." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHj-hW-38F">
                                                 <rect key="frame" x="17" y="36" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="g/L" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxS-jI-rXb">
                                                 <rect key="frame" x="223" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -409,29 +466,33 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duz-d8-1vf">
-                                        <rect key="frame" x="0.0" y="413" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="413" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="警报级别:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhO-ey-2Sr">
                                                 <rect key="frame" x="17" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iSE-03-smX">
                                                 <rect key="frame" x="102" y="6" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="级" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIy-6F-8jc">
                                                 <rect key="frame" x="223" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="针对有外接报警器的用户设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIF-a7-ona">
                                                 <rect key="frame" x="17" y="36" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -440,29 +501,33 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbG-Xz-uRg">
-                                        <rect key="frame" x="0.0" y="205" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="205" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="补氧结束" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2M3-Ha-Ie0">
                                                 <rect key="frame" x="17" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="时:分" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZyV-h3-GXm">
                                                 <rect key="frame" x="223" y="11" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oWc-iA-ths">
                                                 <rect key="frame" x="102" y="6" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="设定启动午间补氧的时段，在此时段达到高限将启动增氧机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpJ-rE-1kZ">
                                                 <rect key="frame" x="17" y="36" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -471,22 +536,25 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nh7-o3-dwm">
-                                        <rect key="frame" x="0.0" y="165" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="165" width="375" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="午间补氧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaT-TP-sPx">
                                                 <rect key="frame" x="17" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="时:分" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPh-FB-ZS8">
                                                 <rect key="frame" x="223" y="11" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qvt-5H-3bd">
                                                 <rect key="frame" x="102" y="6" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -496,22 +564,25 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AnN-vf-Rid">
-                                        <rect key="frame" x="0.0" y="262" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="262" width="375" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="夜间补氧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBA-Hd-1I6">
                                                 <rect key="frame" x="17" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="时:分" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbH-mM-edZ">
                                                 <rect key="frame" x="223" y="11" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="spg-g3-3ah">
                                                 <rect key="frame" x="102" y="6" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -521,29 +592,33 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ph0-Vf-fYh">
-                                        <rect key="frame" x="0.0" y="303" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="303" width="375" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="补氧结束" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsc-J3-7w7">
                                                 <rect key="frame" x="17" y="10" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.1584524601" green="0.1584524601" blue="0.1584524601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="时:分" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6A-Hj-yP2">
                                                 <rect key="frame" x="223" y="11" width="77" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.12371176859999999" green="0.12371176859999999" blue="0.12371176859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G25-up-cpB">
                                                 <rect key="frame" x="102" y="6" width="98" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="设定夜间强制补氧的时段，无论溶氧多少都会启动增氧机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3w-7S-jxb">
                                                 <rect key="frame" x="17" y="36" width="283" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.2164748172" green="0.2164748172" blue="0.2164748172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -585,7 +660,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="B9r-yz-sxN" firstAttribute="top" secondItem="f7S-Sv-i9P" secondAttribute="bottom" id="CDN-iP-08y"/>
                             <constraint firstItem="f7S-Sv-i9P" firstAttribute="top" secondItem="e3d-TB-fTg" secondAttribute="top" constant="64" id="UMC-pW-gA1"/>
@@ -597,7 +672,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SlJ-lo-X4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="234" y="290"/>
+            <point key="canvasLocation" x="-1202" y="897"/>
         </scene>
         <!--养殖知识-->
         <scene sceneID="8Pv-mB-eDE">
@@ -608,15 +683,16 @@
                         <viewControllerLayoutGuide type="bottom" id="sky-ld-zTE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pbY-9W-kQR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Imx-PE-Sg4"/>
+                    <navigationItem key="navigationItem" id="A1k-oR-kYH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQT-8p-TON" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-125" y="290"/>
+            <point key="canvasLocation" x="-542" y="677"/>
         </scene>
         <!--设备控制-->
         <scene sceneID="PcS-Ay-22W">
@@ -627,15 +703,15 @@
                         <viewControllerLayoutGuide type="bottom" id="KmO-Dy-LRP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iOw-Jt-M09">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="8C9-GH-Qgd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkK-rA-9gt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="611" y="-386"/>
+            <point key="canvasLocation" x="643" y="-378"/>
         </scene>
         <!--实时数据-->
         <scene sceneID="JfP-KC-lj0">
@@ -646,9 +722,9 @@
                         <viewControllerLayoutGuide type="bottom" id="9lg-2Q-tS4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sAw-tJ-IIo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="gme-ht-R1I"/>
                     <navigationItem key="navigationItem" id="wBN-hx-llg"/>
@@ -666,18 +742,20 @@
                         <viewControllerLayoutGuide type="bottom" id="hWM-Q8-RiT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qYE-IO-kTx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.62315322381944949" blue="0.52585999701481012" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mxO-k5-NUt"/>
                     <connections>
                         <segue destination="XyH-DU-vO6" kind="push" identifier="tabVC" id="5yh-hJ-92i"/>
+                        <segue destination="zkK-ck-aPL" kind="push" identifier="toHistoryVC" id="Myw-1v-o4f"/>
+                        <segue destination="HNh-EK-6IQ" kind="push" identifier="toNewsVC" id="dwk-wN-VxQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K2P-Df-uES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-875" y="175"/>
+            <point key="canvasLocation" x="-1101" y="22"/>
         </scene>
         <!--我的视频-->
         <scene sceneID="AwH-e2-evG">
@@ -688,9 +766,9 @@
                         <viewControllerLayoutGuide type="bottom" id="kDV-cs-pEJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Txb-zU-zaU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="NyV-pS-zZz"/>
                     <navigationItem key="navigationItem" id="4EM-FS-jjP"/>
@@ -709,4 +787,9 @@
         <image name="remember_pass_checked" width="32" height="32"/>
         <image name="remember_pass_unchecked" width="32" height="32"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>

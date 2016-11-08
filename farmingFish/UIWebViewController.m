@@ -22,7 +22,7 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-64)];
     
-    [self viewControllerBGInit];
+    
     
     [self.view addSubview:_webView];
     
@@ -36,7 +36,9 @@
     
 }
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
+   // [self navigationBarInit];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

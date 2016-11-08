@@ -7,12 +7,13 @@
 //
 
 #import "LoginViewController.h"
-#import "UIViewController+Extension.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <UIView+Toast.h>
 #import "AppDelegate.h"
 #import "FService.h"
 #import "SocketService.h"
+#import "MainViewController.h"
+#import "UIViewController+Extension.h"
 const static NSString *KEY_USERNAME=@"username-key";
 const static NSString *KEY_PASSWORD=@"password-key";
 const static NSString *KEY_REMEMBER=@"remember-key";
@@ -35,18 +36,13 @@ const static NSString *KEY_REMEMBER=@"remember-key";
      *  界面样式设置
      */
     self.loginButton.layer.cornerRadius=23;
-//    self.loginButton.layer.borderWidth=1;
-//    self.loginButton.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.6] CGColor];
-//    
-//    [self.loginButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
-//    
+    
+    self.navigationItem.backBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"" style:(UIBarButtonItemStyleDone) target:nil action:nil];
     
     _usernameTF.delegate=self;
     _passwordTF.delegate=self;
     
     
-    
-    //[self viewControllerBGInit];
     [self.view setBackgroundColor:[UIColor whiteColor]];
       
     [self initUsernameOrPwd];
@@ -103,7 +99,6 @@ const static NSString *KEY_REMEMBER=@"remember-key";
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -140,24 +135,37 @@ const static NSString *KEY_REMEMBER=@"remember-key";
    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *customerNo=[[FService shareInstance] loginName:username password:password];
+        NSString *result=[[FService shareInstance] loginName:username password:password];
        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [hud hideAnimated:YES];
             
-            if(customerNo==nil){
-                [self.view makeToast:@"用户名或密码错误"];
+            if(result==nil){
+                [self.view makeToast:@"无法连接网络"];
             }else{
-                [self performSegueWithIdentifier:@"toMainPage" sender:sender];
                 
-                [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
-                [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
+                if([result isEqualToString:@"500"]){
+                    [self.view makeToast:@"服务器内部错误"];
+                    return ;
+                }else if([result isEqualToString:@"ERROR"]){
+                    [self.view makeToast:@"用户名或密码错误"];
+                    return ;
+                }else{
+                    
+                    [self performSegueWithIdentifier:@"toMainPage" sender:sender];
                 
-                AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
-                [delegate setCustomerNo:customerNo];
-                [delegate setUserAccount:username];
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
+                    [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
+                    
+                    AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+                    [delegate setCustomerNo:result];
+                    [delegate setUserAccount:username];
+                }
+                
+                
                 
             }
             

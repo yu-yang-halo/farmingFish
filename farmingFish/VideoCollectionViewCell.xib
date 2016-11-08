@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,26 +16,37 @@
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="143" height="125"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LTc-87-x8R">
+                        <rect key="frame" x="53" y="44" width="37" height="37"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="37" id="13b-OY-7db"/>
+                            <constraint firstAttribute="width" constant="37" id="Gq7-fb-jWi"/>
+                        </constraints>
+                        <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </activityIndicatorView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NT-O1-5ot">
                         <rect key="frame" x="0.0" y="0.0" width="143" height="125"/>
-                        <color key="backgroundColor" red="0.026398354388297851" green="0.026398354388297851" blue="0.026398354388297851" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.42210385617677598" green="0.80431075507614214" blue="0.80148697618944786" alpha="0.59910102739726023" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.42210385617677598" green="0.80431075507614214" blue="0.80148697618944786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="4NT-O1-5ot" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1KC-CL-e5P"/>
                 <constraint firstItem="4NT-O1-5ot" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8ET-EK-IUL"/>
+                <constraint firstItem="LTc-87-x8R" firstAttribute="centerX" secondItem="4NT-O1-5ot" secondAttribute="centerX" id="J2d-OP-ZRk"/>
                 <constraint firstAttribute="trailing" secondItem="4NT-O1-5ot" secondAttribute="trailing" id="f8r-mv-uaZ"/>
                 <constraint firstAttribute="bottom" secondItem="4NT-O1-5ot" secondAttribute="bottom" id="oxv-Hk-rfG"/>
+                <constraint firstItem="LTc-87-x8R" firstAttribute="centerY" secondItem="4NT-O1-5ot" secondAttribute="centerY" id="sT0-0L-sJJ"/>
             </constraints>
             <size key="customSize" width="143" height="125"/>
             <connections>
                 <outlet property="containerView" destination="4NT-O1-5ot" id="9Mc-Wg-coC"/>
+                <outlet property="progressView" destination="LTc-87-x8R" id="EGk-Tt-7Ft"/>
             </connections>
-            <point key="canvasLocation" x="280.5" y="214.5"/>
+            <point key="canvasLocation" x="166" y="217"/>
         </collectionViewCell>
     </objects>
 </document>

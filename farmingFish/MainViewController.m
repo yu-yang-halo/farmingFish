@@ -14,30 +14,23 @@
 #import "FService.h"
 #import "AppDelegate.h"
 #import "SocketService.h"
-#import "UIButton+BGColor.h"
 #import "RealDataViewController.h"
 #import "YYTabViewController.h"
 #import "YYWeatherService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-@interface MainViewController (){
-    NSArray *items;
-    
-    NSArray *colors;
-    NSArray *alphcolors;
+#import "YYColleCollectionViewCell.h"
+#import "GradientHelper.h"
+@interface MainViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>{
+    NSArray *itemTitles;
+    NSArray *itemImages;
 }
-@property (strong, nonatomic)  UIButton *item0;
-@property (strong, nonatomic)  UIButton *item1;
-@property (strong, nonatomic)  UIButton *item2;
-@property (strong, nonatomic)  UIButton *item3;
-@property (strong, nonatomic)  UIButton *item4;
-@property (strong, nonatomic)  UIButton *item5;
-@property (strong, nonatomic)  UIButton *logoItem;
-
 /*
  *params data
  */
 @property(nonatomic,strong) NSDictionary *videoInfo;
 @property(nonatomic,strong) NSDictionary *devicesInfo;
+
+
 @end
 
 @implementation MainViewController
@@ -46,14 +39,14 @@
     [super viewDidLoad];
     
      self.title=@"主页";
-    [self navigationBarInit];
-    items=@[@"实时监测",@"视频监控",@"远程控制",@"超限预警",@"知识库",@"历史数据"];
- colors=@[@"5ac6aa",@"20938b",@"f18c9d",@"375c95",@"f96441",@"feb900",@"903e661a"];
-    alphcolors=@[@"905ac6aa",@"9020938b",@"90f18c9d",@"90375c95",@"90f96441",@"90feb900",@"903e661a"];
-    
-    //初始化页面背景色
     [self viewControllerBGInit];
-    [self buttonStyleInit];
+   
+    itemTitles=@[@"实时监测",@"视频监控",@"远程控制",@"超限预警",@"知识库",@"历史数据"];
+ itemImages=@[@"main_realdata",@"main_video",@"main_control",@"main_alert",@"main_news",@"main_history"];
+    
+    
+    [self pageViewInit];
+    
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hud.bezelView setColor:[UIColor clearColor]];
@@ -82,189 +75,201 @@
 
    
 }
--(void)viewWillAppear:(BOOL)animated{
-    [self.navigationController setNavigationBarHidden:NO];
-    [self animationStart];
-   
-}
--(void)viewWillDisappear:(BOOL)animated{
-    
-}
 
--(void)animationStart{
-    //加点动画效果
-    CGRect frame0=_item0.frame;
-    CGRect frame1=_item1.frame;
-    CGRect frame2=_item2.frame;
-    CGRect frame3=_item3.frame;
-    CGRect frame4=_item4.frame;
-    CGRect frame5=_item5.frame;
-    CGRect logoFrame=_logoItem.frame;
+-(void)pageViewInit{
     
-    CGFloat alpha_0=0.0;
-    CGFloat alpha_1=1.0;
+    CGFloat logoHeight=180;
+    CGFloat footerHeight=60;
     
-    [UIView animateWithDuration:0.02 animations:^{
-        _item0.frame=logoFrame;
-        _item1.frame=logoFrame;
-        _item2.frame=logoFrame;
-        _item3.frame=logoFrame;
-        _item4.frame=logoFrame;
-        _item5.frame=logoFrame;
-        
-        _item0.alpha=alpha_0;
-        _item1.alpha=alpha_0;
-        _item2.alpha=alpha_0;
-        _item3.alpha=alpha_0;
-        _item4.alpha=alpha_0;
-        _item5.alpha=alpha_0;
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            
-            _item0.frame=frame0;
-            _item1.frame=frame1;
-            _item2.frame=frame2;
-            _item3.frame=frame3;
-            _item4.frame=frame4;
-            _item5.frame=frame5;
-            
-            _item0.alpha=alpha_1;
-            _item1.alpha=alpha_1;
-            _item2.alpha=alpha_1;
-            _item3.alpha=alpha_1;
-            _item4.alpha=alpha_1;
-            _item5.alpha=alpha_1;
-            
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-    }];
+    CGFloat  buttonWidth=150;
+    CGFloat  buttonHeight=50;
     
+    CGFloat  linerWidth=1;
+    CGFloat  linerHeight=40;
     
-}
+    CGFloat  space=5;
 
--(void)buttonStyleInit{
-    CGRect bounds=self.view.bounds;
-    self.logoItem=[[UIButton alloc] initWithFrame:CGRectZero];
-    
-    _logoItem.frame=CGRectMake((bounds.size.width-80)/2, (bounds.size.height-80)/2, 85, 85);
- 
-    [_logoItem setTitle:@"拓立德" forState:UIControlStateNormal];
-    [_logoItem setEnabled:NO];
-    self.item0=[[UIButton alloc] initWithFrame:CGRectZero];
-    [_item0 setTitle:items[0] forState:UIControlStateNormal];
-    self.item1=[[UIButton alloc] initWithFrame:CGRectZero];
-    [_item1 setTitle:items[1] forState:UIControlStateNormal];
-    self.item2=[[UIButton alloc] initWithFrame:CGRectZero];
-    [_item2 setTitle:items[2] forState:UIControlStateNormal];
-    self.item3=[[UIButton alloc] initWithFrame:CGRectZero];
-    [_item3 setTitle:items[3] forState:UIControlStateNormal];
-    
-    self.item4=[[UIButton alloc] initWithFrame:CGRectZero];
-    [_item4 setTitle:items[4] forState:UIControlStateNormal];
-    
-    self.item5=[[UIButton alloc] initWithFrame:CGRectZero];
-    [_item5 setTitle:items[5] forState:UIControlStateNormal];
-    
-    
-    CGFloat WH=90;
-    CGFloat SPACE=95;
-    float angel=3.1415926/6;
-    
-    [_item0 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item0 setCenter:CGPointMake(_logoItem.center.x-SPACE*sin(angel), _logoItem.center.y-SPACE*cos(angel))];
-    
-    [_item1 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item1 setCenter:CGPointMake(_logoItem.center.x+SPACE*sin(angel), _logoItem.center.y-SPACE*cos(angel))];
-    
-    [_item2 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item2 setCenter:CGPointMake(_logoItem.center.x-SPACE, _logoItem.center.y+0)];
-    
-    
-    [_item3 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item3 setCenter:CGPointMake(_logoItem.center.x+SPACE, _logoItem.center.y+0)];
-    
-    
-    [_item4 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item4 setCenter:CGPointMake(_logoItem.center.x-SPACE*sin(angel), _logoItem.center.y+SPACE*cos(angel))];
-    
-    [_item5 setFrame:CGRectMake(0, 0, WH, WH)];
-    [_item5 setCenter:CGPointMake(_logoItem.center.x+SPACE*sin(angel), _logoItem.center.y+SPACE*cos(angel))];
     
     
     
-    [self.view addSubview:_logoItem];
-    
-    [self.view addSubview:_item0];
-    [self.view addSubview:_item1];
-    [self.view addSubview:_item2];
-    [self.view addSubview:_item3];
-    [self.view addSubview:_item4];
-    [self.view addSubview:_item5];
-    
-    [_item0 setTag:0];
-    [_item1 setTag:1];
-    [_item2 setTag:2];
-    [_item3 setTag:3];
-    [_item4 setTag:4];
-    [_item5 setTag:5];
-    
-    [_item0 addTarget:self action:@selector(redirectTo:) forControlEvents:UIControlEventTouchUpInside];
-    [_item1 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
-    [_item2 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
-
-    [_item3 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
-    [_item4 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
-    [_item5 addTarget:self action:@selector(redirectTo:)  forControlEvents:UIControlEventTouchUpInside];
-    
-   
     
     
     /*
-        我的设备button 样式 EDE41A
+     *   图片展示页面
      */
-    [self styleInitToButton:_item0 data:@{@"selBgColor":alphcolors[0],@"backgroundColor":colors[0],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
-   
-    [self styleInitToButton:_item1 data:@{@"selBgColor":alphcolors[1],@"backgroundColor":colors[1],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
     
-    [self styleInitToButton:_item2 data:@{@"selBgColor":alphcolors[2],@"backgroundColor":colors[2],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    UIView *logoView=[[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame),logoHeight)];
     
     
-    [self styleInitToButton:_item3 data:@{@"selBgColor":alphcolors[3],@"backgroundColor":colors[3],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    logoView.layer.contents=(__bridge id _Nullable)([[UIImage imageNamed:@"main_logo"] CGImage]);
     
-     [self styleInitToButton:_item4 data:@{@"selBgColor":alphcolors[4],@"backgroundColor":colors[4],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self.view addSubview:logoView];
     
-     [self styleInitToButton:_item5 data:@{@"selBgColor":alphcolors[5],@"backgroundColor":colors[5],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    /*
+     *   功能模块展示页面
+     */
+    
+    //创建一个layout布局类
+    UICollectionViewFlowLayout * collectionLayout = [[UICollectionViewFlowLayout alloc] init];
+    //设置布局方向为垂直流布局
+    collectionLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    collectionLayout.itemSize = CGSizeMake(CGRectGetWidth(self.view.frame)/2, 91);
+    collectionLayout.minimumInteritemSpacing=0.0;
+    collectionLayout.minimumLineSpacing=0;
+    
+    
+    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(logoView.frame), CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64-footerHeight-logoHeight) collectionViewLayout:collectionLayout];
+    
+    collectionView.delegate=self;
+    collectionView.dataSource=self;
+    
+    [collectionView registerNib:[UINib nibWithNibName:@"YYColleCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"yyColleCollectionViewCell"];
+    
+    
+    [collectionView setBackgroundColor:[UIColor clearColor]];
+    [GradientHelper setGradientToView:self.view];
+    
+    
+    
+    
+    [self.view addSubview:collectionView];
+    
+    
+    /*
+     *   公司信息页
+     */
+    
+    
+    
+    UIView *footerView=[[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame)-footerHeight, CGRectGetWidth(self.view.frame), footerHeight)];
+    
+    [footerView setBackgroundColor:[UIColor colorWithHexString:@"#C0DCFF"]];
+    
+    
+    UIButton *phoneBtn=[[UIButton alloc] initWithFrame:CGRectMake(space, (footerHeight-buttonHeight)/2, buttonWidth,buttonHeight)];
+    
+    
+    [phoneBtn setImage:[UIImage imageNamed:@"main_phone"] forState:UIControlStateNormal];
+    
+    [phoneBtn setTitle:@"电话咨询" forState:UIControlStateNormal];
+    [self buttonStyleInit:phoneBtn];
+    
+    
+    
+    
+    UIView *line=[[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-1)/2,(footerHeight-linerHeight)/2, 1, linerHeight)];
+    
+    [line setBackgroundColor:[UIColor colorWithHexString:@"#80888888"]];
+    
+    UIButton *productBtn=[[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)-space-buttonWidth, (footerHeight-buttonHeight)/2,buttonWidth,buttonHeight)];
+    
+    [productBtn setImage:[UIImage imageNamed:@"main_product"] forState:UIControlStateNormal];
+    
+    [productBtn setTitle:@"产品展示" forState:UIControlStateNormal];
+    
+    [self buttonStyleInit:productBtn];
+    
+    
+    [footerView addSubview:phoneBtn];
+    [footerView addSubview:line];
+    [footerView addSubview:productBtn];
+    
 
     
-    [self styleInitToButton:_logoItem data:@{@"selBgColor":alphcolors[6],@"backgroundColor":colors[6],@"borderColor":@"07F3ECEC",@"shadowColor":@"80FCFCFC"}];
+    [self.view addSubview:footerView]; 
+}
+-(void)buttonStyleInit:(UIButton *)btn{
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
     
+   
+    [btn setTitleColor:[UIColor orangeColor]  forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHexString:@"#80FF8F00"]  forState:UIControlStateHighlighted];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:21]];
     
 }
 
--(void)redirectTo:(UIButton *)sender{
-  
-    if(sender.tag==0){
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+   
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark UICollectionView DataSource and Delegate
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return [itemTitles count];
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    YYColleCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"yyColleCollectionViewCell" forIndexPath:indexPath];
+    
+    
+    
+    
+    
+    cell.itemLabel.text=itemTitles[indexPath.row];
+    
+    cell.itemImage.image=[UIImage imageNamed:itemImages[indexPath.row]];
+    
+    UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
+    
+    [bgView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1]];
+    
+    [cell setSelectedBackgroundView:bgView];
+    
+    return cell;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(indexPath.row==1){
         if(_videoInfo==nil){
-             [self.view.window makeToast:@"暂无视频数据信息,请重试"];
+            [self.view.window makeToast:@"暂无视频数据信息,请重试"];
             return;
         }
-    }else if(sender.tag==1||sender.tag==2){
+    }else if (indexPath.row==0||indexPath.row==2){
         if(_devicesInfo==nil){
             [self.view.window makeToast:@"暂无设备数据信息,请重试"];
             return;
         }
     }
     
+    switch (indexPath.row) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            [self performSegueWithIdentifier:@"tabVC" sender:indexPath];
+            break;
+        case 4:
+            [self performSegueWithIdentifier:@"toNewsVC" sender:indexPath];
+            break;
+        case 5:
+            [self performSegueWithIdentifier:@"toHistoryVC" sender:indexPath];
+            break;
+    }
     
     
-    [self performSegueWithIdentifier:@"tabVC" sender:sender];
     
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender{
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSIndexPath *)sender{
+    
+    if(sender.row>=4){
+        return;
+    }
     YYTabViewController *tabBarVC=segue.destinationViewController;
     
     UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
@@ -280,38 +285,26 @@
     UIViewController *settingsVC=[storyBoard instantiateViewControllerWithIdentifier:@"settingsVC"];
     
     
-    [tabBarVC setViewControllers:@[videoVC,realDataVC,controlVC,historyVC,settingsVC,newsVC]];
+    UIViewController *alertVC=[storyBoard instantiateViewControllerWithIdentifier:@"alertVC"];
     
-    [tabBarVC setDefaultIndex:sender.tag];
+    UIViewController *moreVC=[storyBoard instantiateViewControllerWithIdentifier:@"moreVC"];
+    
+
+    
+    [tabBarVC setViewControllers:@[realDataVC,videoVC,controlVC,alertVC,moreVC]];
+    
+    [tabBarVC setDefaultIndex:sender.row];
+    
 }
 
 
--(void)styleInitToButton:(UIButton *)button data:(NSDictionary *)dic{
-     button.layer.cornerRadius=button.frame.size.width/2;
 
-    [button setTitleColor:[UIColor colorWithWhite:1 alpha:0.8] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithWhite:1 alpha:0.3] forState:UIControlStateHighlighted];
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    int row=[itemTitles count]/2;
+    CGFloat height=collectionView.frame.size.height/row;
     
-    [button setBackgroundColor:[UIColor colorWithHexString:[dic objectForKey:@"backgroundColor"]]  forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor colorWithHexString:[dic objectForKey:@"selBgColor"]]  forState:UIControlStateHighlighted];
-    
-    button.layer.borderColor=[[UIColor colorWithHexString:[dic objectForKey:@"borderColor"]] CGColor];
-    button.layer.borderWidth=5;
-    button.layer.opacity=0.85;
-    
-    button.layer.shadowColor=[[UIColor colorWithHexString:[dic objectForKey:@"shadowColor"]] CGColor];
-    button.layer.shadowRadius=10;
-    // 设置layer的透明度
-    button.layer.shadowOpacity = 1.0f;
-    button.layer.shadowOffset=CGSizeMake(0,1);
-    [button.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    return CGSizeMake(CGRectGetWidth(self.view.frame)/2, height);
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 @end

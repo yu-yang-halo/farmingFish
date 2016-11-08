@@ -45,11 +45,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"设备控制";
-    
+     [self viewControllerBGInit];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    [self navigationBarInit];
-    [self viewControllerBGInit];
     
     
     [[SocketService shareInstance] enableListenser:YES];
@@ -83,7 +80,7 @@
     
 
     
-    ExpandControlView *controlView=[[ExpandControlView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-30)];
+    ExpandControlView *controlView=[[ExpandControlView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-tldTabBarHeight)];
     [controlView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [controlView setCollectorInfos:_collectorInfos];
     [controlView setBackgroundColor:[UIColor clearColor]];

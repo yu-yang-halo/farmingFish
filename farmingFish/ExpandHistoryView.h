@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BeanObject.h"
+#import "HistoryTableView.h"
+#import <HMSegmentedControl/HMSegmentedControl.h>
+#import "WeatherShowManager.h"
 typedef void (^RealDataLoadBlock)(NSString *customNo);
 @interface ExpandHistoryView : UITableView<UITableViewDataSource,UITableViewDelegate>
 
@@ -17,5 +20,10 @@ typedef void (^RealDataLoadBlock)(NSString *customNo);
 
 @interface YYHistoryTableViewCell : UITableViewCell
 
+@property(nonatomic,weak) HistoryTableView *historyTableView;
+@property(nonatomic,strong) WeatherShowManager *viewManager;
+@property(nonatomic,weak) UIView *weatherView;
+@property(nonatomic,weak) HMSegmentedControl *segmentedControl;
+@property(nonatomic,weak) UIView *headerView;
 
 @end

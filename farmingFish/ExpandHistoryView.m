@@ -7,10 +7,11 @@
 //
 
 #import "ExpandHistoryView.h"
-
-#import "UIButton+BGColor.h"
+#import "YYButton.h"
 #import "SocketService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+
+#import "FService.h"
 #define HEAD_HEIGHT 40
 
 
@@ -70,7 +71,7 @@
     if(![[_collectorInfos objectAtIndex:section] expandYN]){
         return 0;
     }else{
-        return 0;
+        return 1;
     }
     
 }
@@ -82,22 +83,121 @@
      */
     YYCollectorInfo *collectorInfo=[self findSelectedCollectorInfo];
     
-    return nil;
+    YYHistoryTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"yyHistoryCell"];
+    UIView *headerView;
+    HistoryTableView *tbView;
+    
+    if(cell==nil){
+        cell=[[YYHistoryTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"yyHistoryCell"];
+        
+        
+        headerView=[self historyHeaderView:cell collectorInfo:collectorInfo];
+        
+         cell.headerView=headerView;
+        
+        [cell addSubview:headerView];
+        
+        tbView=[[HistoryTableView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(headerView.frame),[UIScreen mainScreen].bounds.size.width,0) style:(UITableViewStylePlain)];
+        
+        
+        [tbView setBackgroundColor:[UIColor clearColor]];
+        [tbView setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
+        
+         cell.historyTableView=tbView;
+        [cell addSubview:tbView];
+    }
+    tbView=cell.historyTableView;
+    headerView=cell.headerView;
+    [cell.segmentedControl setSelectedSegmentIndex:(2-collectorInfo.day)];
+     cell.segmentedControl.tag=indexPath.section;
+    
+    [cell.viewManager refreshDataAndShow:(2-collectorInfo.day)];
+    UIView *_view=cell.viewManager.weatherView;
+    _view.frame=cell.weatherView.frame;
+    [cell.weatherView removeFromSuperview];
+    [cell addSubview:_view];
+    
+    if(collectorInfo.historyDict!=nil){
+    
+        [tbView setHistoryDataDict:collectorInfo.historyDict];
+        [tbView reloadData];
+        NSInteger size=[collectorInfo.historyDict count];
+        CGFloat tableViewTotalHeight=0.0;
+        for (int i=0;i<size;i++) {
+            
+            CGFloat height=[tbView tableView:tbView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            tableViewTotalHeight+=height;
+        }
+        
+        CGRect tableFrame=tbView.frame;
+        tableFrame.size.height=tableViewTotalHeight;
+        tbView.frame=tableFrame;
+        
+        NSLog(@"tableViewTotalHeight %f",tableViewTotalHeight);
+        
+        CGRect cellFrame=cell.frame;
+        
+        cellFrame.size.height=tableViewTotalHeight+CGRectGetHeight(headerView.frame);
+        
+        cell.frame=cellFrame;
+        
+        
+    }
+    
+    [cell setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.8]];
+     UIView *selectBGView=[[UIView alloc] initWithFrame:CGRectZero];
+    
+    [cell setSelectedBackgroundView:selectBGView];
+    
+    return cell;
+}
+-(UIView *)historyHeaderView:(YYHistoryTableViewCell *)cell collectorInfo:(YYCollectorInfo *)collectorInfo{
+    UIView *headerView=[[UIView alloc] initWithFrame:CGRectZero];
+    
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"前天", @"昨天", @"今天"]];
+    segmentedControl.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60);
+    [segmentedControl setSelectionIndicatorLocation:HMSegmentedControlSelectionIndicatorLocationDown];
+    [segmentedControl setSelectionStyle:(HMSegmentedControlSelectionStyleFullWidthStripe)];
+    [segmentedControl setTitleTextAttributes:[NSDictionary dictionaryWithObjects:@[[UIColor whiteColor]] forKeys:@[NSForegroundColorAttributeName]]];
+    [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    
+    [segmentedControl setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+    
+    cell.segmentedControl=segmentedControl;
+    
+    WeatherShowManager *viewManager =[[WeatherShowManager alloc] init];
+    UIView *weatherView=viewManager.weatherView;
+    [weatherView setBackgroundColor:[UIColor clearColor]];
+    [viewManager refreshDataAndShow:(2-collectorInfo.day)];
+     weatherView.frame=CGRectMake(0,CGRectGetMaxY(segmentedControl.frame),[UIScreen mainScreen].bounds.size.width,94);//94
+    
+    [headerView addSubview:segmentedControl];
+    [headerView addSubview:weatherView];
+    
+    headerView.frame=CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,CGRectGetMaxY(weatherView.frame));
+    
+    cell.viewManager=viewManager;
+    cell.weatherView=weatherView;
+    
+    return headerView;
 }
 
-
+-(void)segmentedControlChangedValue:(HMSegmentedControl *)sender{
+    NSLog(@"segmentedControlChangedValue %@",sender);
+    int idx=2-sender.selectedSegmentIndex;
+    YYCollectorInfo *collectorInfo=[self findSelectedCollectorInfo];
+    [self reloadHistoryData:collectorInfo idx:idx selectIndex:sender.tag switchYN:NO];
+}
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     /*
      *显示父节点数据
      */
+    YYButton *backgroundView=[[YYButton alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width, HEAD_HEIGHT)];
     
-    
-    UIButton *backgroundView=[[UIButton alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width, HEAD_HEIGHT)];
-    
-    [backgroundView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [backgroundView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backgroundView setTag:section];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateNormal)];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateHighlighted)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateNormal)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateHighlighted)];
     [backgroundView addTarget:self action:@selector(groupExpand:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *arrowImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10,(HEAD_HEIGHT-9)/2,16,9)];
@@ -111,15 +211,18 @@
     }
     
     
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(70,0,250,HEAD_HEIGHT)];
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(36,0,250,HEAD_HEIGHT)];
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setFont:[UIFont systemFontOfSize:16]];
-    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
-    label.text=[[_collectorInfos objectAtIndex:section] CustomerNo];
+    [label setFont:[UIFont systemFontOfSize:tldCellFontSize]];
+    
+    [label setTextColor:[UIColor colorWithWhite:1 alpha:1]];
+    label.text=[[_collectorInfos objectAtIndex:section] PondName];
+    
     
     [backgroundView addSubview:arrowImageView];
     [backgroundView addSubview:label];
     return backgroundView;
+
 }
 
 
@@ -168,8 +271,52 @@
 
 
 -(void)groupExpand:(UIButton *)sender{
+    [self reloadChildData:sender.tag];
+}
+
+
+-(void)reloadChildData:(int)selectCourseIndex{
+    YYCollectorInfo *collectorInfo=[_collectorInfos objectAtIndex:selectCourseIndex];
+   
+    if([[_collectorInfos objectAtIndex:selectCourseIndex] expandYN]){
+        [self reloadTableViewUI:selectCourseIndex];
+        
+    }else{
+        [self reloadHistoryData:collectorInfo idx:collectorInfo.day selectIndex:selectCourseIndex switchYN:YES];
+    }
     
 }
+
+-(void)reloadHistoryData:(YYCollectorInfo *)collectorInfo idx:(int)idx selectIndex:(int)selectCourseIndex switchYN:(BOOL)isSwitchYN{
+    MBProgressHUD *_hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+    
+    [_hud.bezelView setColor:[UIColor clearColor]];
+    [_hud.bezelView setStyle:MBProgressHUDBackgroundStyleSolidColor];
+    [_hud showAnimated:YES];
+    
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        //collectorInfo.historyDict=[[FService shareInstance] GetCollectorData:@"00-00-04-01" dateTime:@"2016-10-29"];
+        collectorInfo.day=idx;
+        
+        collectorInfo.historyDict=[[FService shareInstance] GetCollectorData:collectorInfo.CustomerNo day:collectorInfo.day];
+        
+       
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_hud!=nil){
+                 [_hud hideAnimated:YES];
+            }
+            if(isSwitchYN){
+                [self reloadTableViewUI:selectCourseIndex];
+            }else{
+                [self reloadData];
+            }
+            
+        });
+    });
+}
+
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return HEAD_HEIGHT;
@@ -186,7 +333,14 @@
 @end
 
 
+
+@interface YYHistoryTableViewCell(){
+    
+}
+@property(nonatomic,strong) MBProgressHUD *hud;
+@end
 @implementation YYHistoryTableViewCell
+
 
 
 @end

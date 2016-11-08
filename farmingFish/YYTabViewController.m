@@ -9,53 +9,76 @@
 #import "YYTabViewController.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
 #import "UIColor+hexStr.h"
-#import "UIButton+BGColor.h"
+#import "UIViewController+Extension.h"
 @interface YYTabViewController (){
     CGFloat buttonWidth;
+    NSArray *normalImages;
+    NSArray *highlightImages;
 }
-@property(nonatomic,strong) UIScrollView *tabBarView;
+@property(nonatomic,strong) UIView *tabBarView;
 @property(nonatomic,strong) NSArray *items;
-
+@property(nonatomic,strong) NSArray *itemsMore;
 @end
 
 @implementation YYTabViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.items=@[@"我的视频",@"实时数据",@"设备控制",@"历史数据",@"设置",@"养殖知识"];
+    [self viewControllerBGInit];
+    self.items=@[@"实时",@"视频",@"控制",@"预警",@"更多"];
+    self.itemsMore=@[ITEM_REALDATA,ITEM_VIDEO,ITEM_CONTROL,ITEM_ALERT,@"更多"];
+
+    
+  normalImages=@[@"tab_realdata0",@"tab_video0",@"tab_control0",@"tab_alert0",@"tab_more0"];
+ highlightImages=@[@"tab_realdata1",@"tab_video1",@"tab_control1",@"tab_alert1",@"tab_more1"];
     
     [self.tabBar setHidden:YES];
 
-    self.tabBarView=[[UIScrollView alloc] initWithFrame:CGRectMake(0,CGRectGetHeight(self.view.frame)-30, CGRectGetWidth(self.view.frame), 49)];
-    self.tabBarView.layer.borderWidth=1;
+    self.tabBarView=[[UIView alloc] initWithFrame:CGRectMake(0,CGRectGetHeight(self.view.frame)-tldTabBarHeight, CGRectGetWidth(self.view.frame), tldTabBarHeight)];
+    self.tabBarView.layer.borderWidth=0.1;
     self.tabBarView.layer.borderColor=[[UIColor colorWithHexString:@"#b2b2b2"] CGColor];
   
-    [self.tabBarView setBackgroundColor:[UIColor colorWithHexString:@"#e7e7e7"]];
+    [self.tabBarView setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
     [self.tabBarView setAlpha:1];
     
-    buttonWidth=CGRectGetWidth(self.view.frame)/4;
+    buttonWidth=CGRectGetWidth(self.view.frame)/[_items count];
     
     for (int i=0;i<[_items count]; i++) {
         
-        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(buttonWidth*i,0, buttonWidth,30)];
-        [btn setTitle:_items[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor uig_lemonTwistStartColor] forState:(UIControlStateSelected)];
-        [btn setTitleColor:[UIColor colorWithWhite:0.2 alpha:0.8] forState:(UIControlStateNormal)];
-        [btn setTag:i];
+        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(buttonWidth*i,(tldTabBarHeight-56)/2, buttonWidth,56)];
         
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:(UIControlEventTouchUpInside)];
-        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1] forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1] forState:UIControlStateHighlighted];
+        
+        [self buttonStyleInit:btn index:i];
+        
+       
+        
         [_tabBarView addSubview:btn];
     }
-    self.tabBarView.contentSize=CGSizeMake(buttonWidth*_items.count, 30);
-    [self.tabBarView setShowsHorizontalScrollIndicator:NO];
-    [_tabBarView setPagingEnabled:YES];
+    
     [self.view addSubview:_tabBarView];
     
     [self tabBarViewInit:_defaultIndex];
  
     [self.moreNavigationController.navigationBar setHidden:YES];
+    
+   
+}
+-(void)buttonStyleInit:(UIButton *)btn index:(int)idx{
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(-18, 0, 0,-32)];
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -38, -34, 0)];
+    
+    [btn setTitleColor:[UIColor colorWithHexString:@"#2E82FA"] forState:(UIControlStateSelected)];
+    [btn setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
+    [btn setImage:[UIImage imageNamed:normalImages[idx]] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:highlightImages[idx]] forState:UIControlStateSelected];
+    
+    [btn setTitle:_items[idx] forState:UIControlStateNormal];
+    
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [btn setTag:idx];
+    
+    [btn addTarget:self action:@selector(btnClick:) forControlEvents:(UIControlEventTouchUpInside)];
+   
 }
 
 -(void)setDefaultIndex:(int)defaultIndex{
@@ -63,9 +86,14 @@
     [self tabBarViewInit:_defaultIndex];
     
 }
+
 -(void)tabBarViewInit:(int)selectedIndex{
+    
+
+    
     [self setSelectedIndex:selectedIndex];
-    [self setTitle:_items[selectedIndex]];
+//    [self setTitle:_itemsMore[selectedIndex]];
+    self.navigationItem.title=_itemsMore[selectedIndex];
     
     for (UIView *view in [_tabBarView subviews]) {
         if([view isKindOfClass:[UIButton class]]){
@@ -77,13 +105,7 @@
             }
         }
     }
-    //[0,1,2,3,4,5]
-    //计算中心点
-    if(selectedIndex>=3){
-        [_tabBarView setContentOffset:CGPointMake(buttonWidth*2, 0) animated:YES];
-    }else{
-         [_tabBarView setContentOffset:CGPointMake(0, 0) animated:YES];
-    }
+    
     
 }
 
@@ -94,15 +116,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

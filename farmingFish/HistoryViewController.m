@@ -17,6 +17,8 @@
 @property(nonatomic,strong) NSDictionary *deviceData;
 @property(nonatomic,strong) NSMutableArray *collectorInfos;
 
+@property(nonatomic,strong) NSMutableArray *currentHistoryArrs;
+
 @end
 
 @implementation HistoryViewController
@@ -26,7 +28,7 @@
     // Do any additional setup after loading the view.
     self.title=@"历史数据";
     [self viewControllerBGInit];
-    
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
     self.deviceData=delegate.deviceData;
     
@@ -54,29 +56,16 @@
     
     
     
-    ExpandHistoryView *controlView=[[ExpandHistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-30)];
+    ExpandHistoryView *controlView=[[ExpandHistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
     [controlView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [controlView setCollectorInfos:_collectorInfos];
     [controlView setBackgroundColor:[UIColor clearColor]];
     
     [self.view addSubview:controlView];
     
-    [self loadHistoryData];
+
 }
 
-
--(void)loadHistoryData{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-       
-        [[FService shareInstance] GetCollectorData:@"00-00-04-01" dateTime:@"2016-10-29"];
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
-        
-    });
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

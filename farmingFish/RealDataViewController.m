@@ -35,14 +35,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.title=@"实时数据";
-    
+    [self viewControllerBGInit];
     self.automaticallyAdjustsScrollViewInsets = NO; 
     
-    [self navigationBarInit];
-    [self viewControllerBGInit];
-    
-  
     [[SocketService shareInstance] enableListenser:YES];
     
    
@@ -79,7 +74,7 @@
     weatherView.frame=CGRectMake(0, 64, self.view.frame.size.width,94);//94
     [self.view addSubview:weatherView];
     
-    MyExpandTableView *expandTableView=[[MyExpandTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weatherView.frame), self.view.frame.size.width, self.view.frame.size.height-64-30-100)];
+    MyExpandTableView *expandTableView=[[MyExpandTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weatherView.frame), self.view.frame.size.width, self.view.frame.size.height-CGRectGetMaxY(weatherView.frame)-tldTabBarHeight)];
     [expandTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [expandTableView setCollectorInfos:_collectorInfos];
     
@@ -88,11 +83,12 @@
 
     [self.view addSubview:expandTableView];
     
-    
+
 }
 -(void)dealloc{
      [[SocketService shareInstance] enableListenser:NO];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated{
     [[SocketService shareInstance] disconnect];

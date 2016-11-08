@@ -80,7 +80,8 @@
     
     NSString *imagePath=[self prefixZero:imageId];
     [_weatherImage setImage:[UIImage imageNamed:imagePath]];
-     _weatherView.alpha=0.2;
+     _weatherView.alpha=1;
+    
     [UIView animateWithDuration:1 animations:^{
         _weatherView.alpha=1;
     } completion:^(BOOL finished) {

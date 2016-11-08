@@ -29,13 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      // Do any additional setup after loading the view.
-     self.title=@"养殖知识";
+     self.title=@"知识库";
     [self viewControllerBGInit];
-    
-
     self.automaticallyAdjustsScrollViewInsets=NO;
     
-    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-30)];
+    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-tldTabBarHeight)];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
     _tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
@@ -86,10 +84,7 @@
     NSLog(@"sender %@",sender);
 
 }
--(void)viewWillAppear:(BOOL)animated{
-    
-    
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -142,7 +137,7 @@
     webVC.url=yyNews.url;
     webVC.title=yyNews.title;
     
-    [self.tabBarController.navigationController pushViewController:webVC animated:YES];
+    [self.navigationController pushViewController:webVC animated:YES];
     
 }
 

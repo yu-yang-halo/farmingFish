@@ -8,7 +8,7 @@
 #import "UIViewController+Extension.h"
 #import "VideoViewController.h"
 #import "UIColor+hexStr.h"
-#import "UIButton+BGColor.h"
+#import "YYButton.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
 #import "hcnetsdk.h"
 #import "DeviceInfo.h"
@@ -30,6 +30,7 @@
 #import "VoiceTalk.h"
 #import "FService.h"
 #import "AppDelegate.h"
+#import "GradientHelper.h"
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>{
     int layoutMode;//1 2 3 4
@@ -47,12 +48,13 @@ VideoViewController *g_pController = NULL;
 }
 @property(nonatomic,strong) NSDictionary *configParams;
 @property(nonatomic,strong) UICollectionView *collectionView;
-@property(nonatomic,strong) UIScrollView     *scrollView;
-@property(nonatomic,strong) UIPageControl    *pageControl;
-@property(nonatomic,strong) SQMenuShowView   *showView;
+@property(nonatomic,strong) UIScrollView     *ptzControlView;
+@property(nonatomic,strong) UIScrollView     *videoMenuView;
 @property(nonatomic,assign) BOOL   isShow;
 @property(nonatomic,strong) NSString *videoPath;
 @property(nonatomic,strong) NSMutableDictionary *indexCodeDict;
+@property(nonatomic,strong) NSArray<NSDictionary *> *realVideoArrs;
+
 @end
 
 @implementation VideoViewController
@@ -60,7 +62,9 @@ VideoViewController *g_pController = NULL;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"我的视频";
+   
+    
+    
     waitViewDidLoad=YES;
     singleSelectIndex=0;
     
@@ -69,14 +73,14 @@ VideoViewController *g_pController = NULL;
     self.indexCodeDict=[NSMutableDictionary new];
     
     self.videoInfo=delegate.videoInfo;
-    NSArray *arr=[[_videoInfo objectForKey:@"GetUserVideoInfoResult"] objectFromJSONString];
+    self.realVideoArrs=[[_videoInfo objectForKey:@"GetUserVideoInfoResult"] objectFromJSONString];
     
-    if(arr!=nil&&[arr count]>0){
-        self.configParams=arr[0];
+    if(_realVideoArrs!=nil&&[_realVideoArrs count]>0){
+        self.configParams=_realVideoArrs[0];
         NSLog(@"GetUserVideoInfo::: %@", _videoInfo);
-        videoCount=[arr count];
+        videoCount=[_realVideoArrs count];
         
-        for (NSDictionary *dict in arr) {
+        for (NSDictionary *dict in _realVideoArrs) {
             [_indexCodeDict setObject:@(YES) forKey: [dict objectForKey:@"F_IndexCode"]];
         }
     }else{
@@ -85,24 +89,24 @@ VideoViewController *g_pController = NULL;
    
     for(int i=0;i<MAX_VIEW_NUM;i++){
         m_multiView[i]=[[YYVideoView alloc] initWithFrame:CGRectMake(0,0,0,0)];
-        [m_multiView[i] setBackgroundColor:[UIColor blackColor]];
+        [m_multiView[i] setBackgroundColor:[UIColor clearColor]];
         [m_multiView[i] setTag:i];
-        
-        id isVaildYN=[_indexCodeDict objectForKey:@(i+1)];
-        
-        if(isVaildYN!=nil){
-            [m_multiView[i] setIsVaildYN:[isVaildYN boolValue]];
-            NSLog(@"_indexCodeDict %@",_indexCodeDict);
+        if(i<videoCount){
+             [m_multiView[i] setIsVaildYN:YES];
+        }else{
+             [m_multiView[i] setIsVaildYN:NO];
         }
+       
+//        
+//        id isVaildYN=[_indexCodeDict objectForKey:@(i+1)];
+//        
+//        if(isVaildYN!=nil){
+//            [m_multiView[i] setIsVaildYN:[isVaildYN boolValue]];
+//            NSLog(@"_indexCodeDict %@",_indexCodeDict);
+//        }
         
     }
-    [self navigationBarInit];
-    
-    [self viewControllerBGInit];
-    
-
-    
-    
+   
     g_pController=self;
     Screen_bounds=self.view.bounds;
     Screen_bounds.size.height=Screen_bounds.size.width-40;
@@ -110,27 +114,22 @@ VideoViewController *g_pController = NULL;
     
     layoutMode=4;
     
-    float width=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
-    float height=(Screen_bounds.size.height-(layoutMode-1))/layoutMode;
-    
+    float width=(Screen_bounds.size.width-(layoutMode-1)*3)/layoutMode;
+    float height=(Screen_bounds.size.height-(layoutMode-1)*3)/layoutMode;
     /*
      * UICollectionView layout
      */
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
     //设置布局方向为垂直流布局
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.itemSize=CGSizeMake(width, height);
     
-    flowLayout.minimumLineSpacing=1;
-    flowLayout.minimumInteritemSpacing=1;
+    flowLayout.minimumLineSpacing=3;
+    flowLayout.minimumInteritemSpacing=3;
    
     
     self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,Screen_bounds.size.width,Screen_bounds.size.height) collectionViewLayout:flowLayout];
     
-    self.pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame), Screen_bounds.size.width, 10)];
-    [_pageControl setNumberOfPages:[self pageNums]];
-    
-    self.collectionView.backgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
     self.collectionView.delegate=self;
     self.collectionView.dataSource=self;
     self.collectionView.layer.borderWidth=0.5;
@@ -138,34 +137,43 @@ VideoViewController *g_pController = NULL;
     [self.collectionView setPagingEnabled:YES];
     
     
+    self.collectionView.backgroundColor=[UIColor whiteColor];
     
     [_collectionView registerNib:[UINib nibWithNibName:@"VideoCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"videoCell"];
     
     
     
     [self.view addSubview:_collectionView];
-    [self.view addSubview:_pageControl];
-
-    
-
-    
-    
    
-    self.scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageControl.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(_pageControl.frame)-30)];
-    
-    [self.scrollView setBackgroundColor:[UIColor colorWithHexString:@"#20FFFFFF"]];
-    float space=3;
-    float btn_width=(_scrollView.frame.size.width-space*4)/3;
-    float btn_heigth=(_scrollView.frame.size.height-space*4)/3;
+    [self ptzViewInit];
+    [self videoMenuViewInit];
     
 
+    [self videoConfigurationInit];
+    [self loadVideoData];
+    
+}
+-(void)setBarTitle:(NSString *)_title{
+     self.tabBarController.title=_title;
+}
+#pragma mark 云台控制view init
+-(void)ptzViewInit{
+    self.ptzControlView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(_collectionView.frame)-tldTabBarHeight)];
+    
+    [GradientHelper setGradientToView:_ptzControlView];
+    
+    
+    float space=3;
+    float btn_width=(_ptzControlView.frame.size.width-space*4)/3;
+    float btn_heigth=(_ptzControlView.frame.size.height-space*4)/3;
+    
     NSArray *contents=@[@"左上",@"上仰",@"右上",@"左转",@"自动",@"右转",@"左下",@"下俯",@"右下"];
     int tags[]={25,21,26,23,29,24,27,22,28};
     
     for (int i=0; i<9; i++) {
         int row=i/3;
         int col=i%3;
-        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(col*(btn_width)+(col+1)*space,row*(btn_heigth)+(row+1)*space, btn_width, btn_heigth)];
+        YYButton *btn=[[YYButton alloc] initWithFrame:CGRectMake(col*(btn_width)+(col+1)*space,row*(btn_heigth)+(row+1)*space, btn_width, btn_heigth)];
         [btn setTitle:contents[i] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:(UIControlStateNormal)];
         btn.layer.cornerRadius=3;
@@ -174,19 +182,80 @@ VideoViewController *g_pController = NULL;
         [btn addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
         
         [btn setTag:tags[i]];
-        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1] forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.02] forState:UIControlStateHighlighted];
+        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.3] forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1] forState:UIControlStateHighlighted];
         
-        [_scrollView addSubview:btn];
+        [_ptzControlView addSubview:btn];
         
     }
     
-    
-    [self.view addSubview:_scrollView];
-    [self initPopupView];
-    [self videoConfigurationInit];
+    [self.view addSubview:_ptzControlView];
     
 }
+#pragma mark 视频菜单view
+-(void)videoMenuViewInit{
+   
+    self.videoMenuView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(_collectionView.frame)-tldTabBarHeight)];
+    
+    [GradientHelper setGradientToView:_videoMenuView];
+    
+    if(videoCount<=0){
+        return;
+    }
+    /*
+     *  根据视频个数来计算行数和列数
+     *  4  列数 4 行数 1
+     *  3      3      1
+     *  2      2      1
+     */
+    
+    int  maxColums=4;
+    float space=3;
+
+    if(videoCount<=maxColums){
+        maxColums=videoCount;
+    }
+  
+    
+    
+    
+    
+    float btn_width=(_videoMenuView.frame.size.width-space*(maxColums+1))/maxColums;
+    float btn_heigth=(_videoMenuView.frame.size.height-space*(maxColums+1))/maxColums;
+  
+    for (int i=0; i<videoCount; i++) {
+        
+       
+        int row=i/maxColums;
+        int col=i%maxColums;
+        
+        UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(col*(btn_width)+(col+1)*space,row*(btn_heigth)+(row+1)*space, btn_width, btn_heigth)];
+       
+        
+        [btn setTitle:[_realVideoArrs[i] objectForKey:@"F_Name"] forState:(UIControlStateNormal)];
+        [btn setImage:[UIImage imageNamed:@"video_dev"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:(UIControlStateNormal)];
+        //top left bottom right
+        //icon text
+
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(-0, 0, 0,-49)];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -49,-59, 0)];
+
+        
+        [btn setTag:i];
+        
+        [btn addTarget:self action:@selector(fullScreenVideo:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        [_videoMenuView addSubview:btn];
+        
+    }
+    
+    [self.view addSubview:_videoMenuView];
+
+    
+}
+
+
 
 
 -(void)videoConfigurationInit{
@@ -205,70 +274,28 @@ VideoViewController *g_pController = NULL;
 
 
 -(void)viewWillAppear:(BOOL)animated{
-     self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"浏览模式" style: UIBarButtonItemStyleDone target:self action:@selector(popupView:)];
-    
+    [self loadVideoData];
+}
+-(void)loadVideoData{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-      
         if(!waitViewDidLoad){
-            [self playAllVideo];
+            [self playAllVideo:YES index:-1];
         }else{
             [self loginHCSystem];
-            [self playAllVideo];
-             waitViewDidLoad=NO;
+            [self playAllVideo:YES index:-1];
+            waitViewDidLoad=NO;
         }
-        
-        
     });
-   
-    
+ 
 }
 -(void)viewWillDisappear:(BOOL)animated{
         self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"" style: UIBarButtonItemStyleDone target:self action:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self closeVideo];
+        [self closeAllVideo:YES index:-1];
     });
 }
 
-/*
- * 初始化popupView
- */
--(void)initPopupView{
-    self.showView=[[SQMenuShowView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)-100-10, 64+5,100,0) items:@[@"1x1",@"2x2",@"3x3",@"4x4"] showPoint:CGPointMake(CGRectGetWidth(self.view.frame)-25,10)];
-    __weak typeof(self) weakSelf=self;
-    
-    [_showView setSelectBlock:^(SQMenuShowView *view, NSInteger index) {
-        weakSelf.isShow=NO;
-        layoutMode=(index+1);
-        if(singleSelectIndex>=videoCount){
-            singleSelectIndex=0;
-        }
-        [weakSelf layoutReload];
-    }];
-    
-    _showView.sq_backGroundColor=[UIColor whiteColor];
-    [self.view addSubview:_showView];
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self dismissView];
-}
--(void)dismissView{
-    _isShow=NO;
-    [self.showView dismissView];
-
-}
--(void)poppupViewHideOrShow{
-    _isShow= !_isShow;
-    if(_isShow){
-        [self.showView showView];
-    }else{
-        [self.showView dismissView];
-    }
-}
--(void)popupView:(id)sender{
-    [self poppupViewHideOrShow];
-}
 -(void)touchDown:(UIButton *)sender{
     NSLog(@"down....");
     [self ptzControl:singleSelectIndex ptzDirect:sender.tag val:0];
@@ -307,22 +334,27 @@ VideoViewController *g_pController = NULL;
 
 -(void)layoutReload{
     UICollectionViewFlowLayout *flowLayout=_collectionView.collectionViewLayout;
-    float width=(Screen_bounds.size.width-(layoutMode-1))/layoutMode;
-    float height=(Screen_bounds.size.height-(layoutMode-1))/layoutMode;
+    float width=(Screen_bounds.size.width-(layoutMode-1)*3)/layoutMode;
+    float height=(Screen_bounds.size.height-(layoutMode-1)*3)/layoutMode;
     flowLayout.itemSize=CGSizeMake(width, height);
-    
-    
-    
     [_collectionView setCollectionViewLayout:flowLayout animated:YES];
-    if(layoutMode==1&&singleSelectIndex>=0){
-         [_collectionView setContentOffset:CGPointMake(width*singleSelectIndex, 0)];
-         [_pageControl setCurrentPage:singleSelectIndex];
-    }
-    
-    [_pageControl setNumberOfPages:[self pageNums]];
-   
     [_collectionView reloadData];
+    
+    if(layoutMode==1){
+        self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fullscreen"] style:(UIBarButtonItemStyleDone) target:self action:@selector(exitFullScreen:)];
+        
+        
+    }else{
+        self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:nil style:(UIBarButtonItemStyleDone) target:nil action:nil];
+
+    }
 }
+
+-(void)exitFullScreen:(id)sender{
+    [self screenVideoSwitch:YES tag:singleSelectIndex];
+    
+}
+
 -(int)pageNums{
     
     return videoCount%(layoutMode*layoutMode)==0?videoCount/(layoutMode*layoutMode):videoCount/(layoutMode*layoutMode)+1;
@@ -331,57 +363,42 @@ VideoViewController *g_pController = NULL;
 #pragma mark collectionView delegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    //视频数 videoCount
-    //单页最大显示数 1x1  2x2  3x3  4x4
-    int result=0;
-    switch (layoutMode) {
-        case 1:
-            result=videoCount;
-            break;
-        case 2:
-            if(videoCount<=2*2){
-                result=2*2;
-            }else{
-                result=2*2*2;
-            }
-            break;
-        case 3:
-            if(videoCount<=3*3){
-                result=3*3;
-            }else{
-                result=3*3*2;
-            }
-            break;
-        case 4:
-            if(videoCount<=4*4){
-                result=4*4;
-            }else{
-                result=4*4*2;
-            }
-            break;
-    }
- 
-    return result;
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    float width=Screen_bounds.size.width;
-    int currentPage=scrollView.contentOffset.x/width;
+  
+    
     if(layoutMode==1){
-         singleSelectIndex=currentPage;
+        return 1;
+    }else{
+        return layoutMode*layoutMode;
     }
-    [_pageControl setNumberOfPages:[self pageNums]];
-    [_pageControl setCurrentPage:currentPage];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
 
     VideoCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"videoCell" forIndexPath:indexPath];
-    [m_multiView[indexPath.row] removeFromSuperview];
     
-     m_multiView[indexPath.row].frame=cell.bounds;
-    [cell.containerView  addSubview:m_multiView[indexPath.row]];
-    [cell.containerView setTag:[m_multiView[indexPath.row] tag]];
-    [cell setTag:[m_multiView[indexPath.row] tag]];
+    for(UIView *chidView in [cell.containerView subviews]){
+        [chidView removeFromSuperview];
+    }
+    YYVideoView *showView=nil;
+    
+    if(layoutMode==1){
+        showView=m_multiView[singleSelectIndex];
+    }else{
+        showView=m_multiView[indexPath.row];
+    }
+    if(showView.isVaildYN){
+        [cell.progressView startAnimating];
+    }else{
+        [cell.progressView stopAnimating];
+    }
+    
+    
+    showView.frame=cell.bounds;
+    
+    [cell.containerView  addSubview:showView];
+    
+    [cell.containerView setTag:[showView tag]];
+    [cell setTag:[showView tag]];
     
     
     
@@ -411,35 +428,66 @@ VideoViewController *g_pController = NULL;
     return cell;
 }
 -(void)selectVideo:(UIGestureRecognizer *)gr{
-    [self dismissView];
     singleSelectIndex=gr.view.tag;
-    
-
     [_collectionView reloadData];
-  
-   
+}
+-(void)fullScreenVideo:(UIButton *)sender{
+    if(sender.tag>=videoCount){
+        [self.view.window makeToast:@"当前窗口无视频～"];
+        return;
+    }
+    [self screenVideoSwitch:NO tag:sender.tag];
+
 }
 
+-(void)screenVideoSwitch:(BOOL)switchYN tag:(int)tag{
+   
+    singleSelectIndex=tag;
+    if(layoutMode!=1){
+        [self closeAllVideo:YES index:-1];
+        
+        lastMode=layoutMode;
+        layoutMode=1;
+        [self.view bringSubviewToFront:_ptzControlView];
+        
+        [self playAllVideo:NO index:singleSelectIndex];
+        if(singleSelectIndex<[_realVideoArrs count]){
+           
+            [self setBarTitle:[_realVideoArrs[singleSelectIndex] objectForKey:@"F_Name"]];
+            
+        }else{
+            
+            [self setBarTitle:ITEM_VIDEO];
+            
+            
+        }
+       
+    }else{
+        if(switchYN){
+            [self closeAllVideo:NO index:singleSelectIndex];
+            if(lastMode!=0){
+                layoutMode=lastMode;
+            }
+            [self.view bringSubviewToFront:_videoMenuView];
+            
+            [self playAllVideo:YES index:-1];
+            [self setBarTitle:ITEM_VIDEO];
+            
+        }
+        
+        
+    }
+    [self layoutReload];
+}
+
+
 -(void)modeSwitch:(UIGestureRecognizer *)gr{
-    [self dismissView];
+   
     if(gr.view.tag>=videoCount){
         [self.view.window makeToast:@"当前窗口无视频～"];
         return;
     }
-    
-    
-     singleSelectIndex=gr.view.tag;
-    
-    
-    if(layoutMode!=1){
-        lastMode=layoutMode;
-        layoutMode=1;
-    }else{
-        if(lastMode!=0){
-            layoutMode=lastMode;
-        }
-    }
-    [self layoutReload];
+    [self screenVideoSwitch:YES tag:gr.view.tag];
 
 }
 
@@ -480,46 +528,44 @@ VideoViewController *g_pController = NULL;
     *iPlayPort = -1;
 }
 
--(void)closeVideo{
-    for(int i = 0; i < MAX_VIEW_NUM; i++)
+-(void)closeAllVideo:(BOOL)isCloseAllYN index:(int)idx{
+    for(int i = 0; i < videoCount; i++)
     {
-        stopPreview(i);
+        if(isCloseAllYN){
+             stopPreview(i);
+        }else{
+            if(idx==i){
+                stopPreview(i);
+            }
+        }
+       
     }
     m_bPreview = false;
-
 }
--(void)playAllVideo{
+
+-(void)playAllVideo:(BOOL)isPlayAllYN index:(int)idx{
     if(g_iPreviewChanNum > 0)
     {
         int iPreviewID[MAX_VIEW_NUM] = {0};
         
-        for(int i=0;i<MAX_VIEW_NUM;i++){
-           iPreviewID[i] = startPreview(m_lUserID, g_iStartChan, m_multiView[i], i);
+        for(int i=0;i<videoCount;i++){
+            if(isPlayAllYN){
+                iPreviewID[i] = startPreview(m_lUserID, g_iStartChan, m_multiView[i], i);
+            }else{
+                if(i==idx){
+                     iPreviewID[i] = startPreview(m_lUserID, g_iStartChan, m_multiView[i], i);
+                }
+               
+            }
+           
         }
-        
+        //???
         m_lRealPlayID = iPreviewID[0];
         m_bPreview = true;
         
     }
 }
 
--(void)playVideo:(int)index{
-    NSLog(@"liveStreamBtnClicked");
-    
-    if(index>=MAX_VIEW_NUM){
-        return;
-    }
-    if(g_iPreviewChanNum > 0)
-    {
-        int iPreviewID[MAX_VIEW_NUM] = {0};
-      
-        iPreviewID[index] = startPreview(m_lUserID, g_iStartChan, m_multiView[index], index);
-        
-        m_lRealPlayID = iPreviewID[index];
-        m_bPreview = true;
-
-    }
-}
 
 -(void)loginHCSystem{
     NSArray *ipAndPortArr=[self domainIpAndPort];

@@ -25,6 +25,9 @@ typedef NS_ENUM(NSUInteger, CATEGORYID) {
 
 
 -(id)GetCollectorData:(NSString *)customerNo dateTime:(NSString *)date;
+//day : 0--今天 1--昨天  2--前天
+-(id)GetCollectorData:(NSString *)customerNo day:(int)day;
+
 
 //新闻数据 categoryId 1:新闻 2:知识库
 -(id)GetNewsList:(CATEGORYID)categoryId number:(int)num;

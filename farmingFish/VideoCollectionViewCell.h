@@ -11,5 +11,6 @@
 @interface VideoCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressView;
 
 @end

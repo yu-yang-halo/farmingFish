@@ -11,10 +11,20 @@
 @implementation BeanObject
 
 @end
+
 @implementation YYCollectorInfo
 
 @end
 
 @implementation YYNews
+
+@end
+
+@implementation YYHistoryData
+
+
+@end
+
+@implementation HistoryWantData
 
 @end

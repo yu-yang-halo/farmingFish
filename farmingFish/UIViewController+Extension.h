@@ -9,15 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UIViewController (BGColor)
+@interface UIViewController (Extension)
 
 -(void)viewControllerBGInit;
--(void)viewControllerBGInit:(UIView *)view;
 -(void)flyIconToFace;
+//-(void)navigationBarInit;
 
-@end
-
-
-@interface UIViewController (NavigationBar)
--(void)navigationBarInit;
 @end

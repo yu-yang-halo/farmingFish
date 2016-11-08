@@ -40,7 +40,6 @@
         deviceControlCell=[[[NSBundle mainBundle] loadNibNamed:@"DeviceControlTableViewCell" owner:nil options:nil] lastObject];
     }
     deviceControlCell.propStatusSwitch.tag=indexPath.row;
-    
     deviceControlCell.propNameLabel.text=[_deviceDatas objectAtIndex:indexPath.row];
     
     if(_realStatus!=nil&&_realStatus.length==8){
@@ -56,10 +55,11 @@
          [deviceControlCell.propStatusSwitch setOn:NO];
     }
     
-    [deviceControlCell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1]];
+    [deviceControlCell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.0]];
+    
     
     UIView *bgView=[[UIView alloc] initWithFrame:deviceControlCell.bounds];
-    [bgView setBackgroundColor:[UIColor clearColor]];
+    [bgView setBackgroundColor:[UIColor colorWithWhite:0.7 alpha:0.1]];
     [deviceControlCell setSelectedBackgroundView:bgView];
     
     [deviceControlCell.propStatusSwitch addTarget:self action:@selector(swOnOff:) forControlEvents:UIControlEventValueChanged];

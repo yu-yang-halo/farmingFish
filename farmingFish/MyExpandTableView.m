@@ -8,7 +8,7 @@
 
 #import "MyExpandTableView.h"
 
-#import "UIButton+BGColor.h"
+#import "YYButton.h"
 #import "SocketService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "AppDelegate.h"
@@ -60,9 +60,16 @@
         delegate.realDataCache=[NSMutableDictionary new];
     }
     
+    
     self.realDataCache=delegate.realDataCache;
+    
     self.onlineTable=[NSMutableDictionary new];
     [self setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
+    
+   
+    
+    [_realDataCache setObject:@[[NSString stringWithFormat:@"%@|%f|%f|%@",@"溶氧",8.0,20.0,@"mg/L"],[NSString stringWithFormat:@"%@|%f|%f|%@",@"Test",20.0,20.0,@"mg/L"]]  forKey:delegate.customerNo];
+
 }
 
 #pragma mark datasource
@@ -93,14 +100,12 @@
         cell=[[YYRealDataUITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
         [cell setBackgroundColor:[UIColor clearColor]];
         
-        realDataView=[[RealDataTableView alloc] initWithFrame:CGRectMake(10,10, self.frame.size.width-20, 0)];
+        realDataView=[[RealDataTableView alloc] initWithFrame:CGRectMake(0,0, self.frame.size.width-0, 0)];
         
-        realDataView.layer.borderColor=[[UIColor colorWithWhite:1 alpha:0.1] CGColor];
-        realDataView.separatorColor=[UIColor colorWithWhite:1 alpha:0.3];
+        [realDataView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
-        realDataView.layer.borderWidth=1;
-        realDataView.layer.cornerRadius=2;
-        [realDataView setBackgroundColor:[UIColor colorWithWhite:0.8 alpha:0.1]];
+       
+        [realDataView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0]];
         
         [cell addSubview:realDataView];
         [cell setRealDataTableView:realDataView];
@@ -136,12 +141,12 @@
      */
     
 
-    UIButton *backgroundView=[[UIButton alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width, HEAD_HEIGHT)];
+    YYButton *backgroundView=[[YYButton alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width, HEAD_HEIGHT)];
    
-    [backgroundView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [backgroundView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backgroundView setTag:section];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateNormal)];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateHighlighted)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateNormal)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateHighlighted)];
     [backgroundView addTarget:self action:@selector(groupExpand:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *arrowImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10,(HEAD_HEIGHT-9)/2,16,9)];
@@ -155,11 +160,13 @@
     }
     
     
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(70,0,250,HEAD_HEIGHT)];
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(36,0,250,HEAD_HEIGHT)];
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setFont:[UIFont systemFontOfSize:16]];
-    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
+    [label setFont:[UIFont systemFontOfSize:tldCellFontSize]];
+    
+    [label setTextColor:[UIColor colorWithWhite:1 alpha:1]];
     label.text=[[_collectorInfos objectAtIndex:section] PondName];
+    
    
     [backgroundView addSubview:arrowImageView];
     [backgroundView addSubview:label];
@@ -198,9 +205,6 @@
     [self reloadData];
 
 }
-
-
-
 
 
 -(void)reloadChildData:(int)selectCourseIndex{
@@ -245,21 +249,15 @@
                     }
                     
                 }];
-                
+            
                 if(realDataArr!=nil&&[realDataArr count]>0){
                     [_realDataCache setObject:realDataArr forKey:[dic objectForKey:@"customNo"]];
                 }
-                
-//               [self reloadSections:[NSIndexSet indexSetWithIndex:selectCourseIndex] withRowAnimation:UITableViewRowAnimationFade];
-//               
-               [self reloadData];
+            
+                [self reloadData];
             
             }];
     }
-    
-   
-    
-
     
     
     

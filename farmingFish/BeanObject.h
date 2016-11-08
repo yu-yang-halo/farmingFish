@@ -30,6 +30,9 @@
 @property(nonatomic,strong) NSString *electricsStatus;
 
 @property(nonatomic,assign) BOOL expandYN;
+@property(nonatomic,assign) int  day;//0--今天,1--昨天,2--前天
+@property(nonatomic,strong) NSDictionary *historyDict;
+
 
 @end
 /*
@@ -45,6 +48,38 @@
 @property(nonatomic,strong) NSString *createddate;
 @property(nonatomic,strong) NSString *url;
 
+
+@end
+/*
+{\"F_ReceivedTime\":0,\"F_Param1\":6.59,\"F_Param3\":7.99,\"F_Param4\":0.28,\"F_Param5\":15.30,\"F_Param6\":0.06,\"F_Param8\":0.00,\"F_Param2\":null,\"F_Param7\":0.00,\"F_Param9\":0.00,\"F_Param10\":null,\"F_Param11\":null,\"F_Param12\":null,\"F_Param13\":null,\"F_Param14\":null,\"F_Param15\":null,\"F_Param16\":null,\"F_Param17\":null,\"F_Param18\":null}
+ */
+@interface YYHistoryData : NSObject
+@property(nonatomic,strong) NSNumber *F_ReceivedTime;
+@property(nonatomic,strong) NSNumber *F_Param1;
+@property(nonatomic,strong) NSNumber *F_Param2;
+@property(nonatomic,strong) NSNumber *F_Param3;
+@property(nonatomic,strong) NSNumber *F_Param4;
+@property(nonatomic,strong) NSNumber *F_Param5;
+@property(nonatomic,strong) NSNumber *F_Param6;
+@property(nonatomic,strong) NSNumber *F_Param7;
+@property(nonatomic,strong) NSNumber *F_Param8;
+@property(nonatomic,strong) NSNumber *F_Param9;
+@property(nonatomic,strong) NSNumber *F_Param10;
+@property(nonatomic,strong) NSNumber *F_Param11;
+@property(nonatomic,strong) NSNumber *F_Param12;
+@property(nonatomic,strong) NSNumber *F_Param13;
+@property(nonatomic,strong) NSNumber *F_Param14;
+@property(nonatomic,strong) NSNumber *F_Param15;
+@property(nonatomic,strong) NSNumber *F_Param16;
+@property(nonatomic,strong) NSNumber *F_Param17;
+@property(nonatomic,strong) NSNumber *F_Param18;
+@end
+
+@interface HistoryWantData : NSObject
+
+@property(nonatomic,assign) int detectType;//监测类型 0x01 --- 0x12
+@property(nonatomic,assign) int time;
+@property(nonatomic,assign) float value;
 
 @end
 

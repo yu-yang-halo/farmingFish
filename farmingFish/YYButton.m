@@ -1,71 +1,73 @@
 //
-//  UIButton+BGColor.m
+//  YYButton.m
 //  farmingFish
 //
-//  Created by admin on 16/9/22.
+//  Created by apple on 2016/11/3.
 //  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
 //
 
-#import "UIButton+BGColor.h"
+#import "YYButton.h"
 #import <objc/runtime.h>
 #define CONTEXT_NEW_VALUE "CONTEXT_HAS_NEW_VALUE"
-
 #define UICONTROL_STATE_NORMAL @"STATE_NORMAL"
 #define UICONTROL_STATE_HIGHTLIGHT @"STATE_HIGHTLIGHT"
+@interface YYButton()
+@property(nonatomic,strong) NSMutableDictionary *stateDict;
+@end
 
-@implementation UIButton (BGColor)
-
+@implementation YYButton
 
 -(instancetype)init{
     self=[super init];
     if(self!=nil){
         NSLog(@"%@ class catagery bgcolor init",self.class);
-        [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
         
+        [self dataBindInit];
     }
     return self;
+}
+-(void)dataBindInit{
+    [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
+    self.stateDict=[NSMutableDictionary new];
 }
 -(instancetype)initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
     if(self){
-        
-        [self addObserver:self forKeyPath:@"self.highlighted" options:NSKeyValueObservingOptionNew context:CONTEXT_NEW_VALUE];
+          [self dataBindInit];
     }
     return self;
 }
+
 -(void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state{
     
-    NSString *key=nil;
+    [_stateDict setObject:color forKey:@(state)];
+    
     if(state==UIControlStateNormal){
-        key=UICONTROL_STATE_NORMAL;
-        [self setBackgroundColor:color];
-    }else{
-        key=UICONTROL_STATE_HIGHTLIGHT;
+        [self setBackgroundColor:color]; 
     }
     
-    
-    objc_setAssociatedObject(self, (__bridge const void *)(key),color, OBJC_ASSOCIATION_RETAIN);
-    
-    
-    
 }
+
+
 -(void)dealloc{
     
     [self removeObserver:self forKeyPath:@"self.highlighted" context:CONTEXT_NEW_VALUE];
     
 }
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if(context==CONTEXT_NEW_VALUE){
         id value=[change objectForKey:NSKeyValueChangeNewKey];
-        //  NSLog(@"change value %@",value);
         if([value intValue]==1){
-            UIColor *color=objc_getAssociatedObject(self,UICONTROL_STATE_HIGHTLIGHT);
+            UIColor *color= [_stateDict objectForKey:@(UIControlStateHighlighted)];
             if(color==nil){
                 return;
             }
+           
             [self setBackgroundColor:color];
         }else{
-            UIColor *color=objc_getAssociatedObject(self,UICONTROL_STATE_NORMAL);
+            UIColor *color= [_stateDict objectForKey:@(UIControlStateNormal)];
+            
             if(color==nil){
                 return;
             }

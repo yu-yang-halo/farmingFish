@@ -13,6 +13,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [self.propStatusSwitch setOnImage:[UIImage imageNamed:@"switch_on"]];
+    [self.propStatusSwitch setOffImage:[UIImage imageNamed:@"switch_off"]];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

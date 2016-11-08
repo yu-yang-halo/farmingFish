@@ -8,33 +8,111 @@
 
 #import "UIViewController+Extension.h"
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
-@implementation UIViewController (BGColor)
--(void)viewControllerBGInit{
-    
-    [self setViewBGColor:self.view];
+#import "UIColor+hexStr.h"
+@implementation UIViewController (Extension)
 
+
+-(void)viewWillAppear:(BOOL)animated{
+
+    [self navigationBarInit];
+}
+
+
+
+
+
+
+-(void)viewControllerBGInit{
+    [self setViewBGColor:self.view];
 }
 -(void)viewControllerBGInit:(UIView *)view{
-    
     [self setViewBGColor:view];
-    
 }
 -(void)setViewBGColor:(UIView *)_mView{
     
-    UIColor *startColor = [UIColor uig_lemonTwistStartColor];
-    UIColor *endColor = [UIColor uig_lemonTwistEndColor];
-    //uig_lemonTwistStartColor
-    //uig_lemonTwistEndColor
+    UIColor *startColor = [UIColor colorWithHexString:@"#3CE6FF"];
+    UIColor *endColor = [UIColor colorWithHexString:@"#2F89FF"];
+        
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame =_mView.bounds;
     gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1,1);
+    gradient.endPoint = CGPointMake(0,1);
     gradient.colors = @[(id)[startColor CGColor], (id)[endColor CGColor]];
-    
+        
     [_mView.layer insertSublayer:gradient atIndex:0];
     
 }
+
+/*
+ * 导航栏实现渐变色
+ * 利用Debug->View Debuging->Capture View Hierarchy
+ * 查看NavigationBar的视图层级关系
+ * 很容易发现NavigationBar也是由一些子视图组成的
+ * 我们只需要加入一个背景子视图并放置到最顶端就可以了
+ */
+
+
+
+-(void)navigationBarInit:(UINavigationBar *)bar{
+    
+    
+    [self setNavigationBar:bar];
+    
+    UIColor * color = [UIColor whiteColor];
+    [bar setTintColor:color];
+    
+    NSDictionary * dict =[NSDictionary dictionaryWithObjectsAndKeys: [UIFont systemFontOfSize:23],NSFontAttributeName,color, NSForegroundColorAttributeName,nil];
+    bar.titleTextAttributes = dict;
+}
+-(void)navigationBarInit{
+    
+    self.navigationItem.backBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"" style:(UIBarButtonItemStyleDone) target:nil action:nil];
+    UINavigationBar *bar=nil;
+    if(self.tabBarController==nil){
+        bar=self.navigationController.navigationBar;
+    }else{
+        bar=self.tabBarController.navigationController.navigationBar;
+    }
+    
+    
+    
+    
+    [self navigationBarInit:bar];
+    
+     
+}
+-(void)setNavigationBar:(UIView *)bar{
+         UIView *subView=nil;
+         for (UIView *v in [bar subviews] ) {
+             if(v.tag==1002){
+                 subView=v;
+                 break;
+             }
+         }
+         if(subView==nil){
+             subView=[[UIView alloc] initWithFrame:bar.bounds];
+             [subView setUserInteractionEnabled:NO];
+             [subView setTag:1002];
+             UIColor *startColor = [UIColor colorWithHexString:@"#3CE6FF"];
+             UIColor *endColor = [UIColor colorWithHexString:@"#2F89FF"];
+             
+             CAGradientLayer *gradient = [CAGradientLayer layer];
+             gradient.frame =bar.bounds;
+             gradient.startPoint = CGPointMake(0, 0);
+             gradient.endPoint = CGPointMake(1,1);
+             gradient.colors = @[(id)[startColor CGColor], (id)[endColor CGColor]];
+             
+             [subView.layer insertSublayer:gradient atIndex:0];
+             [bar insertSubview:subView atIndex:0];
+             
+         }
+         
+         [bar sendSubviewToBack:subView];
+}
+
+
 -(void)flyIconToFace{
+    
     CGRect bounds=self.view.bounds;
     UIView *containerView=[[UIView alloc] initWithFrame:bounds];
     
@@ -68,25 +146,7 @@
 
     
     
-    
-    
-    
-    
 }
 
 @end
 
-@implementation UIViewController (NavigationBar)
-
--(void)navigationBarInit{
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"alph0"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
-}
--(void)back:(id)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-@end

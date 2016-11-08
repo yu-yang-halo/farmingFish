@@ -159,14 +159,6 @@
     }];
 }
 
-- (void)dismissView{
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
-        self.alpha = 0;
-    }];
-}
-
 #pragma mark 绘制三角形
 - (void)drawRect:(CGRect)rect
 
