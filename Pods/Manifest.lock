@@ -19,6 +19,7 @@ PODS:
     - CocoaAsyncSocket/GCD (= 7.5.0)
   - CocoaAsyncSocket/GCD (7.5.0)
   - HMSegmentedControl (1.5.3)
+  - JZLocationConverter (1.0.0)
   - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
   - PNChart (0.8.9):
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - BaiduMapKit (~> 3.0.0)
   - CocoaAsyncSocket
   - HMSegmentedControl
+  - JZLocationConverter
   - Masonry
   - MBProgressHUD (~> 1.0.0)
   - PNChart
@@ -43,6 +45,7 @@ SPEC CHECKSUMS:
   BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
+  JZLocationConverter: 3d816bee6484aed9c155a6045a02ce444833e2f0
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2

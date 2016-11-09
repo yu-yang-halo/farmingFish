@@ -19,7 +19,7 @@
 @property(nonatomic,strong) NSString *userAccount;
 
 //视频数据
-@property(nonatomic,strong) NSDictionary *videoInfo;
+@property(nonatomic,strong) NSArray *videoInfoArrs;
 //设备数据
 @property(nonatomic,strong) NSDictionary *deviceData;
 

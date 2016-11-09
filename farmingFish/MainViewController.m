@@ -20,14 +20,16 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "YYColleCollectionViewCell.h"
 #import "GradientHelper.h"
-@interface MainViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>{
+#define YYTelephone @"18905606894"
+
+@interface MainViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UIAlertViewDelegate>{
     NSArray *itemTitles;
     NSArray *itemImages;
 }
 /*
  *params data
  */
-@property(nonatomic,strong) NSDictionary *videoInfo;
+@property(nonatomic,strong) NSArray *videoInfoArrs;
 @property(nonatomic,strong) NSDictionary *devicesInfo;
 
 
@@ -57,11 +59,11 @@
         AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
         
         
-        self.videoInfo=[[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
+        self.videoInfoArrs=[[FService shareInstance] GetUserVideoInfo:delegate.userAccount];
         
         self.devicesInfo=[[FService shareInstance] GetCollectorInfo:delegate.customerNo  userAccount:delegate.userAccount];
         
-        delegate.videoInfo=_videoInfo;
+        delegate.videoInfoArrs=_videoInfoArrs;
         delegate.deviceData=_devicesInfo;
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -155,6 +157,9 @@
     [self buttonStyleInit:phoneBtn];
     
     
+    [phoneBtn setTag:0];
+    [phoneBtn addTarget:self action:@selector(buttonClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    
     
     
     UIView *line=[[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-1)/2,(footerHeight-linerHeight)/2, 1, linerHeight)];
@@ -168,6 +173,8 @@
     [productBtn setTitle:@"产品展示" forState:UIControlStateNormal];
     
     [self buttonStyleInit:productBtn];
+    [productBtn setTag:1];
+    [productBtn addTarget:self action:@selector(buttonClick:) forControlEvents:(UIControlEventTouchUpInside)];
     
     
     [footerView addSubview:phoneBtn];
@@ -178,6 +185,21 @@
     
     [self.view addSubview:footerView]; 
 }
+-(void)buttonClick:(UIButton *)sender{
+    if(sender.tag==0){
+        //call phone
+        
+        
+        
+        UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"电话咨询" message: [NSString stringWithFormat:@"咨询电话:%@",YYTelephone] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        
+        [alertView show];
+        
+        
+    }
+    
+}
+
 -(void)buttonStyleInit:(UIButton *)btn{
     [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
@@ -234,7 +256,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if(indexPath.row==1){
-        if(_videoInfo==nil){
+        if(_videoInfoArrs==nil){
             [self.view.window makeToast:@"暂无视频数据信息,请重试"];
             return;
         }
@@ -306,5 +328,14 @@
     CGFloat height=collectionView.frame.size.height/row;
     
     return CGSizeMake(CGRectGetWidth(self.view.frame)/2, height);
+}
+
+#pragma mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex NS_DEPRECATED_IOS(2_0, 9_0){
+    NSLog(@"buttonIndex %ld",buttonIndex);
+    if(buttonIndex!=0){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",YYTelephone]]];
+    }
+    
 }
 @end

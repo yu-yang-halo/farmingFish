@@ -61,7 +61,7 @@
     UIColor * color = [UIColor whiteColor];
     [bar setTintColor:color];
     
-    NSDictionary * dict =[NSDictionary dictionaryWithObjectsAndKeys: [UIFont systemFontOfSize:23],NSFontAttributeName,color, NSForegroundColorAttributeName,nil];
+    NSDictionary * dict =[NSDictionary dictionaryWithObjectsAndKeys: [UIFont systemFontOfSize:tldTitleFontSize],NSFontAttributeName,color, NSForegroundColorAttributeName,nil];
     bar.titleTextAttributes = dict;
 }
 -(void)navigationBarInit{

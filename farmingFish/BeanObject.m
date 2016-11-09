@@ -28,3 +28,7 @@
 @implementation HistoryWantData
 
 @end
+
+@implementation YYVideoInfo
+
+@end

@@ -8,9 +8,9 @@
 #import <AFNetworking/AFNetworking.h>
 #import "JSONKit.h"
 #import "FService.h"
-#import "NSDateHelper.h"
+#import "DateHelper.h"
 #import "BeanObjectHelper.h"
-#import <objc/objc-runtime.h>
+#import <objc/runtime.h>
 static FService *instance;
 const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
 @implementation FService
@@ -46,7 +46,7 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     
 }
 -(id)GetCollectorData:(NSString *)customerNo day:(int)day{
-    NSString *dateStr=[NSDateHelper GetLastDay:day];
+    NSString *dateStr=[DateHelper GetLastDay:day];
 
     NSLog(@"%d day is %@",day,dateStr);
     
@@ -161,7 +161,35 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     NSDictionary *retObj=[retResult objectFromJSONData];
     // NSLog(@"GetUserVideoInfo::: %@", retObj);
     
-    return retObj;
+    if(retObj==nil){
+        return nil;
+    }
+    
+    NSMutableArray<YYVideoInfo *> *videoInfoArrs=[NSMutableArray new];
+    
+    NSArray *dataResultArrs=[[retObj objectForKey:@"GetUserVideoInfoResult"] objectFromJSONString];
+    
+    if(dataResultArrs!=nil){
+        for(NSDictionary *dict in dataResultArrs){
+            YYVideoInfo *info=[[YYVideoInfo alloc] init];
+            [BeanObjectHelper dictionaryToBeanObject:dict beanObj:info];
+            
+            [videoInfoArrs addObject:info];
+        }
+        
+        videoInfoArrs=[videoInfoArrs sortedArrayUsingComparator:^NSComparisonResult(YYVideoInfo*  obj1,YYVideoInfo *obj2) {
+           
+            if(obj1.F_IndexCode.intValue>=obj2.F_IndexCode.intValue){
+                return NSOrderedDescending;
+            }else{
+                return NSOrderedAscending;
+            }
+            
+        }];
+    }
+    
+    
+    return videoInfoArrs;
 }
 -(id)GetCollectorInfo:(NSString *)customerNo userAccount:(NSString *)ua{
     NSDictionary *parameters=@{@"customerNo":customerNo,@"userAccount":ua};

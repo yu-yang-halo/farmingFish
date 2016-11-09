@@ -15,7 +15,7 @@
 
 #define  tldTitleFontSize 20
 #define  tldTabBarFontSize 15
-#define  tldCellFontSize 20
+#define  tldCellFontSize 18
 
 #define  tldTabBarHeight 90
 

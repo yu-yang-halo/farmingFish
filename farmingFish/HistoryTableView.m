@@ -62,6 +62,12 @@
     
     [cell setBackgroundColor:[UIColor clearColor]];
     
+    UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
+    
+    [bgView setBackgroundColor:[UIColor clearColor]];
+    
+    [cell setSelectedBackgroundView:bgView];
+    
     
     CGRect cellFrame=cell.frame;
     cellFrame.size.height=CGRectGetHeight(chartView.frame);
@@ -75,10 +81,13 @@
     
     NSArray *xyArrs=[self convertPNChartData:indexPath];
     
+    UIColor *fontColor=[UIColor colorWithWhite:1 alpha:0.7];
 
     PNLineChart *lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 0.0, SCREEN_WIDTH, 200.0)];
-    lineChart.xLabelColor=[UIColor whiteColor];
-    lineChart.yLabelColor=[UIColor whiteColor];
+    lineChart.xLabelColor=fontColor;
+    lineChart.yLabelColor=fontColor;
+    lineChart.axisColor=[UIColor colorWithWhite:1 alpha:0.4];
+    
     lineChart.xLabelFont=[UIFont systemFontOfSize:9];
     
     
@@ -133,11 +142,10 @@
     
     lineChart.legendStyle = PNLegendItemStyleStacked;
     lineChart.legendFont = [UIFont boldSystemFontOfSize:12.0f];
-    lineChart.legendFontColor = [UIColor whiteColor];
+    lineChart.legendFontColor = fontColor;
     
     UIView *legend = [lineChart getLegendWithMaxWidth:320];
     [legend setFrame:CGRectMake(30, 200, legend.frame.size.width, legend.frame.size.height+30)];
-    
     
     [containerView addSubview:lineChart];
     
@@ -145,7 +153,7 @@
     
     containerView.frame=CGRectMake(0, 0,SCREEN_WIDTH,CGRectGetMaxY(legend.frame));
     
-
+    //containerView.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
     return containerView;
 }
 

@@ -31,6 +31,7 @@
 #import "FService.h"
 #import "AppDelegate.h"
 #import "GradientHelper.h"
+#import "BeanObject.h"
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>{
     int layoutMode;//1 2 3 4
@@ -46,14 +47,14 @@ VideoViewController *g_pController = NULL;
     BOOL waitViewDidLoad;
     
 }
-@property(nonatomic,strong) NSDictionary *configParams;
+@property(nonatomic,strong) YYVideoInfo *configParams;
 @property(nonatomic,strong) UICollectionView *collectionView;
 @property(nonatomic,strong) UIScrollView     *ptzControlView;
 @property(nonatomic,strong) UIScrollView     *videoMenuView;
 @property(nonatomic,assign) BOOL   isShow;
 @property(nonatomic,strong) NSString *videoPath;
 @property(nonatomic,strong) NSMutableDictionary *indexCodeDict;
-@property(nonatomic,strong) NSArray<NSDictionary *> *realVideoArrs;
+@property(nonatomic,strong) NSArray<YYVideoInfo *> *realVideoArrs;
 
 @end
 
@@ -63,7 +64,7 @@ VideoViewController *g_pController = NULL;
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    
+    [self viewControllerBGInit];
     
     waitViewDidLoad=YES;
     singleSelectIndex=0;
@@ -71,18 +72,12 @@ VideoViewController *g_pController = NULL;
     AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
     
     self.indexCodeDict=[NSMutableDictionary new];
+    self.realVideoArrs=delegate.videoInfoArrs;
     
-    self.videoInfo=delegate.videoInfo;
-    self.realVideoArrs=[[_videoInfo objectForKey:@"GetUserVideoInfoResult"] objectFromJSONString];
     
     if(_realVideoArrs!=nil&&[_realVideoArrs count]>0){
         self.configParams=_realVideoArrs[0];
-        NSLog(@"GetUserVideoInfo::: %@", _videoInfo);
         videoCount=[_realVideoArrs count];
-        
-        for (NSDictionary *dict in _realVideoArrs) {
-            [_indexCodeDict setObject:@(YES) forKey: [dict objectForKey:@"F_IndexCode"]];
-        }
     }else{
         videoCount=0;
     }
@@ -160,7 +155,7 @@ VideoViewController *g_pController = NULL;
 -(void)ptzViewInit{
     self.ptzControlView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(_collectionView.frame)-tldTabBarHeight)];
     
-    [GradientHelper setGradientToView:_ptzControlView];
+    //[GradientHelper setGradientToView:_ptzControlView];
     
     
     float space=3;
@@ -178,17 +173,17 @@ VideoViewController *g_pController = NULL;
         [btn setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:(UIControlStateNormal)];
         btn.layer.cornerRadius=3;
         
-        [btn addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
-        [btn addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
+//        [btn addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
+        [btn addTarget:self action:@selector(touchClick:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpInside];
         
         [btn setTag:tags[i]];
-        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.3] forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1] forState:UIControlStateHighlighted];
+        [btn setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.3] forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.1] forState:UIControlStateHighlighted];
         
         [_ptzControlView addSubview:btn];
         
     }
-    
+    _ptzControlView.alpha=0;
     [self.view addSubview:_ptzControlView];
     
 }
@@ -197,7 +192,7 @@ VideoViewController *g_pController = NULL;
    
     self.videoMenuView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(_collectionView.frame)-tldTabBarHeight)];
     
-    [GradientHelper setGradientToView:_videoMenuView];
+    //[GradientHelper setGradientToView:_videoMenuView];
     
     if(videoCount<=0){
         return;
@@ -210,18 +205,17 @@ VideoViewController *g_pController = NULL;
      */
     
     int  maxColums=4;
-    float space=3;
+    float space=0;
+    int   row=1;
 
     if(videoCount<=maxColums){
         maxColums=videoCount;
+    }else{
+        row=videoCount%maxColums==0?videoCount/maxColums:(videoCount/maxColums+1);
     }
-  
     
-    
-    
-    
-    float btn_width=(_videoMenuView.frame.size.width-space*(maxColums+1))/maxColums;
-    float btn_heigth=(_videoMenuView.frame.size.height-space*(maxColums+1))/maxColums;
+    float btn_width=94;
+    float btn_heigth=70;
   
     for (int i=0; i<videoCount; i++) {
         
@@ -232,14 +226,15 @@ VideoViewController *g_pController = NULL;
         UIButton *btn=[[UIButton alloc] initWithFrame:CGRectMake(col*(btn_width)+(col+1)*space,row*(btn_heigth)+(row+1)*space, btn_width, btn_heigth)];
        
         
-        [btn setTitle:[_realVideoArrs[i] objectForKey:@"F_Name"] forState:(UIControlStateNormal)];
+        [btn setTitle:[_realVideoArrs[i] valueForKey:@"F_Name"] forState:(UIControlStateNormal)];
         [btn setImage:[UIImage imageNamed:@"video_dev"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:(UIControlStateNormal)];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
         //top left bottom right
         //icon text
 
-        [btn setImageEdgeInsets:UIEdgeInsetsMake(-0, 0, 0,-49)];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -49,-59, 0)];
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(-10, 0, 0,-40)];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -58,-49, 0)];
 
         
         [btn setTag:i];
@@ -249,6 +244,13 @@ VideoViewController *g_pController = NULL;
         [_videoMenuView addSubview:btn];
         
     }
+    
+    if( btn_heigth*row>CGRectGetHeight(_videoMenuView.frame)){
+        
+        [_videoMenuView setContentSize:CGSizeMake(CGRectGetWidth(_videoMenuView.frame),  btn_heigth*row)];
+        
+    }
+    
     
     [self.view addSubview:_videoMenuView];
 
@@ -274,7 +276,11 @@ VideoViewController *g_pController = NULL;
 
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self loadVideoData];
+    if(layoutMode==1){
+        [self screenVideoSwitch:YES tag:singleSelectIndex];
+    }else{
+        [self loadVideoData];
+    }
 }
 -(void)loadVideoData{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -298,14 +304,20 @@ VideoViewController *g_pController = NULL;
 
 -(void)touchDown:(UIButton *)sender{
     NSLog(@"down....");
-    [self ptzControl:singleSelectIndex ptzDirect:sender.tag val:0];
+   // [self ptzControl:singleSelectIndex ptzDirect:sender.tag val:0];
 }
--(void)touchUp:(UIButton *)sender{
-    NSLog(@"up....");
+-(void)touchClick:(UIButton *)sender{
+    NSLog(@"move ....");
+    [self ptzControl:singleSelectIndex ptzDirect:sender.tag val:0];
+    [self performSelector:@selector(moveStop:) withObject:sender afterDelay:0.4];
+    
+}
+-(void)moveStop:(UIButton *)sender{
+    NSLog(@"sender ... %@",sender);
     [self ptzControl:singleSelectIndex ptzDirect:sender.tag val:1];
 }
--(void)ptzControl:(int)channel ptzDirect:(int)pd val:(int)type{
-    int PTZ_DIRECT=pd;
+-(void)ptzControl:(int)channel ptzDirect:(NSInteger)pd val:(NSInteger)type{
+    NSInteger PTZ_DIRECT=pd;
     NSString *loggerTag=@"";
     if(type==0){
         loggerTag=@"START";
@@ -448,18 +460,18 @@ VideoViewController *g_pController = NULL;
         
         lastMode=layoutMode;
         layoutMode=1;
+        _ptzControlView.alpha=1;
+        _videoMenuView.alpha=0;
+
         [self.view bringSubviewToFront:_ptzControlView];
         
         [self playAllVideo:NO index:singleSelectIndex];
         if(singleSelectIndex<[_realVideoArrs count]){
            
-            [self setBarTitle:[_realVideoArrs[singleSelectIndex] objectForKey:@"F_Name"]];
+            [self setBarTitle:[_realVideoArrs[singleSelectIndex] valueForKey:@"F_Name"]];
             
         }else{
-            
             [self setBarTitle:ITEM_VIDEO];
-            
-            
         }
        
     }else{
@@ -468,6 +480,9 @@ VideoViewController *g_pController = NULL;
             if(lastMode!=0){
                 layoutMode=lastMode;
             }
+            _ptzControlView.alpha=0;
+            _videoMenuView.alpha=1;
+            
             [self.view bringSubviewToFront:_videoMenuView];
             
             [self playAllVideo:YES index:-1];
@@ -477,7 +492,16 @@ VideoViewController *g_pController = NULL;
         
         
     }
+    
     [self layoutReload];
+    self.view.alpha=0;
+    
+    [UIView beginAnimations:@"Alpha" context:nil];
+    [UIView setAnimationDuration:1.0f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    self.view.alpha=1;
+    [UIView commitAnimations];
+
 }
 
 
@@ -577,8 +601,9 @@ VideoViewController *g_pController = NULL;
     DeviceInfo *deviceInfo = [[DeviceInfo alloc] init];
     deviceInfo.chDeviceAddr = ipAndPortArr[0];
     deviceInfo.nDevicePort = [ipAndPortArr[1] intValue];
-    deviceInfo.chLoginName = [_configParams objectForKey:@"F_UserName"];//账户名
-    deviceInfo.chPassWord = [_configParams objectForKey:@"F_UserPwd"];;//密码
+    
+    deviceInfo.chLoginName = _configParams.F_UserName;//账户名
+    deviceInfo.chPassWord  = _configParams.F_UserPwd;//密码
     
     // device login
     NET_DVR_DEVICEINFO_V30 logindeviceInfo = {0};
@@ -620,7 +645,7 @@ VideoViewController *g_pController = NULL;
 
 /**获取动态ip port**/
 -(NSArray *)domainIpAndPort{
-    NSString *F_OutIPAddr=[_configParams objectForKey:@"F_OutIPAddr"];
+    NSString *F_OutIPAddr=_configParams.F_OutIPAddr;
     
     NSArray *params=[F_OutIPAddr componentsSeparatedByString:@"|"];
     

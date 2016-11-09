@@ -144,7 +144,8 @@
         
     }
     
-    [cell setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.8]];
+    [cell setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.6]];
+    
      UIView *selectBGView=[[UIView alloc] initWithFrame:CGRectZero];
     
     [cell setSelectedBackgroundView:selectBGView];
@@ -161,7 +162,7 @@
     [segmentedControl setTitleTextAttributes:[NSDictionary dictionaryWithObjects:@[[UIColor whiteColor]] forKeys:@[NSForegroundColorAttributeName]]];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     
-    [segmentedControl setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+    [segmentedControl setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.1]];
     
     cell.segmentedControl=segmentedControl;
     
@@ -169,7 +170,7 @@
     UIView *weatherView=viewManager.weatherView;
     [weatherView setBackgroundColor:[UIColor clearColor]];
     [viewManager refreshDataAndShow:(2-collectorInfo.day)];
-     weatherView.frame=CGRectMake(0,CGRectGetMaxY(segmentedControl.frame),[UIScreen mainScreen].bounds.size.width,94);//94
+     weatherView.frame=CGRectMake(0,CGRectGetMaxY(segmentedControl.frame),[UIScreen mainScreen].bounds.size.width,CGRectGetHeight(weatherView.frame));//94
     
     [headerView addSubview:segmentedControl];
     [headerView addSubview:weatherView];

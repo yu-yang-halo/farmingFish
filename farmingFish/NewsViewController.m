@@ -37,6 +37,7 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
     _tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
+    [_tableView setSeparatorColor:[UIColor colorWithWhite:1 alpha:0.5]];
     
     
     _tableView.delegate=self;
@@ -139,6 +140,10 @@
     
     [self.navigationController pushViewController:webVC animated:YES];
     
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
 }
 
 

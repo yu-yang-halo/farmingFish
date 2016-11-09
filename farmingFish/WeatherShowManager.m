@@ -40,6 +40,8 @@
                 dict=arrays[_day];
             }
             [self layoutWeatherUI:dict];
+        }else{
+            [self layoutWeatherUI:nil];
         }
         
     }else{
@@ -70,6 +72,10 @@
     
 }
 -(void)layoutWeatherUI:(NSDictionary *)dict{
+    if(dict==nil){
+        _weatherView.frame=CGRectZero;
+        return;
+    }
     [_cityLabel setText:[dict objectForKey:@"city_name"]];
     int week=[[dict objectForKey:@"week"] intValue];
     [_timeLabel setText:[NSString stringWithFormat:@"%@     %@",[dict objectForKey:@"date"],_weeks[week]]];
@@ -80,7 +86,12 @@
     
     NSString *imagePath=[self prefixZero:imageId];
     [_weatherImage setImage:[UIImage imageNamed:imagePath]];
-     _weatherView.alpha=1;
+     _weatherView.alpha=0;
+    CGRect frame=_weatherView.frame;
+    frame.size.height=94;
+    
+    _weatherView.frame=frame;
+    
     
     [UIView animateWithDuration:1 animations:^{
         _weatherView.alpha=1;

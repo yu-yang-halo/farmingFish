@@ -27,7 +27,7 @@
     bool m_bRecord;
     bool m_bVoiceTalk;
 }
-@property(nonatomic,strong) NSDictionary *videoInfo;
+
 - (void)previewPlay:(int*)iPlayPort playView:(UIView*)playView;
 - (void)stopPreviewPlay:(int*)iPlayPort;
 

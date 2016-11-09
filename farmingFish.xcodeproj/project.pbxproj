@@ -15,7 +15,6 @@
 		181796981D818806000953BF /* FService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181796971D818806000953BF /* FService.m */; };
 		1836931D1D962C6D00353868 /* YYStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836931C1D962C6D00353868 /* YYStatusView.m */; };
 		1856D4321DD0142A005CFB62 /* HistoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D4311DD0142A005CFB62 /* HistoryTableView.m */; };
-		1856D4351DD03B59005CFB62 /* NSDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D4341DD03B59005CFB62 /* NSDateHelper.m */; };
 		1861B7541D8824E5008CD63C /* File.java in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7531D8824E5008CD63C /* File.java */; };
 		1861B7571D883118008CD63C /* SocketService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7561D883118008CD63C /* SocketService.m */; };
 		187AB9461DCA087900FD295D /* YYColleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187AB9441DCA087900FD295D /* YYColleCollectionViewCell.m */; };
@@ -109,8 +108,6 @@
 		1836931C1D962C6D00353868 /* YYStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStatusView.m; sourceTree = "<group>"; };
 		1856D4301DD0142A005CFB62 /* HistoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableView.h; sourceTree = "<group>"; };
 		1856D4311DD0142A005CFB62 /* HistoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableView.m; sourceTree = "<group>"; };
-		1856D4331DD03B59005CFB62 /* NSDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDateHelper.h; sourceTree = "<group>"; };
-		1856D4341DD03B59005CFB62 /* NSDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateHelper.m; sourceTree = "<group>"; };
 		1861B7531D8824E5008CD63C /* File.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = File.java; sourceTree = "<group>"; };
 		1861B7551D883118008CD63C /* SocketService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketService.h; sourceTree = "<group>"; };
 		1861B7561D883118008CD63C /* SocketService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketService.m; sourceTree = "<group>"; };
@@ -510,12 +507,8 @@
 		84485B7A1DACA88B000AF2EC /* weather */ = {
 			isa = PBXGroup;
 			children = (
-				84485B831DACC230000AF2EC /* DateHelper.h */,
-				84485B841DACC230000AF2EC /* DateHelper.m */,
 				84485B7B1DACA8C7000AF2EC /* YYWeatherService.h */,
 				84485B7C1DACA8C7000AF2EC /* YYWeatherService.m */,
-				84485B801DACBE84000AF2EC /* WeatherHelper.h */,
-				84485B811DACBE84000AF2EC /* WeatherHelper.m */,
 				8418A7BA1DACD4E400251DF7 /* weatherView.xib */,
 				8418A7BC1DACE07600251DF7 /* WeatherShowManager.h */,
 				8418A7BD1DACE07600251DF7 /* WeatherShowManager.m */,
@@ -526,14 +519,16 @@
 		848A10C81DAB7DEC003F24CE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				84485B801DACBE84000AF2EC /* WeatherHelper.h */,
+				84485B811DACBE84000AF2EC /* WeatherHelper.m */,
+				84485B831DACC230000AF2EC /* DateHelper.h */,
+				84485B841DACC230000AF2EC /* DateHelper.m */,
 				848A10C91DAB7E42003F24CE /* BeanObjectHelper.h */,
 				848A10CA1DAB7E42003F24CE /* BeanObjectHelper.m */,
 				848A10CC1DAB7FBF003F24CE /* BeanObject.h */,
 				848A10CD1DAB7FBF003F24CE /* BeanObject.m */,
 				180A27401DCC1FD9002ECF63 /* GradientHelper.h */,
 				180A27411DCC1FD9002ECF63 /* GradientHelper.m */,
-				1856D4331DD03B59005CFB62 /* NSDateHelper.h */,
-				1856D4341DD03B59005CFB62 /* NSDateHelper.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -728,7 +723,6 @@
 				84485B7D1DACA8C7000AF2EC /* YYWeatherService.m in Sources */,
 				848A10CE1DAB7FBF003F24CE /* BeanObject.m in Sources */,
 				84485B821DACBE84000AF2EC /* WeatherHelper.m in Sources */,
-				1856D4351DD03B59005CFB62 /* NSDateHelper.m in Sources */,
 				18EEBFF81DB370AD00CED79A /* HistoryViewController.m in Sources */,
 				18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */,
 				187BC9661D22A05200FB5678 /* main.m in Sources */,

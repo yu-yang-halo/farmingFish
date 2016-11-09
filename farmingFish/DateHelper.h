@@ -36,4 +36,8 @@
  */
 + (NSString *)dateToString:(NSDate *)date withFormat:(NSString *)format;
 
+//**********************yy*********************
++(NSString *)GetLastDay:(int)minusDayValue;
+
+
 @end

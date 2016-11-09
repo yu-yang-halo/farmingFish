@@ -10,11 +10,13 @@
 #import "SocketService.h"
 #import <BaiduMapAPI_Base/BMKMapManager.h>
 #import <BaiduMapAPI_Location/BMKLocationService.h>
+#import <JZLocationConverter/JZLocationConverter.h>
 @interface AppDelegate ()<BMKLocationServiceDelegate>
 {
     BMKMapManager *mapManager;
     BMKLocationService *locService;
 }
+@property(nonatomic,strong)   CLGeocoder *geocoder;
 @property(nonatomic,assign) CLLocationCoordinate2D myLocation;
 @end
 
@@ -45,10 +47,11 @@
 }
 -(void)locMyPosition{
     //初始化BMKLocationService
-    locService = [[BMKLocationService alloc]init];
+    locService = [[BMKLocationService alloc] init];
     locService.delegate = self;
+    
     //启动LocationService
-    [locService startUserLocationService];
+    //[locService startUserLocationService];
 }
 
 
@@ -63,30 +66,48 @@
 {
     //[self.eventDelegate onLocationComplete:userLocation];
     
-    CLGeocoder *geocoder=[[CLGeocoder alloc] init];
+    self.geocoder=[[CLGeocoder alloc] init];
     
     double lat=userLocation.location.coordinate.latitude;
     double lgt=userLocation.location.coordinate.longitude;
-    
-
-    CLLocation *location=[[CLLocation alloc] initWithLatitude:userLocation.location.coordinate.latitude longitude:userLocation.location.coordinate.longitude];
-    
     self.myLocation=CLLocationCoordinate2DMake(lat, lgt);
     
     
+    [self reverseGeocode:userLocation.location.coordinate];
     
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        
-        
-        for (CLPlacemark *mark in placemarks) {
-            NSLog(@"%@ : %@ ",mark.thoroughfare,mark.locality);
-            
-            [[NSUserDefaults standardUserDefaults] setObject:mark.locality forKey:@"city"];
+    
+}
+
+- (void)reverseGeocode:(CLLocationCoordinate2D)coord
+{
+    
+    CLLocation *loc;
+    
+    CGFloat systemVersion = [[UIDevice currentDevice].systemVersion floatValue];
+    if (systemVersion>=19)
+    {
+        CLLocationCoordinate2D wgs84ToGcj02 = [JZLocationConverter bd09ToGcj02:coord];
+        loc = [[CLLocation alloc] initWithLatitude:wgs84ToGcj02.latitude longitude:wgs84ToGcj02.longitude];
+    }
+    else
+    {
+        loc = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
+    }
+    
+    // 反地理编码
+    [self.geocoder reverseGeocodeLocation:loc completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error!=nil) {
+            //NSLog(@"*********%@*****",error);
+        }else{
+            for (CLPlacemark *mark in placemarks) {
+                //NSLog(@"%@ ",mark.locality);
+                
+                [[NSUserDefaults standardUserDefaults] setObject:mark.locality forKey:@"city"];
+            }
         }
         
         
     }];
-    
     
 }
 

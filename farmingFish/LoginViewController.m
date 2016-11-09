@@ -24,6 +24,7 @@ const static NSString *KEY_REMEMBER=@"remember-key";
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)loginClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *checkBtn;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -47,11 +48,15 @@ const static NSString *KEY_REMEMBER=@"remember-key";
       
     [self initUsernameOrPwd];
     
+    [self versionLabelInit];
+    
+
     
     [self flyIconToFace];
     
    
     [_checkBtn addTarget:self action:@selector(checkClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    
     
     
     
@@ -175,6 +180,12 @@ const static NSString *KEY_REMEMBER=@"remember-key";
     
     
     
+}
+
+-(void)versionLabelInit{
+    NSDictionary *infoDict=[[NSBundle mainBundle] infoDictionary];
+    
+    self.versionLabel.text=[NSString stringWithFormat:@"当前版本 v%@",[infoDict objectForKey:@"CFBundleShortVersionString"]];
 }
 
 #pragma mark delegate

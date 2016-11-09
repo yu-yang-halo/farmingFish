@@ -82,6 +82,26 @@
 @property(nonatomic,assign) float value;
 
 @end
+/*
+
+\"F_ID\": \"a61bbffb-31a9-408a-87fa-26236f6b13d7\",
+\"F_CollectorID\": \"\",
+\"F_Name\": \"\U89c6\U9891\U56db\",
+\"F_UserName\": \"admin\",
+\"F_UserPwd\": \"ch123456\",
+\"F_OutIPAddr\": \"www.hik-online.com|tld42345678\",
+\"F_IndexCode\": 4
+*/
+@interface YYVideoInfo : NSObject
+@property(nonatomic,strong) NSString *F_ID;
+@property(nonatomic,strong) NSString *F_CollectorID;
+@property(nonatomic,strong) NSString *F_Name;
+@property(nonatomic,strong) NSString *F_UserName;
+@property(nonatomic,strong) NSString *F_UserPwd;
+@property(nonatomic,strong) NSString *F_OutIPAddr;
+@property(nonatomic,assign) NSNumber *F_IndexCode;
 
 
+
+@end
 

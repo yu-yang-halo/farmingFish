@@ -84,7 +84,7 @@
     
     cell.textLabel.text=_itemTitles[indexPath.row];
     cell.imageView.image=[UIImage imageNamed:_itemImages[indexPath.row]];
-    [cell.textLabel setFont:[UIFont systemFontOfSize:20]];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:tldCellFontSize]];
     [cell.textLabel setTextColor:[UIColor whiteColor]];
     [cell setAccessoryType:(UITableViewCellAccessoryDisclosureIndicator)];
     
