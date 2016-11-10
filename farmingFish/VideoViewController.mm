@@ -34,16 +34,17 @@
 #import "BeanObject.h"
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>{
-    int layoutMode;//1 2 3 4
+    int layoutMode;//may be 1 2 3 4
     int lastMode;
     
-    CGRect Screen_bounds;
-
-    YYVideoView  *m_multiView[MAX_VIEW_NUM];
-    int singleSelectIndex;
+    int CURRENT_LAYOUTMODE;
     
+    CGRect Screen_bounds;
+    YYVideoView  *m_multiView[MAX_VIEW_NUM_16];
+    int singleSelectIndex;
     //真实视频数
     int videoCount;
+    int view_container_num;
     BOOL waitViewDidLoad;
     
 }
@@ -81,8 +82,20 @@ VideoViewController *g_pController = NULL;
     }else{
         videoCount=0;
     }
+    if(videoCount<=4){
+        view_container_num=MAX_VIEW_NUM_4;
+        CURRENT_LAYOUTMODE=2;
+    }else if (videoCount<=9){
+        view_container_num=MAX_VIEW_NUM_9;
+        CURRENT_LAYOUTMODE=3;
+    }else if (videoCount<=16){
+        view_container_num=MAX_VIEW_NUM_16;
+        CURRENT_LAYOUTMODE=4;
+    }
+
+    
    
-    for(int i=0;i<MAX_VIEW_NUM;i++){
+    for(int i=0;i<view_container_num;i++){
         m_multiView[i]=[[YYVideoView alloc] initWithFrame:CGRectMake(0,0,0,0)];
         [m_multiView[i] setBackgroundColor:[UIColor clearColor]];
         [m_multiView[i] setTag:i];
@@ -91,14 +104,6 @@ VideoViewController *g_pController = NULL;
         }else{
              [m_multiView[i] setIsVaildYN:NO];
         }
-       
-//        
-//        id isVaildYN=[_indexCodeDict objectForKey:@(i+1)];
-//        
-//        if(isVaildYN!=nil){
-//            [m_multiView[i] setIsVaildYN:[isVaildYN boolValue]];
-//            NSLog(@"_indexCodeDict %@",_indexCodeDict);
-//        }
         
     }
    
@@ -107,7 +112,7 @@ VideoViewController *g_pController = NULL;
     Screen_bounds.size.height=Screen_bounds.size.width-40;
     
     
-    layoutMode=4;
+    layoutMode=CURRENT_LAYOUTMODE;
     
     float width=(Screen_bounds.size.width-(layoutMode-1)*3)/layoutMode;
     float height=(Screen_bounds.size.height-(layoutMode-1)*3)/layoutMode;
@@ -214,7 +219,7 @@ VideoViewController *g_pController = NULL;
         row=videoCount%maxColums==0?videoCount/maxColums:(videoCount/maxColums+1);
     }
     
-    float btn_width=94;
+    float btn_width=CGRectGetWidth(self.view.frame)/maxColums;
     float btn_heigth=70;
   
     for (int i=0; i<videoCount; i++) {
@@ -570,7 +575,7 @@ VideoViewController *g_pController = NULL;
 -(void)playAllVideo:(BOOL)isPlayAllYN index:(int)idx{
     if(g_iPreviewChanNum > 0)
     {
-        int iPreviewID[MAX_VIEW_NUM] = {0};
+        int iPreviewID[MAX_VIEW_NUM_CACHE] = {0};
         
         for(int i=0;i<videoCount;i++){
             if(isPlayAllYN){

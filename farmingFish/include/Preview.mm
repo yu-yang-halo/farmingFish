@@ -24,7 +24,7 @@ typedef struct tagHANDLE_STRUCT
     }
 }HANDLE_STRUCT,*LPHANDLE_STRUCT;
 
-HANDLE_STRUCT g_struHandle[MAX_VIEW_NUM];
+HANDLE_STRUCT g_struHandle[MAX_VIEW_NUM_CACHE];
 extern VideoViewController *g_pController;
 
 // preview callback function

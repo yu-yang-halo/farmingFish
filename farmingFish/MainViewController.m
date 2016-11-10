@@ -80,7 +80,7 @@
 
 -(void)pageViewInit{
     
-    CGFloat logoHeight=180;
+    CGFloat logoHeight=160;
     CGFloat footerHeight=60;
     
     CGFloat  buttonWidth=150;

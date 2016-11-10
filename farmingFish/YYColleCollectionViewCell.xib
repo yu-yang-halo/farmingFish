@@ -19,14 +19,14 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_alert" translatesAutoresizingMaskIntoConstraints="NO" id="tcP-Vd-ZLe">
-                        <rect key="frame" x="129" y="95.5" width="60" height="60"/>
+                        <rect key="frame" x="139" y="95.5" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="Msk-8d-259"/>
                             <constraint firstAttribute="height" constant="60" id="iNu-TF-Ges"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频监控" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRu-1I-fp5">
-                        <rect key="frame" x="187.5" y="105.5" width="106" height="40"/>
+                        <rect key="frame" x="199" y="105.5" width="106" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="106" id="cP0-xd-XDz"/>
                             <constraint firstAttribute="height" constant="40" id="pdF-21-wsN"/>
@@ -39,8 +39,8 @@
             </view>
             <constraints>
                 <constraint firstItem="uRu-1I-fp5" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="1ZR-dc-LHB"/>
-                <constraint firstItem="uRu-1I-fp5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="31.5" id="Wfv-Jc-r4U"/>
-                <constraint firstItem="tcP-Vd-ZLe" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="-50" id="iwJ-Wy-1hS"/>
+                <constraint firstItem="uRu-1I-fp5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="43" id="Wfv-Jc-r4U"/>
+                <constraint firstItem="tcP-Vd-ZLe" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="-40" id="iwJ-Wy-1hS"/>
                 <constraint firstItem="tcP-Vd-ZLe" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="teg-ge-AyZ"/>
             </constraints>
             <size key="customSize" width="418" height="251"/>
