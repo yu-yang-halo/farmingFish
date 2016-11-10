@@ -67,8 +67,8 @@
     [self setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
     
    
-    
-    [_realDataCache setObject:@[[NSString stringWithFormat:@"%@|%f|%f|%@",@"溶氧",8.0,20.0,@"mg/L"],[NSString stringWithFormat:@"%@|%f|%f|%@",@"Test",20.0,20.0,@"mg/L"]]  forKey:delegate.customerNo];
+//    
+//    [_realDataCache setObject:@[[NSString stringWithFormat:@"%@|%f|%f|%@",@"溶氧",8.0,20.0,@"mg/L"],[NSString stringWithFormat:@"%@|%f|%f|%@",@"Test",20.0,20.0,@"mg/L"]]  forKey:delegate.customerNo];
 
 }
 
@@ -131,6 +131,14 @@
     }else{
         [cell showLoading];
     }
+    
+    UIView *selectedBGView=[[UIView alloc] initWithFrame:cell.bounds];
+    
+    [selectedBGView setBackgroundColor:[UIColor clearColor]];
+    
+    [cell setSelectedBackgroundView:selectedBGView];
+
+    
     return cell;
 }
 

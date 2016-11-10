@@ -10,7 +10,7 @@
 #import "YYButton.h"
 #import "SocketService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-
+#import <UIView+Toast.h>
 #import "FService.h"
 #define HEAD_HEIGHT 40
 
@@ -312,6 +312,11 @@
             }else{
                 [self reloadData];
             }
+            
+            if(collectorInfo.historyDict==nil||[collectorInfo.historyDict count]<=0){
+                [[[UIApplication sharedApplication] keyWindow] makeToast:@"暂无历史数据"];
+            }
+            
             
         });
     });

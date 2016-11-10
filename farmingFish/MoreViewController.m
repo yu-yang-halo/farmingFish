@@ -71,14 +71,17 @@
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"itemCell"];
     if(cell==nil){
         cell=[[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"itemCell"];
-        
-        [cell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+       
        
         
     }
+    
+    [cell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.05]];
+    
     UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
     
-    [bgView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1]];
+    [bgView setBackgroundColor:[UIColor clearColor]];
+    
     [cell setSelectedBackgroundView:bgView];
 
     

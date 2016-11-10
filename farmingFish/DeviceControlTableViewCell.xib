@@ -25,8 +25,6 @@
                             <constraint firstAttribute="height" constant="31" id="P5R-py-Yv2"/>
                             <constraint firstAttribute="width" constant="49" id="fQO-J8-rvJ"/>
                         </constraints>
-                        <color key="onTintColor" red="0.28360619675496346" green="0.80645647611637705" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="thumbTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fik-59-NXH">
                         <rect key="frame" x="23" y="15" width="185" height="21"/>
