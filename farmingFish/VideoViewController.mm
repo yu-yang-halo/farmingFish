@@ -152,7 +152,19 @@ VideoViewController *g_pController = NULL;
     [self videoConfigurationInit];
     [self loadVideoData];
     
+    /*
+     * UIViewController 监听HOME键
+     */
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
+                                                 name:UIApplicationWillResignActiveNotification object:nil]; //监听是否触发home键挂起程序.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil]; //监听是否重新进入程序程序.
+    
 }
+
+
 -(void)setBarTitle:(NSString *)_title{
      self.tabBarController.title=_title;
 }
@@ -465,9 +477,7 @@ VideoViewController *g_pController = NULL;
         
         lastMode=layoutMode;
         layoutMode=1;
-        _ptzControlView.alpha=1;
-        _videoMenuView.alpha=0;
-
+      
         [self.view bringSubviewToFront:_ptzControlView];
         
         [self playAllVideo:NO index:singleSelectIndex];
@@ -485,9 +495,6 @@ VideoViewController *g_pController = NULL;
             if(lastMode!=0){
                 layoutMode=lastMode;
             }
-            _ptzControlView.alpha=0;
-            _videoMenuView.alpha=1;
-            
             [self.view bringSubviewToFront:_videoMenuView];
             
             [self playAllVideo:YES index:-1];
@@ -499,12 +506,29 @@ VideoViewController *g_pController = NULL;
     }
     
     [self layoutReload];
-    self.view.alpha=0;
+    
+    if(layoutMode==1){
+        _ptzControlView.alpha=0;
+        _videoMenuView.alpha=1;
+
+    }else{
+        _ptzControlView.alpha=1;
+        _videoMenuView.alpha=0;
+    }
+ 
     
     [UIView beginAnimations:@"Alpha" context:nil];
-    [UIView setAnimationDuration:1.0f];
+    [UIView setAnimationDuration:0.4f];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    self.view.alpha=1;
+    
+    if(layoutMode==1){
+        _ptzControlView.alpha=1;
+        _videoMenuView.alpha=0;
+        
+    }else{
+        _ptzControlView.alpha=0;
+        _videoMenuView.alpha=1;
+    }
     [UIView commitAnimations];
 
 }
@@ -520,10 +544,7 @@ VideoViewController *g_pController = NULL;
 
 }
 
--(void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
+
 
 -(void)previewPlay:(int*)iPlayPort playView:(UIView *)playView
 {
@@ -720,6 +741,24 @@ VideoViewController *g_pController = NULL;
     
     return ipAndPortArr;
     
+}
+-(void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+}
+
+#pragma mark HOME监听
+- (void)applicationWillResignActive:(NSNotification *)notification
+
+{
+    [self viewWillDisappear:YES];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self viewWillAppear:YES];
 }
 
 

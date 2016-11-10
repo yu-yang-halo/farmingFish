@@ -22,14 +22,16 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-64)];
     
+    self.webView.delegate=self;
+    [self.webView setBackgroundColor:[UIColor clearColor]];
+
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
+    
+    
+
     
     
     [self.view addSubview:_webView];
-    
-    _webView.delegate=self;
-    [_webView setBackgroundColor:[UIColor clearColor]];
-    
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
     
     
     

@@ -24,6 +24,7 @@
         
         [[NSBundle mainBundle] loadNibNamed:@"weatherView" owner:self options:nil];
         self.weeks=@[@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"];
+        self.weatherView.frame=CGRectZero;
         
     }
     return self;
@@ -46,15 +47,15 @@
         
     }else{
        
-        NSString *cityName=[[NSUserDefaults standardUserDefaults] objectForKey:@"city"];
-        if(cityName==nil){
-            cityName=@"北京";
-        }
+       
+        NSMutableArray *arrays=[WeatherHelper loadDiskDataToObject];
+        dict=[arrays lastObject];
+        [self layoutWeatherUI:dict];
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
            
-            [[YYWeatherService defaultService] downloadWeatherData:cityName];
+            [[YYWeatherService defaultService] downloadWeatherData];
            
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 NSMutableArray *arrays=[WeatherHelper loadDiskDataToObject];

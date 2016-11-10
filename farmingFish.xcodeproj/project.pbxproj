@@ -11,6 +11,8 @@
 		180AB9621DCECDB900054015 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AB9611DCECDB900054015 /* MoreViewController.m */; };
 		180AB9661DCECEBC00054015 /* YYAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AB9651DCECEBC00054015 /* YYAlertViewController.m */; };
 		180AB9691DCF0CE400054015 /* ConstansManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AB9681DCF0CE400054015 /* ConstansManager.m */; };
+		181452621DD469F000B60B79 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 181452611DD469EF00B60B79 /* Reachability.m */; };
+		181452641DD46A1500B60B79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181452631DD46A1500B60B79 /* SystemConfiguration.framework */; };
 		1816B9581DCAEF9700077BF4 /* YYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816B9571DCAEF9700077BF4 /* YYButton.m */; };
 		181796981D818806000953BF /* FService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181796971D818806000953BF /* FService.m */; };
 		1836931D1D962C6D00353868 /* YYStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836931C1D962C6D00353868 /* YYStatusView.m */; };
@@ -100,6 +102,9 @@
 		180AB9651DCECEBC00054015 /* YYAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAlertViewController.m; sourceTree = "<group>"; };
 		180AB9671DCF0CE400054015 /* ConstansManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstansManager.h; sourceTree = "<group>"; };
 		180AB9681DCF0CE400054015 /* ConstansManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstansManager.m; sourceTree = "<group>"; };
+		181452601DD469EF00B60B79 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		181452611DD469EF00B60B79 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		181452631DD46A1500B60B79 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1816B9561DCAEF9700077BF4 /* YYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYButton.h; sourceTree = "<group>"; };
 		1816B9571DCAEF9700077BF4 /* YYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYButton.m; sourceTree = "<group>"; };
 		181796961D818806000953BF /* FService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FService.h; sourceTree = "<group>"; };
@@ -232,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181452641DD46A1500B60B79 /* SystemConfiguration.framework in Frameworks */,
 				8410BAC21DA8CC620040B3D5 /* AssetsLibrary.framework in Frameworks */,
 				18EDAB5C1D4367730071FFE8 /* OpenAL.framework in Frameworks */,
 				18EDAB5A1D4367600071FFE8 /* OpenGLES.framework in Frameworks */,
@@ -476,6 +482,7 @@
 		36FA035931426E1F0BDC41FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				181452631DD46A1500B60B79 /* SystemConfiguration.framework */,
 				8410BAC11DA8CC620040B3D5 /* AssetsLibrary.framework */,
 				18EDAB5B1D4367730071FFE8 /* OpenAL.framework */,
 				18EDAB591D4367600071FFE8 /* OpenGLES.framework */,
@@ -519,6 +526,8 @@
 		848A10C81DAB7DEC003F24CE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				181452601DD469EF00B60B79 /* Reachability.h */,
+				181452611DD469EF00B60B79 /* Reachability.m */,
 				84485B801DACBE84000AF2EC /* WeatherHelper.h */,
 				84485B811DACBE84000AF2EC /* WeatherHelper.m */,
 				84485B831DACC230000AF2EC /* DateHelper.h */,
@@ -693,6 +702,7 @@
 				1861B7571D883118008CD63C /* SocketService.m in Sources */,
 				848A10CB1DAB7E42003F24CE /* BeanObjectHelper.m in Sources */,
 				180AB9621DCECDB900054015 /* MoreViewController.m in Sources */,
+				181452621DD469F000B60B79 /* Reachability.m in Sources */,
 				18EC4EEF1D977301009246C2 /* RealDataTableViewCell.m in Sources */,
 				180AB9661DCECEBC00054015 /* YYAlertViewController.m in Sources */,
 				84DD4BEA1DAB4574009CCC90 /* YYTabViewController.m in Sources */,

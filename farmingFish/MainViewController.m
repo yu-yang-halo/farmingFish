@@ -20,6 +20,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "YYColleCollectionViewCell.h"
 #import "GradientHelper.h"
+#import "AppDelegate.h"
 #define YYTelephone @"18905606894"
 
 @interface MainViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UIAlertViewDelegate>{
@@ -117,7 +118,7 @@
     collectionLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     collectionLayout.itemSize = CGSizeMake(CGRectGetWidth(self.view.frame)/2, 91);
     collectionLayout.minimumInteritemSpacing=0.0;
-    collectionLayout.minimumLineSpacing=0;
+    collectionLayout.minimumLineSpacing=0.0;
     
     
     UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(logoView.frame), CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-64-footerHeight-logoHeight) collectionViewLayout:collectionLayout];
@@ -238,9 +239,6 @@
     YYColleCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"yyColleCollectionViewCell" forIndexPath:indexPath];
     
     
-    
-    
-    
     cell.itemLabel.text=itemTitles[indexPath.row];
     
     cell.itemImage.image=[UIImage imageNamed:itemImages[indexPath.row]];
@@ -259,6 +257,12 @@
         if(_videoInfoArrs==nil){
             [self.view.window makeToast:@"暂无视频数据信息,请重试"];
             return;
+        }else{
+            AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+            if(!appDelegate.isReachableWiFi){
+                [self.view.window makeToast:@"建议在WIFI环境下观看视频"];
+            }
+            
         }
     }else if (indexPath.row==0||indexPath.row==2){
         if(_devicesInfo==nil){
@@ -324,10 +328,11 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    int row=[itemTitles count]/2;
-    CGFloat height=collectionView.frame.size.height/row;
+    int row=[itemTitles count]%2==0?[itemTitles count]/2:[itemTitles count]/2+1;
     
-    return CGSizeMake(CGRectGetWidth(self.view.frame)/2, height);
+    CGFloat height=(collectionView.frame.size.height/row);
+    
+    return CGSizeMake(CGRectGetWidth(self.view.frame)/2,nearbyintf(height));
 }
 
 #pragma mark UIAlertViewDelegate

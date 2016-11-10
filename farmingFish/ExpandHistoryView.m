@@ -167,9 +167,10 @@
     cell.segmentedControl=segmentedControl;
     
     WeatherShowManager *viewManager =[[WeatherShowManager alloc] init];
+    [viewManager refreshDataAndShow:(2-collectorInfo.day)];
     UIView *weatherView=viewManager.weatherView;
     [weatherView setBackgroundColor:[UIColor clearColor]];
-    [viewManager refreshDataAndShow:(2-collectorInfo.day)];
+   
      weatherView.frame=CGRectMake(0,CGRectGetMaxY(segmentedControl.frame),[UIScreen mainScreen].bounds.size.width,CGRectGetHeight(weatherView.frame));//94
     
     [headerView addSubview:segmentedControl];
@@ -184,7 +185,7 @@
 }
 
 -(void)segmentedControlChangedValue:(HMSegmentedControl *)sender{
-    NSLog(@"segmentedControlChangedValue %@",sender);
+    //NSLog(@"segmentedControlChangedValue %@",sender);
     int idx=2-sender.selectedSegmentIndex;
     YYCollectorInfo *collectorInfo=[self findSelectedCollectorInfo];
     [self reloadHistoryData:collectorInfo idx:idx selectIndex:sender.tag switchYN:NO];

@@ -71,7 +71,7 @@
     WeatherShowManager *viewManager =[[WeatherShowManager alloc] init];
     UIView *weatherView=viewManager.weatherView;
     [viewManager refreshDataAndShow:WEATHER_DAY_TODAY];
-    weatherView.frame=CGRectMake(0, 64, self.view.frame.size.width,94);//94
+    weatherView.frame=CGRectMake(0, 64, self.view.frame.size.width,CGRectGetHeight(weatherView.frame));//94
     [self.view addSubview:weatherView];
     
     MyExpandTableView *expandTableView=[[MyExpandTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weatherView.frame), self.view.frame.size.width, self.view.frame.size.height-CGRectGetMaxY(weatherView.frame)-tldTabBarHeight)];

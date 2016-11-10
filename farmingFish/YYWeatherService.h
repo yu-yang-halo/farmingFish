@@ -12,5 +12,6 @@
 
 @interface YYWeatherService : NSObject
 +(instancetype)defaultService;
--(void)downloadWeatherData:(NSString *)cityName;
+//-(void)downloadWeatherData:(NSString *)cityName;
+-(void)downloadWeatherData;
 @end

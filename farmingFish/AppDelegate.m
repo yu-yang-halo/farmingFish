@@ -11,6 +11,8 @@
 #import <BaiduMapAPI_Base/BMKMapManager.h>
 #import <BaiduMapAPI_Location/BMKLocationService.h>
 #import <JZLocationConverter/JZLocationConverter.h>
+#import "Reachability.h"
+#import <UIView+Toast.h>
 @interface AppDelegate ()<BMKLocationServiceDelegate>
 {
     BMKMapManager *mapManager;
@@ -42,16 +44,47 @@
     }
     
 
+    [self networkEnvInit];
     
     return YES;
 }
+
+-(void)networkEnvInit{
+    // Allocate a reachability object
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    
+    // Set the blocks
+    reach.reachableBlock = ^(Reachability *reach)
+    {
+        NSLog(@"网络连接成功。。。");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.isReachableWiFi=reach.isReachableViaWiFi;
+            
+        });
+    };
+    
+    reach.unreachableBlock = ^(Reachability *reach)
+    {
+        NSLog(@"网络连接失败。。。");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isReachableWiFi=reach.isReachableViaWiFi;
+            [[[UIApplication sharedApplication] keyWindow] makeToast:@"网络已断开,请检查您的网络状态"];
+        });
+        
+    };
+    
+    // Start the notifier, which will cause the reachability object to retain itself!
+    [reach startNotifier];
+}
+
 -(void)locMyPosition{
     //初始化BMKLocationService
     locService = [[BMKLocationService alloc] init];
     locService.delegate = self;
     
     //启动LocationService
-    //[locService startUserLocationService];
+    [locService startUserLocationService];
 }
 
 

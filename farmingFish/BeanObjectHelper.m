@@ -15,10 +15,10 @@
             NSString *destMethodName=[NSString stringWithFormat:@"set%@:",[self beginCharacterUpper:keyName]];
             
             
-            NSLog(@"destMethodName %@",destMethodName);
+            // NSLog(@"destMethodName %@",destMethodName);
             SEL destMethodSelector=NSSelectorFromString(destMethodName);
             if([bean respondsToSelector:destMethodSelector]){
-                NSLog(@"keyName %@",keyName);
+               // NSLog(@"keyName %@",keyName);
                 [bean performSelector:destMethodSelector withObject:[dict objectForKey:keyName]];
             }
         }
@@ -35,7 +35,7 @@
     
     NSString *beforeStr=[str substringWithRange:NSMakeRange(0, 1)];
     
-    NSLog(@"beforeStr::%@ afterStr::%@",beforeStr,afterStr);
+   // NSLog(@"beforeStr::%@ afterStr::%@",beforeStr,afterStr);
     
     return [NSString stringWithFormat:@"%@%@",beforeStr.uppercaseString,afterStr];
     

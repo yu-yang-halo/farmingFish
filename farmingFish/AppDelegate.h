@@ -26,5 +26,7 @@
 
 @property(nonatomic,strong) NSMutableDictionary *realDataCache;
 
+@property(nonatomic,assign) BOOL isReachableWiFi;
+
 @end
 

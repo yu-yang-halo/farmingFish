@@ -14,6 +14,7 @@
 #import "SocketService.h"
 #import "MainViewController.h"
 #import "UIViewController+Extension.h"
+#import "YYWeatherService.h"
 const static NSString *KEY_USERNAME=@"username-key";
 const static NSString *KEY_PASSWORD=@"password-key";
 const static NSString *KEY_REMEMBER=@"remember-key";
@@ -58,8 +59,7 @@ const static NSString *KEY_REMEMBER=@"remember-key";
     [_checkBtn addTarget:self action:@selector(checkClick:) forControlEvents:(UIControlEventTouchUpInside)];
     
     
-    
-    
+    [[YYWeatherService defaultService] downloadWeatherData];
     
 }
 -(void)checkClick:(UIButton *)sender{

@@ -25,7 +25,13 @@ static NSString *juheKEY=@"7621836ff352deeee8c88dd07c60ca1e";
     }
     return instance;
 }
-
+-(void)downloadWeatherData{
+    NSString *cityName=[[NSUserDefaults standardUserDefaults] objectForKey:@"city"];
+    if(cityName==nil){
+        cityName=@"北京";
+    }
+    [self downloadWeatherData:cityName];
+}
 -(void)downloadWeatherData:(NSString *)cityName{
     NSString *urlString=[NSString stringWithFormat:@"%@?cityname=%@&dtype=&key=%@",weather_api,[cityName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]],juheKEY];
     
@@ -41,7 +47,7 @@ static NSString *juheKEY=@"7621836ff352deeee8c88dd07c60ca1e";
             NSDictionary *realTimeData=[[result objectForKey:@"data"] objectForKey:@"realtime"];
             
             
-            NSLog(@"realTimeData ::: %@ \n",realTimeData);
+            //NSLog(@"realTimeData ::: %@ \n",realTimeData);
             NSMutableArray *arr=[WeatherHelper loadDiskDataToObject];
             if(arr==nil){
                 arr=[NSMutableArray new];
