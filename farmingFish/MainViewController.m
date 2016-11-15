@@ -51,10 +51,15 @@
     [self pageViewInit];
     
     
+    [self loadNeedData];
+
+}
+#pragma mark 准备好数据
+-(void)loadNeedData{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hud.bezelView setColor:[UIColor clearColor]];
     [hud.bezelView setStyle:MBProgressHUDBackgroundStyleSolidColor];
-   
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
@@ -73,10 +78,7 @@
             
         });
         
-       
     });
-
-   
 }
 
 -(void)pageViewInit{
@@ -189,9 +191,6 @@
 -(void)buttonClick:(UIButton *)sender{
     if(sender.tag==0){
         //call phone
-        
-        
-        
         UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"电话咨询" message: [NSString stringWithFormat:@"咨询电话:%@",YYTelephone] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         
         [alertView show];
@@ -256,6 +255,7 @@
     if(indexPath.row==1){
         if(_videoInfoArrs==nil){
             [self.view.window makeToast:@"暂无视频数据信息,请重试"];
+             [self loadNeedData];
             return;
         }else{
             AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
@@ -267,6 +267,7 @@
     }else if (indexPath.row==0||indexPath.row==2){
         if(_devicesInfo==nil){
             [self.view.window makeToast:@"暂无设备数据信息,请重试"];
+             [self loadNeedData];
             return;
         }
     }

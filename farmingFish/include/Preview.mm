@@ -91,5 +91,9 @@ int startPreview(int iUserID, int iStartChan, UIView *pView, int iIndex)
 void stopPreview(int iIndex)
 {
     NET_DVR_StopRealPlay(g_struHandle[iIndex].iPreviewID);
+    LONG errorCode=NET_DVR_GetLastError();
+    NSLog(@"NET_DVR_StopRealPlay:%s", NET_DVR_GetErrorMsg(&errorCode) );
     [g_pController stopPreviewPlay:&g_struHandle[iIndex].iPlayPort];
+    
+    
 }

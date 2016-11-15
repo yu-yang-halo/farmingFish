@@ -15,6 +15,16 @@
 		181452641DD46A1500B60B79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181452631DD46A1500B60B79 /* SystemConfiguration.framework */; };
 		1816B9581DCAEF9700077BF4 /* YYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816B9571DCAEF9700077BF4 /* YYButton.m */; };
 		181796981D818806000953BF /* FService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181796971D818806000953BF /* FService.m */; };
+		182A9D981DD9EDAF004B4884 /* libAudioEngine_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D921DD9EDAF004B4884 /* libAudioEngine_64.a */; };
+		182A9D991DD9EDAF004B4884 /* libHCCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D931DD9EDAF004B4884 /* libHCCore.a */; };
+		182A9D9A1DD9EDAF004B4884 /* libHCNetSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D941DD9EDAF004B4884 /* libHCNetSDK.a */; };
+		182A9D9B1DD9EDAF004B4884 /* libplayctrl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D951DD9EDAF004B4884 /* libplayctrl.a */; };
+		182A9D9C1DD9EDAF004B4884 /* libSystemTransform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D961DD9EDAF004B4884 /* libSystemTransform.a */; };
+		182A9D9D1DD9EDAF004B4884 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D971DD9EDAF004B4884 /* libtinyxml.a */; };
+		182A9DA21DD9EDB7004B4884 /* libHCCore_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D9E1DD9EDB7004B4884 /* libHCCore_sim.a */; };
+		182A9DA31DD9EDB7004B4884 /* libHCNetSDK_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9D9F1DD9EDB7004B4884 /* libHCNetSDK_sim.a */; };
+		182A9DA41DD9EDB7004B4884 /* libPlayCtrl_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9DA01DD9EDB7004B4884 /* libPlayCtrl_sim.a */; };
+		182A9DA51DD9EDB7004B4884 /* libtinyxml_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A9DA11DD9EDB7004B4884 /* libtinyxml_sim.a */; };
 		1836931D1D962C6D00353868 /* YYStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836931C1D962C6D00353868 /* YYStatusView.m */; };
 		1856D4321DD0142A005CFB62 /* HistoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856D4311DD0142A005CFB62 /* HistoryTableView.m */; };
 		1861B7541D8824E5008CD63C /* File.java in Sources */ = {isa = PBXBuildFile; fileRef = 1861B7531D8824E5008CD63C /* File.java */; };
@@ -39,16 +49,6 @@
 		18EC4EEF1D977301009246C2 /* RealDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4EED1D977301009246C2 /* RealDataTableViewCell.m */; };
 		18EC4EF01D977301009246C2 /* RealDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4EEE1D977301009246C2 /* RealDataTableViewCell.xib */; };
 		18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18EDAB2B1D4360D40071FFE8 /* VideoViewController.mm */; };
-		18EDAB371D4363DA0071FFE8 /* libAudioEngine_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB311D4363DA0071FFE8 /* libAudioEngine_64.a */; };
-		18EDAB381D4363DA0071FFE8 /* libHCCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB321D4363DA0071FFE8 /* libHCCore.a */; };
-		18EDAB391D4363DA0071FFE8 /* libHCNetSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB331D4363DA0071FFE8 /* libHCNetSDK.a */; };
-		18EDAB3A1D4363DA0071FFE8 /* libplayctrl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB341D4363DA0071FFE8 /* libplayctrl.a */; };
-		18EDAB3B1D4363DA0071FFE8 /* libSystemTransform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB351D4363DA0071FFE8 /* libSystemTransform.a */; };
-		18EDAB3C1D4363DA0071FFE8 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB361D4363DA0071FFE8 /* libtinyxml.a */; };
-		18EDAB411D4366D50071FFE8 /* libHCCore_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB3D1D4366D50071FFE8 /* libHCCore_sim.a */; };
-		18EDAB421D4366D50071FFE8 /* libHCNetSDK_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB3E1D4366D50071FFE8 /* libHCNetSDK_sim.a */; };
-		18EDAB431D4366D50071FFE8 /* libPlayCtrl_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB3F1D4366D50071FFE8 /* libPlayCtrl_sim.a */; };
-		18EDAB441D4366D50071FFE8 /* libtinyxml_sim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB401D4366D50071FFE8 /* libtinyxml_sim.a */; };
 		18EDAB461D43670A0071FFE8 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB451D43670A0071FFE8 /* libiconv.tbd */; };
 		18EDAB481D4367150071FFE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB471D4367150071FFE8 /* QuartzCore.framework */; };
 		18EDAB4A1D43671D0071FFE8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDAB491D43671D0071FFE8 /* CoreVideo.framework */; };
@@ -109,6 +109,16 @@
 		1816B9571DCAEF9700077BF4 /* YYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYButton.m; sourceTree = "<group>"; };
 		181796961D818806000953BF /* FService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FService.h; sourceTree = "<group>"; };
 		181796971D818806000953BF /* FService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FService.m; sourceTree = "<group>"; };
+		182A9D921DD9EDAF004B4884 /* libAudioEngine_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAudioEngine_64.a; path = "lib/Release-iphoneos/libAudioEngine_64.a"; sourceTree = "<group>"; };
+		182A9D931DD9EDAF004B4884 /* libHCCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCCore.a; path = "lib/Release-iphoneos/libHCCore.a"; sourceTree = "<group>"; };
+		182A9D941DD9EDAF004B4884 /* libHCNetSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCNetSDK.a; path = "lib/Release-iphoneos/libHCNetSDK.a"; sourceTree = "<group>"; };
+		182A9D951DD9EDAF004B4884 /* libplayctrl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplayctrl.a; path = "lib/Release-iphoneos/libplayctrl.a"; sourceTree = "<group>"; };
+		182A9D961DD9EDAF004B4884 /* libSystemTransform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSystemTransform.a; path = "lib/Release-iphoneos/libSystemTransform.a"; sourceTree = "<group>"; };
+		182A9D971DD9EDAF004B4884 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = "lib/Release-iphoneos/libtinyxml.a"; sourceTree = "<group>"; };
+		182A9D9E1DD9EDB7004B4884 /* libHCCore_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCCore_sim.a; path = "lib/Release-iphonesimulator/libHCCore_sim.a"; sourceTree = "<group>"; };
+		182A9D9F1DD9EDB7004B4884 /* libHCNetSDK_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHCNetSDK_sim.a; path = "lib/Release-iphonesimulator/libHCNetSDK_sim.a"; sourceTree = "<group>"; };
+		182A9DA01DD9EDB7004B4884 /* libPlayCtrl_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPlayCtrl_sim.a; path = "lib/Release-iphonesimulator/libPlayCtrl_sim.a"; sourceTree = "<group>"; };
+		182A9DA11DD9EDB7004B4884 /* libtinyxml_sim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml_sim.a; path = "lib/Release-iphonesimulator/libtinyxml_sim.a"; sourceTree = "<group>"; };
 		1836931B1D962C6D00353868 /* YYStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStatusView.h; sourceTree = "<group>"; };
 		1836931C1D962C6D00353868 /* YYStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStatusView.m; sourceTree = "<group>"; };
 		1856D4301DD0142A005CFB62 /* HistoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableView.h; sourceTree = "<group>"; };
@@ -237,31 +247,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				181452641DD46A1500B60B79 /* SystemConfiguration.framework in Frameworks */,
-				8410BAC21DA8CC620040B3D5 /* AssetsLibrary.framework in Frameworks */,
-				18EDAB5C1D4367730071FFE8 /* OpenAL.framework in Frameworks */,
-				18EDAB5A1D4367600071FFE8 /* OpenGLES.framework in Frameworks */,
-				18EDAB581D4367570071FFE8 /* CoreGraphics.framework in Frameworks */,
-				18EDAB561D43674E0071FFE8 /* UIKit.framework in Frameworks */,
-				18EDAB541D4367460071FFE8 /* Foundation.framework in Frameworks */,
-				18EDAB521D43673F0071FFE8 /* AudioToolbox.framework in Frameworks */,
-				18EDAB501D4367390071FFE8 /* VideoToolbox.framework in Frameworks */,
-				18EDAB4E1D43672E0071FFE8 /* GLKit.framework in Frameworks */,
-				18EDAB4C1D4367260071FFE8 /* CoreMedia.framework in Frameworks */,
-				18EDAB4A1D43671D0071FFE8 /* CoreVideo.framework in Frameworks */,
-				18EDAB481D4367150071FFE8 /* QuartzCore.framework in Frameworks */,
+				182A9DA21DD9EDB7004B4884 /* libHCCore_sim.a in Frameworks */,
+				182A9DA31DD9EDB7004B4884 /* libHCNetSDK_sim.a in Frameworks */,
+				182A9DA41DD9EDB7004B4884 /* libPlayCtrl_sim.a in Frameworks */,
+				182A9DA51DD9EDB7004B4884 /* libtinyxml_sim.a in Frameworks */,
+				182A9D981DD9EDAF004B4884 /* libAudioEngine_64.a in Frameworks */,
+				182A9D991DD9EDAF004B4884 /* libHCCore.a in Frameworks */,
+				182A9D9A1DD9EDAF004B4884 /* libHCNetSDK.a in Frameworks */,
+				182A9D9B1DD9EDAF004B4884 /* libplayctrl.a in Frameworks */,
+				182A9D9C1DD9EDAF004B4884 /* libSystemTransform.a in Frameworks */,
+				182A9D9D1DD9EDAF004B4884 /* libtinyxml.a in Frameworks */,
 				18EDAB461D43670A0071FFE8 /* libiconv.tbd in Frameworks */,
 				FFDE393AD2F17246DCE58F9F /* libPods.a in Frameworks */,
-				18EDAB371D4363DA0071FFE8 /* libAudioEngine_64.a in Frameworks */,
-				18EDAB381D4363DA0071FFE8 /* libHCCore.a in Frameworks */,
-				18EDAB391D4363DA0071FFE8 /* libHCNetSDK.a in Frameworks */,
-				18EDAB3A1D4363DA0071FFE8 /* libplayctrl.a in Frameworks */,
-				18EDAB3B1D4363DA0071FFE8 /* libSystemTransform.a in Frameworks */,
-				18EDAB3C1D4363DA0071FFE8 /* libtinyxml.a in Frameworks */,
-				18EDAB411D4366D50071FFE8 /* libHCCore_sim.a in Frameworks */,
-				18EDAB421D4366D50071FFE8 /* libHCNetSDK_sim.a in Frameworks */,
-				18EDAB431D4366D50071FFE8 /* libPlayCtrl_sim.a in Frameworks */,
-				18EDAB441D4366D50071FFE8 /* libtinyxml_sim.a in Frameworks */,
+				18EDAB481D4367150071FFE8 /* QuartzCore.framework in Frameworks */,
+				18EDAB4A1D43671D0071FFE8 /* CoreVideo.framework in Frameworks */,
+				18EDAB4C1D4367260071FFE8 /* CoreMedia.framework in Frameworks */,
+				18EDAB4E1D43672E0071FFE8 /* GLKit.framework in Frameworks */,
+				18EDAB501D4367390071FFE8 /* VideoToolbox.framework in Frameworks */,
+				18EDAB521D43673F0071FFE8 /* AudioToolbox.framework in Frameworks */,
+				18EDAB541D4367460071FFE8 /* Foundation.framework in Frameworks */,
+				18EDAB561D43674E0071FFE8 /* UIKit.framework in Frameworks */,
+				18EDAB581D4367570071FFE8 /* CoreGraphics.framework in Frameworks */,
+				18EDAB5A1D4367600071FFE8 /* OpenGLES.framework in Frameworks */,
+				18EDAB5C1D4367730071FFE8 /* OpenAL.framework in Frameworks */,
+				181452641DD46A1500B60B79 /* SystemConfiguration.framework in Frameworks */,
+				8410BAC21DA8CC620040B3D5 /* AssetsLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +492,16 @@
 		36FA035931426E1F0BDC41FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				182A9D9E1DD9EDB7004B4884 /* libHCCore_sim.a */,
+				182A9D9F1DD9EDB7004B4884 /* libHCNetSDK_sim.a */,
+				182A9DA01DD9EDB7004B4884 /* libPlayCtrl_sim.a */,
+				182A9DA11DD9EDB7004B4884 /* libtinyxml_sim.a */,
+				182A9D921DD9EDAF004B4884 /* libAudioEngine_64.a */,
+				182A9D931DD9EDAF004B4884 /* libHCCore.a */,
+				182A9D941DD9EDAF004B4884 /* libHCNetSDK.a */,
+				182A9D951DD9EDAF004B4884 /* libplayctrl.a */,
+				182A9D961DD9EDAF004B4884 /* libSystemTransform.a */,
+				182A9D971DD9EDAF004B4884 /* libtinyxml.a */,
 				181452631DD46A1500B60B79 /* SystemConfiguration.framework */,
 				8410BAC11DA8CC620040B3D5 /* AssetsLibrary.framework */,
 				18EDAB5B1D4367730071FFE8 /* OpenAL.framework */,
@@ -854,7 +874,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = NO;
@@ -884,8 +904,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/farmingFish/lib/Release-iphoneos",
-					"$(PROJECT_DIR)/farmingFish/lib/Release-iphonesimulator",
+					"$(PROJECT_DIR)/lib/Release-iphoneos",
+					"$(PROJECT_DIR)/lib/Release-iphonesimulator",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.lztech.valve;
@@ -901,7 +921,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = NO;
@@ -929,8 +949,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/farmingFish/lib/Release-iphoneos",
-					"$(PROJECT_DIR)/farmingFish/lib/Release-iphonesimulator",
+					"$(PROJECT_DIR)/lib/Release-iphoneos",
+					"$(PROJECT_DIR)/lib/Release-iphonesimulator",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.lztech.valve;

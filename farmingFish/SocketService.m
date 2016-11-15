@@ -158,7 +158,7 @@ static SocketService *instance;
 - (void)applicationWillResignActive:(UIApplication *)application{
     if(enableListenserBackground){
         [self disconnect];
-        NSLog(@"断开连接。。。");
+        //NSLog(@"断开连接。。。");
     }
   
 }

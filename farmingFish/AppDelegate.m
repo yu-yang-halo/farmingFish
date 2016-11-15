@@ -84,7 +84,7 @@
     locService.delegate = self;
     
     //启动LocationService
-    [locService startUserLocationService];
+    //[locService startUserLocationService];
 }
 
 

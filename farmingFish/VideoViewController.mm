@@ -32,6 +32,10 @@
 #import "AppDelegate.h"
 #import "GradientHelper.h"
 #import "BeanObject.h"
+void g_fExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
+{
+    NSLog(@"g_fExceptionCallBack Type[0x%x], UserID[%d], Handle[%d]", dwType, lUserID, lHandle);
+}
 VideoViewController *g_pController = NULL;
 @interface VideoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>{
     int layoutMode;//may be 1 2 3 4
@@ -40,7 +44,7 @@ VideoViewController *g_pController = NULL;
     int CURRENT_LAYOUTMODE;
     
     CGRect Screen_bounds;
-    YYVideoView  *m_multiView[MAX_VIEW_NUM_16];
+    YYVideoView  *m_multiView[MAX_VIEW_NUM_CACHE];
     int singleSelectIndex;
     //真实视频数
     int videoCount;
@@ -95,7 +99,7 @@ VideoViewController *g_pController = NULL;
 
     
    
-    for(int i=0;i<view_container_num;i++){
+    for(int i=0;i<videoCount;i++){
         m_multiView[i]=[[YYVideoView alloc] initWithFrame:CGRectMake(0,0,0,0)];
         [m_multiView[i] setBackgroundColor:[UIColor clearColor]];
         [m_multiView[i] setTag:i];
@@ -150,17 +154,9 @@ VideoViewController *g_pController = NULL;
     
 
     [self videoConfigurationInit];
-    [self loadVideoData];
     
-    /*
-     * UIViewController 监听HOME键
-     */
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
-                                                 name:UIApplicationWillResignActiveNotification object:nil]; //监听是否触发home键挂起程序.
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification object:nil]; //监听是否重新进入程序程序.
+   
     
 }
 
@@ -298,25 +294,32 @@ VideoViewController *g_pController = NULL;
     }else{
         [self loadVideoData];
     }
+    
+    /*
+     * UIViewController 监听HOME键
+     */
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
+                                                 name:UIApplicationWillResignActiveNotification object:nil]; //监听是否触发home键挂起程序.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil]; //监听是否重新进入程序程序.
+    
 }
 -(void)loadVideoData{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        if(!waitViewDidLoad){
-            [self playAllVideo:YES index:-1];
-        }else{
-            [self loginHCSystem];
-            [self playAllVideo:YES index:-1];
-            waitViewDidLoad=NO;
-        }
+        [self loginHCSystem];
+        [self playAllVideo:YES index:-1];
     });
  
 }
 -(void)viewWillDisappear:(BOOL)animated{
-        self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"" style: UIBarButtonItemStyleDone target:self action:nil];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self closeAllVideo:YES index:-1];
-    });
+    self.tabBarController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"" style: UIBarButtonItemStyleDone target:self action:nil];
+    [self closeAllVideo:YES index:-1];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 -(void)touchDown:(UIButton *)sender{
@@ -567,30 +570,40 @@ VideoViewController *g_pController = NULL;
     {
         NSLog(@"PlayM4_Stop failed");
     }
+    LONG errorCode=NET_DVR_GetLastError();
+     NSLog(@"PlayM4_Stop:%s", NET_DVR_GetErrorMsg(&errorCode) );
+    
+    
     if(!PlayM4_CloseStream(*iPlayPort))
     {
         NSLog(@"PlayM4_CloseStream failed");
     }
+    errorCode=NET_DVR_GetLastError();
+    NSLog(@"PlayM4_CloseStream:%s",  NET_DVR_GetErrorMsg(&errorCode) );
+    
     if (!PlayM4_FreePort(*iPlayPort))
     {
         NSLog(@"PlayM4_FreePort failed");
     }
+    errorCode=NET_DVR_GetLastError();
+     NSLog(@"PlayM4_FreePort:%s",  NET_DVR_GetErrorMsg(&errorCode) );
     *iPlayPort = -1;
 }
 
 -(void)closeAllVideo:(BOOL)isCloseAllYN index:(int)idx{
-    for(int i = 0; i < videoCount; i++)
+    for(int i = 0; i <videoCount ; i++)
     {
         if(isCloseAllYN){
-             stopPreview(i);
+            stopPreview(i);
         }else{
             if(idx==i){
                 stopPreview(i);
             }
         }
-       
+        
     }
     m_bPreview = false;
+
 }
 
 -(void)playAllVideo:(BOOL)isPlayAllYN index:(int)idx{
@@ -646,6 +659,13 @@ VideoViewController *g_pController = NULL;
     printf("Port:%d\n", deviceInfo.nDevicePort);
     printf("UsrName:%s\n", (char*)[deviceInfo.chLoginName cStringUsingEncoding:enc]);
     printf("Password:%s\n", (char*)[deviceInfo.chPassWord UTF8String]);
+    
+    NET_DVR_SetExceptionCallBack_V30(0, NULL, g_fExceptionCallBack, NULL);
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    const char* pDir = [documentPath UTF8String];
+    NET_DVR_SetLogToFile(3, (char*)pDir, true);
+    
+    
     
     if(m_lUserID!=-1){
         if(logindeviceInfo.byChanNum > 0)
@@ -744,8 +764,7 @@ VideoViewController *g_pController = NULL;
 }
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+   
     
 }
 
@@ -753,12 +772,24 @@ VideoViewController *g_pController = NULL;
 - (void)applicationWillResignActive:(NSNotification *)notification
 
 {
-    [self viewWillDisappear:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self closeAllVideo:YES index:-1];
+    });
+
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    [self viewWillAppear:YES];
+   
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(layoutMode==1){
+            [self screenVideoSwitch:YES tag:singleSelectIndex];
+        }else{
+            [self loadVideoData];
+        }
+
+    });
+    
 }
 
 
