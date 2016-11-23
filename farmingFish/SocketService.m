@@ -35,10 +35,22 @@ static SocketService *instance;
     return instance;
 }
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId{
-    [asyncSocket writeData:[SPackage buildSocketPackage_ControlMSG:num cmd:cmdval deviceId:devId] withTimeout:-1 tag:1000];
-    [asyncSocket readDataWithTimeout:-1 tag:1000];
+    [asyncSocket writeData:[SPackage buildSocketPackage_ControlMSG:num cmd:cmdval deviceId:devId] withTimeout:-1 tag:SOCKET_TAG_SET_STATUS];
+    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_STATUS];
+}
+
+-(void)saveParametersCmd{
+    [asyncSocket writeData:[SPackage buildSocketPackage_ParametersMSG] withTimeout:-1 tag:SOCKET_TAG_SET_PARAMETERS];
+    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_PARAMETERS];
+}
+-(void)saveTimeCmd{
+    [asyncSocket writeData:[SPackage saveSocketPackage_Time:@"00-00-04-01"] withTimeout:-1 tag:SOCKET_TAG_SET_TIME];
+    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_TIME];
     
 }
+
+
+
 -(void)reconnect{
     if(asyncSocket==nil){
         return;
@@ -54,7 +66,6 @@ static SocketService *instance;
    dispatch_queue_t mainQueue = dispatch_get_main_queue();
     if(asyncSocket==nil){
         asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
-
     }
     
     if(![asyncSocket isConnected]){
@@ -85,14 +96,17 @@ static SocketService *instance;
     NSLog(@"socket:%@ didConnectToHost:%@ port:%hu", sock, host, port);
     
     self.customerNO=_tmpCNO;
-     _onlineBlock(YES,_customerNO);
-    
-    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:3];
-    [asyncSocket readDataWithTimeout:-1 tag:3];
-    
+    if(_onlineBlock!=nil){
+        _onlineBlock(YES,_customerNO);
+        
+  
+    }
+    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
     
     [self keepLive];
     
+
 }
 
 
@@ -101,11 +115,35 @@ static SocketService *instance;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(asyncSocket!=nil&&asyncSocket.isConnected){
             NSLog(@"保持心跳....");
-            [asyncSocket writeData:[SPackage buildSocketPackage_WATER:_customerNO]withTimeout:-1 tag:2];
-            [asyncSocket readDataWithTimeout:-1 tag:2];
             
-            [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:3];
-            [asyncSocket readDataWithTimeout:-1 tag:3];
+            if(_acceptType==ACCEPT_DATA_TYPE_STATUS){
+                [asyncSocket writeData:[SPackage buildSocketPackage_WATER:_customerNO]withTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
+                
+                [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+
+            }else if(_acceptType==ACCEPT_DATA_TYPE_PARAMETERS){
+                
+                [asyncSocket writeData:[SPackage buildSocketPackage_Parameters:_customerNO] withTimeout:-1 tag:SOCKET_TAG_GET_PARAMETERS];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_PARAMETERS];
+                
+                [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+                
+                
+            }else if (_acceptType==ACCEPT_DATA_TYPE_TIME){
+                [asyncSocket writeData:[SPackage buildSocketPackage_Time:_customerNO] withTimeout:-1 tag:SOCKET_TAG_GET_TIME];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_TIME];
+                
+                [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+                
+                
+                
+            }
+            
+            
             
             [NSThread sleepForTimeInterval:15];
             
@@ -132,7 +170,7 @@ static SocketService *instance;
 {
     NSLog(@"socket:%p didReadData:withTag:%ld %@", sock, tag,data);
     if(_mblock!=nil){
-        [SPackage reservePackageInfo:data StatusBlock:_mblock];
+        [SPackage reservePackageInfo:data StatusBlock:_mblock tag:tag];
     }
     
 }
@@ -150,8 +188,10 @@ static SocketService *instance;
     if(err!=nil){
         [[[UIApplication sharedApplication] keyWindow] makeToast:@"连接已断开"];
     }
-    
-    _onlineBlock(NO,_customerNO);
+    if(_onlineBlock!=nil){
+         _onlineBlock(NO,_customerNO);
+    }
+   
    
 }
 

@@ -13,6 +13,19 @@
 +(NSData *)buildSocketPackage_WATER:(NSString *)customerNO;
 +(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO;
 
-+(void)reservePackageInfo:(NSData *)data StatusBlock:(StatusBlock)block;
+//区间参数设置
++(NSData *)buildSocketPackage_ParametersMSG;
++(NSData *)buildSocketPackage_Parameters:(NSString *)customerNO;
+
+//时间参数获取
++(NSData *)buildSocketPackage_Time:(NSString *)customerNO;
+//时间参数保存
++(NSData *)saveSocketPackage_Time:(NSString *)customerNO;
+
+
+
+
+
++(void)reservePackageInfo:(NSData *)data StatusBlock:(StatusBlock)block tag:(int)tag;
 
 @end

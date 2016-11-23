@@ -15,4 +15,6 @@
 +(NSArray *)maxWithMinRange:(NSNumber *)key;
 +(NSArray *)yAxisRange:(NSNumber *)key;
 +(NSString *)unitForKeyString:(NSString *)key;
++(NSNumber *)indexForKeyInt:(NSNumber *)key;
+
 @end

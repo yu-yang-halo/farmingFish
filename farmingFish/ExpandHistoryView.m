@@ -55,7 +55,7 @@
     self.delegate=self;
     
     
-    [self setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
+    [self setSeparatorStyle:(UITableViewCellSeparatorStyleSingleLine)];
 }
 
 
@@ -144,7 +144,7 @@
         
     }
     
-    [cell setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.6]];
+
     
      UIView *selectBGView=[[UIView alloc] initWithFrame:CGRectZero];
     
@@ -159,18 +159,18 @@
     segmentedControl.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60);
     [segmentedControl setSelectionIndicatorLocation:HMSegmentedControlSelectionIndicatorLocationDown];
     [segmentedControl setSelectionStyle:(HMSegmentedControlSelectionStyleFullWidthStripe)];
-    [segmentedControl setTitleTextAttributes:[NSDictionary dictionaryWithObjects:@[[UIColor whiteColor]] forKeys:@[NSForegroundColorAttributeName]]];
+    [segmentedControl setTitleTextAttributes:[NSDictionary dictionaryWithObjects:@[[UIColor colorWithWhite:0.1 alpha:0.5]] forKeys:@[NSForegroundColorAttributeName]]];
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [segmentedControl setSelectionIndicatorColor:[UIColor colorWithWhite:0.4 alpha:0.8]];
     
-    [segmentedControl setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.1]];
-    
+    [segmentedControl setBackgroundColor:[UIColor whiteColor]];
+    segmentedControl.selectionIndicatorHeight=2;
     cell.segmentedControl=segmentedControl;
     
     WeatherShowManager *viewManager =[[WeatherShowManager alloc] init];
     [viewManager refreshDataAndShow:(2-collectorInfo.day)];
     UIView *weatherView=viewManager.weatherView;
-    [weatherView setBackgroundColor:[UIColor clearColor]];
-   
+
      weatherView.frame=CGRectMake(0,CGRectGetMaxY(segmentedControl.frame),[UIScreen mainScreen].bounds.size.width,CGRectGetHeight(weatherView.frame));//94
     
     [headerView addSubview:segmentedControl];
@@ -198,8 +198,9 @@
     
     [backgroundView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backgroundView setTag:section];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateNormal)];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateHighlighted)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.1] forState:(UIControlStateNormal)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.2] forState:(UIControlStateHighlighted)];
+
     [backgroundView addTarget:self action:@selector(groupExpand:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *arrowImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10,(HEAD_HEIGHT-9)/2,16,9)];
@@ -217,7 +218,7 @@
     [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont systemFontOfSize:tldCellFontSize]];
     
-    [label setTextColor:[UIColor colorWithWhite:1 alpha:1]];
+    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
     label.text=[[_collectorInfos objectAtIndex:section] PondName];
     
     

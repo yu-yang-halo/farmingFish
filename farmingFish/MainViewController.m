@@ -49,11 +49,22 @@
     
     
     [self pageViewInit];
-    
-    
     [self loadNeedData];
+    
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"个人中心" style:UIBarButtonItemStylePlain target:self action:@selector(personalConfig:)];
+    
+    
+    
 
 }
+-(void)personalConfig:(id)sender{
+    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
+    UIViewController *settingsVC=[storyBoard instantiateViewControllerWithIdentifier:@"settingsVC"];
+    
+    [self.navigationController pushViewController:settingsVC animated:YES];
+}
+
 #pragma mark 准备好数据
 -(void)loadNeedData{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -242,11 +253,19 @@
     
     cell.itemImage.image=[UIImage imageNamed:itemImages[indexPath.row]];
     
+    
     UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
     
     [bgView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1]];
     
     [cell setSelectedBackgroundView:bgView];
+    
+    
+    if(indexPath.row==3){
+        [cell.itemImage setShowPointHidden:NO];
+    }else{
+        [cell.itemImage setShowPointHidden:YES];
+    }
     
     return cell;
 }
@@ -309,8 +328,7 @@
     
     UIViewController *historyVC=[storyBoard instantiateViewControllerWithIdentifier:@"historyVC"];
     
-    UIViewController *settingsVC=[storyBoard instantiateViewControllerWithIdentifier:@"settingsVC"];
-    
+   
     
     UIViewController *alertVC=[storyBoard instantiateViewControllerWithIdentifier:@"alertVC"];
     

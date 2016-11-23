@@ -12,12 +12,12 @@
 #import "SocketService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "AppDelegate.h"
+#import "CacheHelper.h"
 #define HEAD_HEIGHT 40
 @interface MyExpandTableView(){
     int clickParentIndex;
 }
 @property(nonatomic,strong) RealDataLoadBlock block;
-@property(nonatomic,strong) NSMutableDictionary *realDataCache;
 @property(nonatomic,strong) NSMutableDictionary *onlineTable;
 @end
 @implementation MyExpandTableView
@@ -53,15 +53,8 @@
 -(void)setUpViews{
     self.dataSource=self;
     self.delegate=self;
-    
-    AppDelegate *delegate=[UIApplication sharedApplication].delegate;
-    
-    if(delegate.realDataCache==nil){
-        delegate.realDataCache=[NSMutableDictionary new];
-    }
-    
-    
-    self.realDataCache=delegate.realDataCache;
+
+
     
     self.onlineTable=[NSMutableDictionary new];
     [self setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
@@ -102,7 +95,9 @@
         
         realDataView=[[RealDataTableView alloc] initWithFrame:CGRectMake(0,0, self.frame.size.width-0, 0)];
         
-        [realDataView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [realDataView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+        [realDataView setSeparatorColor:[UIColor colorWithWhite:0.6 alpha:0.5]];
+        
         
        
         [realDataView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0]];
@@ -115,7 +110,8 @@
     realDataView=cell.realDataTableView;
     
     YYCollectorInfo *collector=[self findSelectedCollectorInfo];
-    NSArray *realDatas=[_realDataCache objectForKey:collector.CustomerNo];
+   
+    NSArray *realDatas=[CacheHelper fetchCacheRealDataFromDisk:collector.CustomerNo];
     
     if(realDataView!=nil&&realDatas!=nil){
         [cell hideLoading];
@@ -153,8 +149,8 @@
    
     [backgroundView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backgroundView setTag:section];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateNormal)];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateHighlighted)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.1] forState:(UIControlStateNormal)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.2] forState:(UIControlStateHighlighted)];
     [backgroundView addTarget:self action:@selector(groupExpand:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *arrowImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10,(HEAD_HEIGHT-9)/2,16,9)];
@@ -172,7 +168,7 @@
     [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont systemFontOfSize:tldCellFontSize]];
     
-    [label setTextColor:[UIColor colorWithWhite:1 alpha:1]];
+    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
     label.text=[[_collectorInfos objectAtIndex:section] PondName];
     
    
@@ -223,6 +219,8 @@
         [[SocketService shareInstance] disconnect];
     }else{
         [self reloadTableViewUI:selectCourseIndex];
+        
+        [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_STATUS)];
    
         [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
             
@@ -249,7 +247,7 @@
                          * 属性名称 当前值 最大值 单位 filter
                          */
                         NSArray* contents=[obj componentsSeparatedByString:@"|"];
-                        if(contents!=nil&&[contents count]==4){
+                        if(contents!=nil&&[contents count]==5){
                             [realDataArr addObject:obj];
                         }
                     }else if([key isKindOfClass:[NSString class]]){
@@ -258,8 +256,20 @@
                     
                 }];
             
+            
+                realDataArr=[realDataArr sortedArrayUsingComparator:^NSComparisonResult(NSString*  _Nonnull obj1, NSString*  _Nonnull obj2) {
+                int value1=[[[obj1 componentsSeparatedByString:@"|"] lastObject] intValue];
+                
+                int value2=[[[obj2 componentsSeparatedByString:@"|"] lastObject] intValue];
+                
+                
+                return (value1-value2)<0?NSOrderedAscending:NSOrderedDescending;
+                
+            }];
+            
                 if(realDataArr!=nil&&[realDataArr count]>0){
-                    [_realDataCache setObject:realDataArr forKey:[dic objectForKey:@"customNo"]];
+                    
+                    [CacheHelper cacheRealDataToDisk:realDataArr customNo:[dic objectForKey:@"customNo"]];
                 }
             
                 [self reloadData];

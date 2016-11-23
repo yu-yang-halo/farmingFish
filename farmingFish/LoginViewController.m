@@ -119,6 +119,8 @@ const static NSString *KEY_REMEMBER=@"remember-key";
 
 - (IBAction)loginClick:(id)sender {
     
+  
+    
     NSString *username=_usernameTF.text;
     NSString *password=_passwordTF.text;
     
@@ -148,7 +150,7 @@ const static NSString *KEY_REMEMBER=@"remember-key";
             [hud hideAnimated:YES];
             
             if(result==nil){
-                [self.view makeToast:@"无法连接网络"];
+                [self.view makeToast:@"登录请求超时"];
             }else{
                 
                 if([result isEqualToString:@"500"]){

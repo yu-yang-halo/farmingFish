@@ -16,28 +16,32 @@
 
     [self navigationBarInit];
 }
-
-
-
-
+-(void)viewControllerBGInitWhite{
+    UIColor *startColor = [UIColor colorWithHexString:@"#ffffff"];
+    UIColor *endColor = [UIColor colorWithHexString:@"#ffffff"];
+    [self setViewBGColor:self.view startColor:startColor endColor:endColor];
+}
 
 
 -(void)viewControllerBGInit{
-    [self setViewBGColor:self.view];
+    [self viewControllerBGInit:self.view];
 }
 -(void)viewControllerBGInit:(UIView *)view{
-    [self setViewBGColor:view];
-}
--(void)setViewBGColor:(UIView *)_mView{
     
     UIColor *startColor = [UIColor colorWithHexString:@"#3CE6FF"];
     UIColor *endColor = [UIColor colorWithHexString:@"#2F89FF"];
-        
+
+    [self setViewBGColor:view startColor:startColor endColor:endColor];
+}
+
+
+-(void)setViewBGColor:(UIView *)_mView startColor:(UIColor *)sColor endColor:(UIColor *)eColor{
+    
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame =_mView.bounds;
     gradient.startPoint = CGPointMake(0, 0);
     gradient.endPoint = CGPointMake(0,1);
-    gradient.colors = @[(id)[startColor CGColor], (id)[endColor CGColor]];
+    gradient.colors = @[(id)[sColor CGColor], (id)[eColor CGColor]];
         
     [_mView.layer insertSublayer:gradient atIndex:0];
     
@@ -116,7 +120,7 @@
     CGRect bounds=self.view.bounds;
     UIView *containerView=[[UIView alloc] initWithFrame:bounds];
     
-    [self setViewBGColor:containerView];
+    [self viewControllerBGInit:containerView];
     
     
     UIImageView *logoView=[[UIImageView alloc] initWithFrame:CGRectMake((bounds.size.width-80)/2, (bounds.size.height-80)/2, 80, 80)];

@@ -80,6 +80,7 @@
 @property(nonatomic,assign) int detectType;//监测类型 0x01 --- 0x12
 @property(nonatomic,assign) int time;
 @property(nonatomic,assign) float value;
+@property(nonatomic,assign) int index;
 
 @end
 /*

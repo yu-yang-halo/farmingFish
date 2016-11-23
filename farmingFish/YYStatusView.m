@@ -46,7 +46,7 @@
     
     CALayer *layer=[CALayer layer];
     layer.frame =self.bounds;
-    layer.backgroundColor=[[UIColor colorWithWhite:1 alpha:0.5] CGColor];
+    layer.backgroundColor=[[UIColor colorWithWhite:0.8 alpha:0.5] CGColor];
     layer.cornerRadius=CGRectGetHeight(frame)/2;
     
     [self.layer insertSublayer:layer atIndex:0];
@@ -159,7 +159,6 @@
 -(void)layoutSubviews{
     [self viewInit:self.frame];
     [self startAlphaAnimation:YES];
-    NSLog(@"layoutSubviews..............");
      
 }
 

@@ -124,8 +124,9 @@
     
     [backgroundView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backgroundView setTag:section];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.1] forState:(UIControlStateNormal)];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2] forState:(UIControlStateHighlighted)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.95 alpha:0.1] forState:(UIControlStateNormal)];
+    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.95 alpha:0.2] forState:(UIControlStateHighlighted)];
+
     [backgroundView addTarget:self action:@selector(groupExpand:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *arrowImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10,(HEAD_HEIGHT-9)/2,16,9)];
@@ -143,7 +144,7 @@
     [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont systemFontOfSize:tldCellFontSize]];
     
-    [label setTextColor:[UIColor colorWithWhite:1 alpha:1]];
+    [label setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
     label.text=[[_collectorInfos objectAtIndex:section] PondName];
     
     
@@ -203,7 +204,7 @@
     if([[_collectorInfos objectAtIndex:selectCourseIndex] expandYN]){
         [[SocketService shareInstance] disconnect];
     }else{
-        
+        [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_STATUS)];
         [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
         [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *customerNO) {
             

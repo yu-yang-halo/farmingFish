@@ -10,6 +10,7 @@
 #import <UIColor+uiGradients/UIColor+uiGradients.h>
 #import "UIColor+hexStr.h"
 #import "UIViewController+Extension.h"
+#import "View+point.h"
 @interface YYTabViewController (){
     CGFloat buttonWidth;
     NSArray *normalImages;
@@ -38,7 +39,7 @@
     self.tabBarView.layer.borderWidth=0.1;
     self.tabBarView.layer.borderColor=[[UIColor colorWithHexString:@"#b2b2b2"] CGColor];
   
-    [self.tabBarView setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
+    [self.tabBarView setBackgroundColor:[UIColor colorWithHexString:@"#fafafa"]];
     [self.tabBarView setAlpha:1];
     
     buttonWidth=CGRectGetWidth(self.view.frame)/[_items count];
@@ -49,6 +50,13 @@
         
         
         [self buttonStyleInit:btn index:i];
+        
+        if(i==3){
+            [btn setShowPointHidden:NO];
+        }else{
+            [btn setShowPointHidden:YES];
+        }
+        
         
        
         

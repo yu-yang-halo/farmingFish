@@ -17,7 +17,7 @@
 #define  tldTabBarFontSize 15
 #define  tldCellFontSize 18
 
-#define  tldTabBarHeight 90
+#define  tldTabBarHeight 65
 
 
 #define  ITEM_REALDATA @"实时数据"

@@ -25,15 +25,33 @@
     
     
     return dict[key];
-    
-
 }
 +(NSString *)contentForKeyInt:(NSNumber *)key{
 
-    NSArray *objects=@[@"溶氧",@"溶氧饱和度",@"PH",@"氨氮",@"温度",
+    NSArray *objects=@[@"溶氧",@"溶氧饱和度",@"PH",@"氨氮",@"水温",
                        @"亚硝酸盐",@"液位",@"硫化氢",@"浊度",@"盐度",
                        @"电导率",@"化学需量",@"大气压",@"风速",@"风向",
                        @"叶绿素",@"大气温度",@"大气湿度"
+                       ];
+    NSArray *keys=@[@(0x01),@(0x02),@(0x03),@(0x04),@(0x05),
+                    @(0x06),@(0x07),@(0x08),@(0x09),@(0x0a),
+                    @(0x0b),@(0x0c),@(0x0d),@(0x0e),@(0x0f),
+                    @(0x10),@(0x11),@(0x12)
+                    ];
+    
+    NSDictionary *dict=[NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    
+    return dict[key];
+    
+}
+//排序使用
++(NSNumber *)indexForKeyInt:(NSNumber *)key{
+    
+    NSArray *objects=@[@(1),@(7),@(3),@(4),@(2),
+                       @(5),@(8),@(9),@(6),@(10),
+                       @(11),@(12),@(13),@(14),@(15),
+                       @(16),@(17),@(18)
                        ];
     NSArray *keys=@[@(0x01),@(0x02),@(0x03),@(0x04),@(0x05),
                     @(0x06),@(0x07),@(0x08),@(0x09),@(0x0a),
@@ -98,7 +116,7 @@
     return dict[key];
 }
 +(NSString *)contentForKeyString:(NSString *)key{
-    NSArray *objects=@[@"溶氧",@"溶氧饱和度",@"PH",@"氨氮",@"温度",
+    NSArray *objects=@[@"溶氧",@"溶氧饱和度",@"PH",@"氨氮",@"水温",
                        @"亚硝酸盐",@"液位",@"硫化氢",@"浊度",@"盐度",
                        @"电导率",@"化学需量",@"大气压",@"风速",@"风向",
                        @"叶绿素",@"大气温度",@"大气湿度"

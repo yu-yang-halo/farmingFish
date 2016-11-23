@@ -35,8 +35,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self viewControllerBGInit];
-    self.automaticallyAdjustsScrollViewInsets = NO; 
+    [self viewControllerBGInitWhite];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [[SocketService shareInstance] enableListenser:YES];
     

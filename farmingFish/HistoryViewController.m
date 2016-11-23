@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"历史数据";
-    [self viewControllerBGInit];
+    [self viewControllerBGInitWhite];
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
     self.deviceData=delegate.deviceData;

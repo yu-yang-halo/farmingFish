@@ -45,6 +45,19 @@
     
 
     [self networkEnvInit];
+//    [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_TIME)];
+//    
+//    [[SocketService shareInstance] connect:@"00-00-04-01"];
+//    [[SocketService shareInstance] setStatusBlock:^(NSDictionary *dic) {
+//        
+//        NSLog(@"dict : %@",dic);
+//        
+//      
+//        
+//    }];
+//    
+//    [[SocketService shareInstance] saveTimeCmd];
+    
     
     return YES;
 }
@@ -84,7 +97,7 @@
     locService.delegate = self;
     
     //启动LocationService
-    //[locService startUserLocationService];
+    [locService startUserLocationService];
 }
 
 

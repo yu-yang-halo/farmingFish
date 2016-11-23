@@ -19,9 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self viewControllerBGInit];
-    self.itemTitles=@[@"知识库",@"历史数据"];
-    self.itemImages=@[@"main_news",@"main_history"];
+    [self viewControllerBGInitWhite];
+    self.itemTitles=@[@"知识库",@"历史数据",@"电量统计"];
+    self.itemImages=@[@"main_news",@"main_history",@"main_battery"];
     
     
     self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-64) style:(UITableViewStylePlain)];
@@ -31,7 +31,8 @@
     
     self.tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
     
-    [self.tableView setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
+    [self.tableView setSeparatorStyle:(UITableViewCellSeparatorStyleSingleLine)];
+    self.tableView.separatorColor=[UIColor colorWithWhite:0.4 alpha:0.3];
     
     self.tableView.delegate=self;
     self.tableView.dataSource=self;
@@ -42,7 +43,9 @@
     
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [_tableView reloadData];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -76,19 +79,32 @@
         
     }
     
-    [cell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.05]];
+    [cell setBackgroundColor:[UIColor clearColor]];
     
-    UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
-    
-    [bgView setBackgroundColor:[UIColor clearColor]];
-    
-    [cell setSelectedBackgroundView:bgView];
+//    UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
+//    
+//    [bgView setBackgroundColor:[UIColor clearColor]];
+//    
+//    [cell setSelectedBackgroundView:bgView];
 
     
     cell.textLabel.text=_itemTitles[indexPath.row];
     cell.imageView.image=[UIImage imageNamed:_itemImages[indexPath.row]];
+    
+    
+    CGRect  frame=cell.imageView.frame;
+    CGPoint center=cell.imageView.center;
+    
+    frame.size=CGSizeMake(30, 30);
+    
+    cell.imageView.frame=frame;
+    
+    cell.imageView.center=center;
+    
+    
+    
     [cell.textLabel setFont:[UIFont systemFontOfSize:tldCellFontSize]];
-    [cell.textLabel setTextColor:[UIColor whiteColor]];
+    [cell.textLabel setTextColor:[UIColor colorWithWhite:0 alpha:0.5]];
     [cell setAccessoryType:(UITableViewCellAccessoryDisclosureIndicator)];
     
     return cell;

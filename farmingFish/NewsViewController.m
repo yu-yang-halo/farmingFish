@@ -30,24 +30,26 @@
     [super viewDidLoad];
      // Do any additional setup after loading the view.
      self.title=@"知识库";
-    [self viewControllerBGInit];
+    [self viewControllerBGInitWhite];
     self.automaticallyAdjustsScrollViewInsets=NO;
     
     self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64-tldTabBarHeight)];
-    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    
+   // [_tableView setSeparatorColor:[UIColor colorWithWhite:0.2 alpha:0.5]];
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
     _tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
-    [_tableView setSeparatorColor:[UIColor colorWithWhite:1 alpha:0.5]];
     
     
     _tableView.delegate=self;
     _tableView.dataSource=self;
     
+    
     [self.view addSubview:_tableView];
-    
-    
     [self loadNewsData];
 }
+
 
 -(void)loadNewsData{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -111,7 +113,7 @@
     }
     [cell setBackgroundColor:[UIColor clearColor]];
     UIView *selView=[[UIView alloc] initWithFrame:cell.bounds];
-    [selView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.2]];
+    [selView setBackgroundColor:[UIColor clearColor]];
     [cell setSelectedBackgroundView:selView];
     
     
@@ -120,10 +122,13 @@
     
     cell.textLabel.text=yyNews.title;
     
-    cell.textLabel.textColor=[UIColor whiteColor];
+    cell.textLabel.textColor=[UIColor colorWithWhite:0.1 alpha:0.5];
     
     return cell;
     
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [_tableView reloadData];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    

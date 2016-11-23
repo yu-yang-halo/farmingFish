@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"设备控制";
-     [self viewControllerBGInit];
+     [self viewControllerBGInitWhite];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     

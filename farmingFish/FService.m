@@ -10,6 +10,7 @@
 #import "FService.h"
 #import "DateHelper.h"
 #import "BeanObjectHelper.h"
+#import "ConstansManager.h"
 #import <objc/runtime.h>
 static FService *instance;
 const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
@@ -98,7 +99,7 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
                 NSString *type=[key substringFromIndex:[@"F_Param" length]];
                 NSLog(@"type %@",type);
                 
-                if(value!=nil&&[value isKindOfClass:[NSNumber class]]){
+                if(value!=nil&&[value isKindOfClass:[NSNumber class]]&&[value intValue]!=0){
                     NSMutableArray *items=[dicts objectForKey:@(type.intValue)];
                     
                     if(items==nil){
@@ -108,6 +109,9 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
                     wantData.detectType=type.intValue;
                     wantData.value=value.floatValue;
                     wantData.time=data.F_ReceivedTime.intValue;
+                    wantData.index=[ConstansManager indexForKeyInt:@(type.intValue)];
+                    
+                    
                     
                     NSLog(@"%d %d %f ",wantData.detectType,wantData.time,wantData.value);
                     
@@ -126,6 +130,8 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
         }
         
     }
+    
+   
     
     return dicts;
 }
@@ -251,6 +257,8 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"[error] %@",errorDescription);
         });
+        
+        
     }
     return nil;
 }

@@ -12,6 +12,7 @@
 @interface UIViewController (Extension)
 
 -(void)viewControllerBGInit;
+-(void)viewControllerBGInitWhite;
 -(void)flyIconToFace;
 //-(void)navigationBarInit;
 

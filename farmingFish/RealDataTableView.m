@@ -50,7 +50,7 @@
     NSString *datas=[_realDatas objectAtIndex:indexPath.row];
     NSArray  *arrs=[datas componentsSeparatedByString:@"|"];
     
-    if(arrs!=nil&&[arrs count]==4){
+    if(arrs!=nil&&[arrs count]==5){
        
         cell.propNameLabel.text=arrs[0];
         

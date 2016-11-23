@@ -5,7 +5,8 @@
 //  Created by apple on 2016/11/7.
 //  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
 //
-#import <PNChart/PNChart.h>
+#import <FSLineChart/FSLineChart.h>
+#import <FSLineChart/UIColor+FSPalette.h>
 #import "HistoryTableView.h"
 #import "BeanObject.h"
 #import "ConstansManager.h"
@@ -77,108 +78,118 @@
 }
 
 -(UIView *)createChartView:(NSIndexPath *)indexPath{
-    UIView *containerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH, 0)];
+    UIView *containerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0,CGRectGetWidth([UIScreen mainScreen].bounds), 220)];
     
-    NSArray *xyArrs=[self convertPNChartData:indexPath];
-    
-    UIColor *fontColor=[UIColor colorWithWhite:1 alpha:0.7];
-
-    PNLineChart *lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 0.0, SCREEN_WIDTH, 200.0)];
-    lineChart.xLabelColor=fontColor;
-    lineChart.yLabelColor=fontColor;
-    lineChart.axisColor=[UIColor colorWithWhite:1 alpha:0.4];
-    
-    lineChart.xLabelFont=[UIFont systemFontOfSize:9];
-    
-    
-    lineChart.yLabelFormat = @"%1.1f";
-    lineChart.backgroundColor = [UIColor clearColor];
-    [lineChart setXLabels:xyArrs[0]];
-    lineChart.showCoordinateAxis = YES;
-    
-    // added an examle to show how yGridLines can be enabled
-    // the color is set to clearColor so that the demo remains the same
-    lineChart.yGridLinesColor = [UIColor clearColor];
-    lineChart.showYGridLines = YES;
-    
-    //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
-    //Only if you needed
-    NSArray *allKeys=_historyDataDict.allKeys;
-    
-    id key=allKeys[indexPath.row];
-    
-    NSArray *maxAndMinArr=[ConstansManager maxWithMinRange:key];
-    
-    NSArray *yLabels=[ConstansManager yAxisRange:key];
-
-    
-    lineChart.yFixedValueMax = [maxAndMinArr[0] floatValue];
-    lineChart.yFixedValueMin = [maxAndMinArr[1] floatValue];
+    NSArray *xyArrs=[self convertChartViewData:indexPath];
     
     
     
-    [lineChart setYLabels:yLabels];
+    FSLineChart* lineChart = [[FSLineChart alloc] initWithFrame:CGRectMake(30, 30, CGRectGetWidth([UIScreen mainScreen].bounds)-30, 170)];
     
-
-    // Line Chart #2
-    NSArray * data02Array = xyArrs[1];
-    PNLineChartData *data02 = [PNLineChartData new];
-    data02.dataTitle =[NSString stringWithFormat:@"(%@%@)/(时)",xyArrs[2]
-     ,[ConstansManager unitForKeyString:key]];
     
-    data02.color = PNTwitterColor;
-    data02.alpha = 0.5f;
-    data02.itemCount = data02Array.count;
-    data02.inflexionPointStyle = PNLineChartPointStyleCircle;
-    data02.getData = ^(NSUInteger index) {
-        CGFloat yValue = [data02Array[index] floatValue];
-        return [PNLineChartDataItem dataItemWithY:yValue];
+    // Setting up the line chart
+    lineChart.verticalGridStep =[xyArrs[0] count]/2;
+    lineChart.horizontalGridStep =[xyArrs[1] count]/2 ;
+    lineChart.fillColor = nil;
+    lineChart.displayDataPoint = NO;
+    lineChart.dataPointColor = [UIColor fsLightBlue];
+    lineChart.dataPointBackgroundColor = [UIColor fsDarkBlue];
+    lineChart.dataPointRadius = 2;
+    lineChart.lineWidth=2;
+    lineChart.innerGridLineWidth=0;
+    lineChart.color = [lineChart.dataPointColor colorWithAlphaComponent:0.3];
+    lineChart.valueLabelPosition = ValueLabelLeft;
+    
+    
+    
+    lineChart.labelForIndex = ^(NSUInteger item) {
+        return xyArrs[0][item];
     };
     
-    lineChart.chartData = @[data02];
-    [lineChart strokeChart];
-    //lineChart.delegate = self;
-
+    lineChart.labelForValue = ^(CGFloat value) {
+        return [NSString stringWithFormat:@"%.01f", value];
+    };
     
-    lineChart.legendStyle = PNLegendItemStyleStacked;
-    lineChart.legendFont = [UIFont boldSystemFontOfSize:12.0f];
-    lineChart.legendFontColor = fontColor;
     
-    UIView *legend = [lineChart getLegendWithMaxWidth:320];
-    [legend setFrame:CGRectMake(30, 200, legend.frame.size.width, legend.frame.size.height+30)];
+    [lineChart setChartData:xyArrs[1]];
     
+    
+   
     [containerView addSubview:lineChart];
     
-    [containerView addSubview:legend];
+    UIView *contentView=[[UIView alloc] initWithFrame:CGRectMake(10,0,CGRectGetWidth([UIScreen mainScreen].bounds),30)];
     
-    containerView.frame=CGRectMake(0, 0,SCREEN_WIDTH,CGRectGetMaxY(legend.frame));
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0,10,CGRectGetWidth([UIScreen mainScreen].bounds),20)];
     
-    //containerView.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
+    [label setText:[NSString stringWithFormat:@"%@平均值（%.01f）",xyArrs[2],[xyArrs[3] floatValue]]];
+    
+    
+    [label setTextColor:[UIColor fsDarkBlue]];
+    [label setTextAlignment:(NSTextAlignmentLeft)];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [contentView addSubview:label];
+    
+    [containerView addSubview:contentView];
+   
+    
+    
     return containerView;
 }
 
--(NSArray *)convertPNChartData:(NSIndexPath *)indexPath{
+-(NSArray *)convertChartViewData:(NSIndexPath *)indexPath{
     NSArray *allValues=_historyDataDict.allValues;
-    NSArray *allKeys=_historyDataDict.allKeys;
+    //NSArray *allKeys=_historyDataDict.allKeys;
     
-    id key=allKeys[indexPath.row];
+    allValues=[allValues sortedArrayUsingComparator:^NSComparisonResult(NSArray*  _Nonnull obj1, NSArray *  _Nonnull obj2) {
+        
+       HistoryWantData *o1= [obj1 lastObject];
+       HistoryWantData *o2= [obj2 lastObject];
+       
+        return o1.index-o2.index<0?NSOrderedAscending:NSOrderedDescending;
+        
+    }];
+    
+    
     
     NSArray<HistoryWantData *> *valueArr=allValues[indexPath.row];
+    
+    id key=@([[valueArr lastObject] detectType]);
     
     NSMutableArray *xArrs=[NSMutableArray new];
     NSMutableArray *yArrs=[NSMutableArray new];
     
+    float avg=0.0;
+    float sum=0.0;
     
     for (HistoryWantData *wantData in valueArr) {
-        [xArrs addObject:[NSString stringWithFormat:@"%d",wantData.time]];
-        [yArrs addObject:[NSString stringWithFormat:@"%f",wantData.value]];
+        
+        [xArrs addObject:[self timeFormat:wantData.time]];
+        [yArrs addObject:@(wantData.value)];
+        sum+=wantData.value;
     }
     
     NSString *title=[ConstansManager contentForKeyInt:key];
     NSLog(@"title %@",title);
+    if([valueArr count]>0){
+        avg=sum/[valueArr count];
+    }
     
-    return @[xArrs,yArrs, title];
+    return @[xArrs,yArrs, title,@(avg)];
 }
+
+-(NSString *)timeFormat:(int)time{
+    //6 -> 06:00
+    
+    if(time<10){
+        return [NSString stringWithFormat:@"0%d:00",time];
+    }else{
+        return [NSString stringWithFormat:@"%d:00",time];
+    }
+    
+    
+    
+}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell=[self tableView:tableView cellForRowAtIndexPath:indexPath];
