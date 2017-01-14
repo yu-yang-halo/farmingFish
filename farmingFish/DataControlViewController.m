@@ -92,9 +92,12 @@
 -(void)dealloc{
     [[SocketService shareInstance] enableListenser:NO];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [[SocketService shareInstance] reconnect];
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [[SocketService shareInstance] disconnect];
-    [[SocketService shareInstance] setStatusBlock:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

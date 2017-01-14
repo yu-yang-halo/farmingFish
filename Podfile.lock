@@ -15,6 +15,9 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - BaiduMapKit (3.0.0)
+  - Charts (3.0.0):
+    - Charts/Core (= 3.0.0)
+  - Charts/Core (3.0.0)
   - CocoaAsyncSocket (7.5.0):
     - CocoaAsyncSocket/GCD (= 7.5.0)
   - CocoaAsyncSocket/GCD (7.5.0)
@@ -29,6 +32,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - BaiduMapKit (~> 3.0.0)
+  - Charts
   - CocoaAsyncSocket
   - FSLineChart
   - HMSegmentedControl
@@ -41,6 +45,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
+  Charts: beb341928d2135613b4325a6c6aff9f2f6de895e
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   FSLineChart: 1b8d3727e8feb323144126d381184bf1b15e6efc
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
@@ -50,6 +55,6 @@ SPEC CHECKSUMS:
   Toast: 32c59229abfcf41850162b83bb9259dc84372473
   UIColor+uiGradients: 0e540aa2d8c75254aaebb6c92f20c1aa43be5f05
 
-PODFILE CHECKSUM: 05c78a4846ad4a3843139bce67cdd54d5363048f
+PODFILE CHECKSUM: b455f16c48ecd6622e0f054932926297d9f183b7
 
 COCOAPODS: 1.1.1

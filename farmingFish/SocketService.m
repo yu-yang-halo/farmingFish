@@ -11,7 +11,7 @@
 #import "GCDAsyncSocket.h" // for TCP
 #import "GCDAsyncUdpSocket.h" // for UDP
 #import "SPackage.h"
-#import <UIView+Toast.h>
+#import "UIView+Toast.h"
 
 const  uint16_t socket_port= 9101;
 const  NSString *socket_ip  = @"183.78.182.98";
@@ -38,17 +38,10 @@ static SocketService *instance;
     [asyncSocket writeData:[SPackage buildSocketPackage_ControlMSG:num cmd:cmdval deviceId:devId] withTimeout:-1 tag:SOCKET_TAG_SET_STATUS];
     [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_STATUS];
 }
-
--(void)saveParametersCmd{
-    [asyncSocket writeData:[SPackage buildSocketPackage_ParametersMSG] withTimeout:-1 tag:SOCKET_TAG_SET_PARAMETERS];
-    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_PARAMETERS];
+-(void)saveThresoldsCmd{
+    [asyncSocket writeData:[SPackage buildSocketPackage_ThresholdMSG] withTimeout:-1 tag:SOCKET_TAG_SET_THRESHOLDS];
+    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_THRESHOLDS];
 }
--(void)saveTimeCmd{
-    [asyncSocket writeData:[SPackage saveSocketPackage_Time:@"00-00-04-01"] withTimeout:-1 tag:SOCKET_TAG_SET_TIME];
-    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_SET_TIME];
-    
-}
-
 
 
 -(void)reconnect{
@@ -58,6 +51,17 @@ static SocketService *instance;
     [self connect:_customerNO];
     NSLog(@"重新连接。。。");
 }
+-(void)disconnect{
+    if(asyncSocket!=nil&&asyncSocket.isConnected){
+        [asyncSocket disconnect];
+    }
+}
+-(void)disconnectAndClear{
+    if(asyncSocket!=nil&&asyncSocket.isConnected){
+        [asyncSocket disconnect];
+         asyncSocket=nil;
+    }
+}
 
 -(void)connect:(NSString *)customerNO{
     self.tmpCNO=customerNO;
@@ -66,6 +70,7 @@ static SocketService *instance;
    dispatch_queue_t mainQueue = dispatch_get_main_queue();
     if(asyncSocket==nil){
         asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+        
     }
     
     if(![asyncSocket isConnected]){
@@ -82,11 +87,7 @@ static SocketService *instance;
 
 }
 
--(void)disconnect{
-    if(asyncSocket!=nil&&asyncSocket.isConnected){
-        [asyncSocket disconnect];
-    }
-}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Socket Delegate
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,29 +124,22 @@ static SocketService *instance;
                 [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
                 [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
 
-            }else if(_acceptType==ACCEPT_DATA_TYPE_PARAMETERS){
+            }else if(_acceptType==ACCEPT_DATA_TYPE_THRESHOLD){
                 
-                [asyncSocket writeData:[SPackage buildSocketPackage_Parameters:_customerNO] withTimeout:-1 tag:SOCKET_TAG_GET_PARAMETERS];
-                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_PARAMETERS];
-                
-                [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
-                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
-                
-                
-            }else if (_acceptType==ACCEPT_DATA_TYPE_TIME){
-                [asyncSocket writeData:[SPackage buildSocketPackage_Time:_customerNO] withTimeout:-1 tag:SOCKET_TAG_GET_TIME];
-                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_TIME];
+                [asyncSocket writeData:[SPackage buildSocketPackage_Threshold:_customerNO] withTimeout:-1 tag:SOCKET_TAG_GET_THRESHOLDS];
+                [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_THRESHOLDS];
                 
                 [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
                 [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
                 
+                [self saveThresoldsCmd];
                 
                 
             }
             
             
             
-            [NSThread sleepForTimeInterval:15];
+            [NSThread sleepForTimeInterval:5];
             
         }
     });

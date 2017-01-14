@@ -10,7 +10,7 @@
 #import "BeanObject.h"
 #import "RealDataTableView.h"
 typedef void (^RealDataLoadBlock)(NSString *customNo);
-@interface MyExpandTableView : UITableView<UITableViewDataSource,UITableViewDelegate>
+@interface ExpandRealDataView : UITableView<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) NSArray<YYCollectorInfo *> *collectorInfos;
 @property(nonatomic,weak) UIViewController *viewControllerDelegate;
 

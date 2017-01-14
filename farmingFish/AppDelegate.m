@@ -12,7 +12,7 @@
 #import <BaiduMapAPI_Location/BMKLocationService.h>
 #import <JZLocationConverter/JZLocationConverter.h>
 #import "Reachability.h"
-#import <UIView+Toast.h>
+#import "UIView+Toast.h"
 @interface AppDelegate ()<BMKLocationServiceDelegate>
 {
     BMKMapManager *mapManager;
@@ -45,19 +45,7 @@
     
 
     [self networkEnvInit];
-//    [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_TIME)];
-//    
-//    [[SocketService shareInstance] connect:@"00-00-04-01"];
-//    [[SocketService shareInstance] setStatusBlock:^(NSDictionary *dic) {
-//        
-//        NSLog(@"dict : %@",dic);
-//        
-//      
-//        
-//    }];
-//    
-//    [[SocketService shareInstance] saveTimeCmd];
-    
+        
     
     return YES;
 }

@@ -10,8 +10,7 @@
 #import <UIKit/UIKit.h>
 typedef NS_OPTIONS(NSUInteger,ACCEPT_DATA_TYPE){
     ACCEPT_DATA_TYPE_STATUS     = 1<<0,
-    ACCEPT_DATA_TYPE_PARAMETERS = 1<<1,
-    ACCEPT_DATA_TYPE_TIME       = 1<<2,
+    ACCEPT_DATA_TYPE_THRESHOLD  = 1<<1,
 };
 
 typedef NS_OPTIONS(NSUInteger,SOCKET_TAG){
@@ -20,11 +19,9 @@ typedef NS_OPTIONS(NSUInteger,SOCKET_TAG){
     SOCKET_TAG_GET_STATUS       = 1001,
     SOCKET_TAG_SET_STATUS       = 1002,
     
-    SOCKET_TAG_GET_PARAMETERS   = 2001,
-    SOCKET_TAG_SET_PARAMETERS   = 2002,
-    
-    SOCKET_TAG_GET_TIME     = 3001,
-    SOCKET_TAG_SET_TIME     = 3002,
+    SOCKET_TAG_GET_THRESHOLDS   = 2001,
+    SOCKET_TAG_SET_THRESHOLDS   = 2002,
+
    
 };
 
@@ -34,14 +31,17 @@ typedef void (^OnlineStatusBlock)(BOOL onlineYN,NSString *customNO);
 
 +(instancetype)shareInstance;
 @property(nonatomic,assign) ACCEPT_DATA_TYPE acceptType;
-
+-(void)reconnect;
 -(void)connect:(NSString *)customerNO;
+
+
 -(void)disconnect;
+-(void)disconnectAndClear;
 
 
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
--(void)saveParametersCmd;
--(void)saveTimeCmd;
+
+-(void)saveThresoldsCmd;
 
 
 

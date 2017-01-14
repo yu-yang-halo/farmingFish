@@ -72,6 +72,7 @@
 		18EEBFF51DB3707F00CED79A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EEBFF41DB3707F00CED79A /* SettingsViewController.m */; };
 		18EEBFF81DB370AD00CED79A /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EEBFF71DB370AD00CED79A /* HistoryViewController.m */; };
 		18F835121DDFF6650019D3D3 /* CacheHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F835111DDFF6650019D3D3 /* CacheHelper.m */; };
+		803177BCD3A158FBAFDEF228 /* Pods_farmingFish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D54551EB32662436626826 /* Pods_farmingFish.framework */; };
 		8410BAC21DA8CC620040B3D5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8410BAC11DA8CC620040B3D5 /* AssetsLibrary.framework */; };
 		8414DC8F1D9A027900CBC8CC /* DeviceControlTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8414DC8E1D9A027900CBC8CC /* DeviceControlTableView.m */; };
 		8414DC931D9A030F00CBC8CC /* DeviceControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8414DC911D9A030F00CBC8CC /* DeviceControlTableViewCell.m */; };
@@ -84,7 +85,7 @@
 		84485B821DACBE84000AF2EC /* WeatherHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84485B811DACBE84000AF2EC /* WeatherHelper.m */; };
 		84485B851DACC230000AF2EC /* DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84485B841DACC230000AF2EC /* DateHelper.m */; };
 		8470027B1D9E555E006384CC /* YYVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470027A1D9E555E006384CC /* YYVideoView.m */; };
-		848A10C71DAB73D5003F24CE /* MyExpandTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A10C61DAB73D4003F24CE /* MyExpandTableView.m */; };
+		848A10C71DAB73D5003F24CE /* ExpandRealDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A10C61DAB73D4003F24CE /* ExpandRealDataView.m */; };
 		848A10CB1DAB7E42003F24CE /* BeanObjectHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A10CA1DAB7E42003F24CE /* BeanObjectHelper.m */; };
 		848A10CE1DAB7FBF003F24CE /* BeanObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A10CD1DAB7FBF003F24CE /* BeanObject.m */; };
 		84D2E3EC1D94F4B500BD0002 /* RealDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D2E3EB1D94F4B500BD0002 /* RealDataViewController.m */; };
@@ -93,10 +94,10 @@
 		84E97BE81D9E1E6E00D3D25B /* SQMenuShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E97BE41D9E1E6E00D3D25B /* SQMenuShowCell.xib */; };
 		84E97BE91D9E1E6E00D3D25B /* SQMenuShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E97BE61D9E1E6E00D3D25B /* SQMenuShowView.m */; };
 		84EA6A7D1D90E9B30075433D /* SPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA6A7C1D90E9B30075433D /* SPackage.m */; };
-		BE1957C55FBFA9E91269DC73 /* libPods-farmingFish.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3463BF14C7240729B0EAFEC1 /* libPods-farmingFish.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15D54551EB32662436626826 /* Pods_farmingFish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_farmingFish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		180A27401DCC1FD9002ECF63 /* GradientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientHelper.h; sourceTree = "<group>"; };
 		180A27411DCC1FD9002ECF63 /* GradientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientHelper.m; sourceTree = "<group>"; };
 		180A27441DCC33C7002ECF63 /* AppConfig.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.pch; path = ../AppConfig.pch; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 		180AB9651DCECEBC00054015 /* YYAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAlertViewController.m; sourceTree = "<group>"; };
 		180AB9671DCF0CE400054015 /* ConstansManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstansManager.h; sourceTree = "<group>"; };
 		180AB9681DCF0CE400054015 /* ConstansManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstansManager.m; sourceTree = "<group>"; };
+		180BDB951E29CD5000F576FA /* farmingFish-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "farmingFish-Swift.h"; sourceTree = "<group>"; };
 		181452601DD469EF00B60B79 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		181452611DD469EF00B60B79 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		181452631DD46A1500B60B79 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -211,7 +213,6 @@
 		18F835101DDFF6650019D3D3 /* CacheHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheHelper.h; sourceTree = "<group>"; };
 		18F835111DDFF6650019D3D3 /* CacheHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheHelper.m; sourceTree = "<group>"; };
 		2CA6ABEA6762B806F8B3F708 /* Pods-farmingFish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-farmingFish.release.xcconfig"; path = "Pods/Target Support Files/Pods-farmingFish/Pods-farmingFish.release.xcconfig"; sourceTree = "<group>"; };
-		3463BF14C7240729B0EAFEC1 /* libPods-farmingFish.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-farmingFish.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8410BAC11DA8CC620040B3D5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		8414DC8D1D9A027900CBC8CC /* DeviceControlTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceControlTableView.h; sourceTree = "<group>"; };
 		8414DC8E1D9A027900CBC8CC /* DeviceControlTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceControlTableView.m; sourceTree = "<group>"; };
@@ -233,8 +234,8 @@
 		84485B841DACC230000AF2EC /* DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateHelper.m; sourceTree = "<group>"; };
 		847002791D9E555E006384CC /* YYVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYVideoView.h; sourceTree = "<group>"; };
 		8470027A1D9E555E006384CC /* YYVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYVideoView.m; sourceTree = "<group>"; };
-		848A10C51DAB73D4003F24CE /* MyExpandTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyExpandTableView.h; sourceTree = "<group>"; };
-		848A10C61DAB73D4003F24CE /* MyExpandTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyExpandTableView.m; sourceTree = "<group>"; };
+		848A10C51DAB73D4003F24CE /* ExpandRealDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandRealDataView.h; sourceTree = "<group>"; };
+		848A10C61DAB73D4003F24CE /* ExpandRealDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandRealDataView.m; sourceTree = "<group>"; };
 		848A10C91DAB7E42003F24CE /* BeanObjectHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeanObjectHelper.h; sourceTree = "<group>"; };
 		848A10CA1DAB7E42003F24CE /* BeanObjectHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeanObjectHelper.m; sourceTree = "<group>"; };
 		848A10CC1DAB7FBF003F24CE /* BeanObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeanObject.h; sourceTree = "<group>"; };
@@ -282,7 +283,7 @@
 				18EDAB5C1D4367730071FFE8 /* OpenAL.framework in Frameworks */,
 				181452641DD46A1500B60B79 /* SystemConfiguration.framework in Frameworks */,
 				8410BAC21DA8CC620040B3D5 /* AssetsLibrary.framework in Frameworks */,
-				BE1957C55FBFA9E91269DC73 /* libPods-farmingFish.a in Frameworks */,
+				803177BCD3A158FBAFDEF228 /* Pods_farmingFish.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				187BC9651D22A05200FB5678 /* main.m */,
+				180BDB951E29CD5000F576FA /* farmingFish-Swift.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -442,8 +444,8 @@
 		18EC4EE81D976C2D009246C2 /* tableview */ = {
 			isa = PBXGroup;
 			children = (
-				848A10C51DAB73D4003F24CE /* MyExpandTableView.h */,
-				848A10C61DAB73D4003F24CE /* MyExpandTableView.m */,
+				848A10C51DAB73D4003F24CE /* ExpandRealDataView.h */,
+				848A10C61DAB73D4003F24CE /* ExpandRealDataView.m */,
 				18EC4EE91D976F55009246C2 /* RealDataTableView.h */,
 				18EC4EEA1D976F55009246C2 /* RealDataTableView.m */,
 				18EC4EEC1D977301009246C2 /* RealDataTableViewCell.h */,
@@ -551,7 +553,7 @@
 				18EDAB341D4363DA0071FFE8 /* libplayctrl.a */,
 				18EDAB351D4363DA0071FFE8 /* libSystemTransform.a */,
 				18EDAB361D4363DA0071FFE8 /* libtinyxml.a */,
-				3463BF14C7240729B0EAFEC1 /* libPods-farmingFish.a */,
+				15D54551EB32662436626826 /* Pods_farmingFish.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -636,6 +638,7 @@
 					187BC9601D22A05200FB5678 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = HLQ3A9KFRW;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -749,7 +752,7 @@
 				84DD4BEA1DAB4574009CCC90 /* YYTabViewController.m in Sources */,
 				18EEBFF21DB3700300CED79A /* NewsViewController.m in Sources */,
 				84E97BE91D9E1E6E00D3D25B /* SQMenuShowView.m in Sources */,
-				848A10C71DAB73D5003F24CE /* MyExpandTableView.m in Sources */,
+				848A10C71DAB73D5003F24CE /* ExpandRealDataView.m in Sources */,
 				18EEBFF51DB3707F00CED79A /* SettingsViewController.m in Sources */,
 				84D2E3EC1D94F4B500BD0002 /* RealDataViewController.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
@@ -933,6 +936,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.lztech.valve;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -978,6 +982,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.lztech.valve;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

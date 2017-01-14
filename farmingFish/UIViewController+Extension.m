@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+Extension.h"
-#import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import <UIColor_uiGradients/UIColor+uiGradients.h>
 #import "UIColor+hexStr.h"
 @implementation UIViewController (Extension)
 

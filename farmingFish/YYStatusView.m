@@ -8,7 +8,7 @@
 
 #import "YYStatusView.h"
 #import "UIColor+hexStr.h"
-#import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import <UIColor_uiGradients/UIColor+uiGradients.h>
 
 //static const CGFloat YY_STATUS_HEIGHT=10;
 //static const CGFloat YY_STATUS_RADIUS=4;

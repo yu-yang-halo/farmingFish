@@ -9,7 +9,7 @@
 #import "VideoViewController.h"
 #import "UIColor+hexStr.h"
 #import "YYButton.h"
-#import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import <UIColor_uiGradients/UIColor+uiGradients.h>
 #import "hcnetsdk.h"
 #import "DeviceInfo.h"
 #import "VideoCollectionViewCell.h"
@@ -26,7 +26,7 @@
 #import "SQMenuShowView.h"
 #import "YYVideoView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <UIView+Toast.h>
+#import "UIView+Toast.h"
 #import "VoiceTalk.h"
 #import "FService.h"
 #import "AppDelegate.h"

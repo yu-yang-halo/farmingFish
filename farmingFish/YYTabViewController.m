@@ -7,7 +7,7 @@
 //
 
 #import "YYTabViewController.h"
-#import <UIColor+uiGradients/UIColor+uiGradients.h>
+#import <UIColor_uiGradients/UIColor+uiGradients.h>
 #import "UIColor+hexStr.h"
 #import "UIViewController+Extension.h"
 #import "View+point.h"

@@ -44,10 +44,10 @@
             
             if(len==45){
                 //tag
-                if (tag==SOCKET_TAG_GET_PARAMETERS||tag==SOCKET_TAG_SET_PARAMETERS) {
-                    memcpy(realData,bytes+23,45);
-                    [self resolveParametersData:realData StatusBlock:block customNo:customNo];
-                }else if(tag==SOCKET_TAG_GET_STATUS||tag==SOCKET_TAG_SET_STATUS){
+                if (tag==SOCKET_TAG_GET_THRESHOLDS||tag==SOCKET_TAG_SET_THRESHOLDS) {
+                    //memcpy(realData,bytes+23,45);
+                    //[self resolveThresoldsData:realData StatusBlock:block customNo:customNo];
+                }else if(tag==SOCKET_TAG_GET_STATUS||tag==SOCKET_TAG_SET_STATUS||tag==SOCKET_TAG_CLIENT_REGISTER){
                     memcpy(realData,bytes+23,45);
                     [self resolveStatusData:realData StatusBlock:block customNo:customNo];
                 }
@@ -105,81 +105,9 @@
     block(dic);
 }
 
-+(void)resolveParametersData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo{
++(void)resolveThresoldsData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo{
     NSMutableDictionary *dic=[NSMutableDictionary new];
-    int i=0;
     
-    while (i<45) {
-        float pMin=((status[i+1]<<8)+status[i+2])/10.0;
-        float pMax=((status[i+3]<<8)+status[i+4])/10.0;
-       
-        NSLog(@"max:%.1f min:%.1f  type %d",pMax,pMin,status[i]);
-        
-        [dic setObject:[NSString stringWithFormat:@"%d,%.1f,%.1f",status[i],pMin,pMax] forKey:@(status[i])];
-//        
-//        switch(status[i]){
-//            case 0x01://溶氧
-//                
-//                break;
-//            case 0x02://溶氧饱和度
-//               
-//                break;
-//            case 0x03://PH
-//               
-//                break;
-//            case 0x04://氨氮
-//                
-//                break;
-//            case 0x05://温度
-//                
-//                break;
-//            case 0x06://亚硝酸盐
-//               
-//                break;
-//            case 0x07://液位
-//               
-//                break;
-//            case 0x08://硫化氢
-//               
-//                break;
-//            case 0x09://浊度
-//                
-//                break;
-//            case 0x0a://盐度
-//                
-//                break;
-//            case 0x0b://电导率
-//               
-//                break;
-//            case 0x0c://化学需量
-//               
-//                break;
-//            case 0x0d://大气压
-//                
-//                break;
-//            case 0x0e://风速
-//                
-//                break;
-//            case 0x0f://风向
-//                
-//                break;
-//            case 0x10://叶绿素
-//                
-//                break;
-//            case 0x11://大气温度
-//               
-//                break;
-//            case 0x12://大气湿度
-//               
-//                break;
-//                
-//        }
-        
-        i=i+5;
-    }
-
-    [dic setObject:customNo forKey:@"customNo"];
-     block(dic);
     
 }
 
@@ -285,108 +213,6 @@
     block(dic);
 }
 
-//区间参数设置
-//
-+(NSData *)buildSocketPackage_ParametersMSG{
-    
-    /*
-     * 模拟构建设置参数
-     *      min最小值     max最大值
-     * 0x01 0x00 0x02    0x00 0x09
-     */
-    NSArray *needConfigParameters=@[@"1,1.2,4.5",@"3,6.0,9.2",@"4,1.5,4.5"];
-    
-    
-    
-    Byte req[45]={0};
-    
-    req[0]='*';
-    req[1]='T';
-    req[2]='Z';
-    req[3]=2;//version
-    //水产
-    req[4]=0x00;
-    req[5]=(Byte)0xFE;
-    NSString *customerNO=@"00-00-04-01";
-    NSArray *arr=[customerNO componentsSeparatedByString:@"-"];
-    int index=0;
-    for(NSString *str in arr){
-        unsigned int result=0;
-        NSScanner *scanner=[NSScanner scannerWithString:str];
-        [scanner scanHexInt:&result];
-        
-        req[5+(++index)]=result;
-        
-    }
-    //命令流水号
-    req[10]=(Byte)0xFF;
-    req[11]=(Byte)0xFF;
-    req[12]=(Byte)0xFF;
-    req[13]=(Byte)0xFF;
-    req[14]=(Byte)0xFF;
-    req[15]=(Byte)0xFF;
-    req[16]=(Byte)0xFF;
-    req[17]=(Byte)0xFF;
-    //命令操作字
-    req[18]=0x00;
-    req[19]=0x04;
-    /*
-     命令操作符
-     0x00终端主动上报，数据长度N不需应答；
-     0x01查询操作，数据长度0（无数据）
-     0x02设置操作，数据长度N;
-     0x81应答查询，数据长度N。
-     0x82应答设置，数据长度0（无数据）。
-     */
-    req[20]=0x02;
-    
-    //数据包长度
-    req[21]=0x00;
-    req[22]=[needConfigParameters count]*5;
-    
-    //数据包的内容
-    
-    int k=0;
-    for (NSString *item in needConfigParameters) {
-        NSArray *arrs=[item componentsSeparatedByString:@","];
-        if([arrs count]==3){
-           
-            req[23+k]=[arrs[0] intValue];
-            
-            int min=[arrs[1] floatValue]*10;
-            int max=[arrs[2] floatValue]*10;
-            
-            req[23+k+1]=(min>>8&0xFF);
-            req[23+k+2]=(min&0x00FF);
-            
-            req[23+k+3]=(max>>8&0xFF);
-            req[23+k+4]=(max&0x00FF);
-        }
-        
-        k=k+5;
-    }
-    
-    
-    
-    
-    
-    int val=(req[21]<<8)+req[22];
-    
-    //具体数据长度
-    int sum=0;
-    for(int i=0;i<23+val;i++){
-        sum+=req[i]&0xFF;
-    }
-    
-    
-    req[23+val]=(sum>>8)&0xFF;
-    req[24+val]=sum&0xFF;
-    
-    req[25+val]='#';
-    
-    return [[NSData alloc] initWithBytes:req length:(25+val+1)];
-}
-
 //电机远程控制方式
 +(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO{
     Byte req[28]={0};
@@ -453,17 +279,16 @@
     
 }
 
-//水质传感器时间参数设置
-+(NSData *)saveSocketPackage_Time:(NSString *)customerNO{
-    //两组时段 时分秒 3个Byte
+//阈值参数设置
++(NSData *)buildSocketPackage_ThresholdMSG{
     
-    //10:00:00
-    //11:00:00
-    
-    NSString *startTime=@"10:10:10";
-    NSString *endTime=@"11:10:10";
-    
+    /*
+     * 模拟构建设置参数
+     *      x y : 上限值 下限值
+     */
+    NSArray *thresholds=@[@10,@3];
     Byte req[45]={0};
+    
     req[0]='*';
     req[1]='T';
     req[2]='Z';
@@ -471,7 +296,7 @@
     //水产
     req[4]=0x00;
     req[5]=(Byte)0xFE;
-    //NSString *customerNO=@"00-00-04-01";
+    NSString *customerNO=@"00-00-04-01";
     NSArray *arr=[customerNO componentsSeparatedByString:@"-"];
     int index=0;
     for(NSString *str in arr){
@@ -493,37 +318,29 @@
     req[17]=(Byte)0xFF;
     //命令操作字
     req[18]=0x00;
-    req[19]=0x0d;
+    req[19]=0x13;
     /*
+     命令操作符
      0x00终端主动上报，数据长度N不需应答；
      0x01查询操作，数据长度0（无数据）
      0x02设置操作，数据长度N;
      0x81应答查询，数据长度N。
      0x82应答设置，数据长度0（无数据）。
+     AA 55 X Y
      */
-    
     req[20]=0x02;
     
-    NSArray *hhMMss0=[startTime componentsSeparatedByString:@":"];
-    NSArray *hhMMss1=[endTime componentsSeparatedByString:@":"];
-    
-    NSInteger len=[hhMMss0 count]+[hhMMss1 count];
-    
     //数据包长度
     req[21]=0x00;
-    req[22]=len;
+    req[22]=0x04;
+    
     //数据包的内容
-    req[23]=len;
     
-    for (int i=0; i<[hhMMss0 count];i++) {
-        req[23+i]=[hhMMss0[i] intValue];
-    }
+    req[23]=0xAA;
+    req[24]=0x55;
+    req[25]=[thresholds[0] intValue];
+    req[26]=[thresholds[1] intValue];
     
-    NSInteger size=[hhMMss0 count];
-    
-    for (int i=0; i<[hhMMss1 count];i++) {
-        req[size+23+i]=[hhMMss1[i] intValue];
-    }
     
     
     int val=(req[21]<<8)+req[22];
@@ -541,12 +358,12 @@
     req[25+val]='#';
     
     return [[NSData alloc] initWithBytes:req length:(25+val+1)];
-    
 }
 
 
-//水质传感器时间参数获取
-+(NSData *)buildSocketPackage_Time:(NSString *)customerNO{
+
+//水质传感器阈值参数
++(NSData *)buildSocketPackage_Threshold:(NSString *)customerNO{
     Byte req[27]={0};
     
     req[0]='*';
@@ -578,76 +395,7 @@
     req[17]=(Byte)0xFF;
     //命令操作字
     req[18]=0x00;
-    req[19]=0x0d;
-    /*
-     0x00终端主动上报，数据长度N不需应答；
-     0x01查询操作，数据长度0（无数据）
-     0x02设置操作，数据长度N;
-     0x81应答查询，数据长度N。
-     0x82应答设置，数据长度0（无数据）。
-     */
-    
-    req[20]=0x01;
-    
-    //数据包长度
-    req[21]=0x00;
-    req[22]=0x00;
-    //数据包的内容
-    req[23]=0x00;
-    
-    int val=(req[21]<<8)+req[22];
-    
-    //具体数据长度
-    int sum=0;
-    for(int i=0;i<23+val;i++){
-        sum+=req[i]&0xFF;
-    }
-    
-    
-    req[23+val]=(sum>>8)&0xFF;
-    req[24+val]=sum&0xFF;
-    
-    req[25+val]='#';
-    
-    return [[NSData alloc] initWithBytes:req length:(25+val+1)];
-    
-}
-
-
-//水质传感器区间参数
-+(NSData *)buildSocketPackage_Parameters:(NSString *)customerNO{
-    Byte req[27]={0};
-    
-    req[0]='*';
-    req[1]='T';
-    req[2]='Z';
-    req[3]=2;//version
-    //水产
-    req[4]=0x00;
-    req[5]=(Byte)0xFE;
-    //NSString *customerNO=@"00-00-04-01";
-    NSArray *arr=[customerNO componentsSeparatedByString:@"-"];
-    int index=0;
-    for(NSString *str in arr){
-        unsigned int result=0;
-        NSScanner *scanner=[NSScanner scannerWithString:str];
-        [scanner scanHexInt:&result];
-        
-        req[5+(++index)]=result;
-        
-    }
-    //命令流水号
-    req[10]=(Byte)0xFF;
-    req[11]=(Byte)0xFF;
-    req[12]=(Byte)0xFF;
-    req[13]=(Byte)0xFF;
-    req[14]=(Byte)0xFF;
-    req[15]=(Byte)0xFF;
-    req[16]=(Byte)0xFF;
-    req[17]=(Byte)0xFF;
-    //命令操作字
-    req[18]=0x00;
-    req[19]=0x04;
+    req[19]=0x13;
     /*
      命令操作符
      0x00终端主动上报，数据长度N不需应答；

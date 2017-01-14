@@ -14,13 +14,8 @@
 +(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO;
 
 //区间参数设置
-+(NSData *)buildSocketPackage_ParametersMSG;
-+(NSData *)buildSocketPackage_Parameters:(NSString *)customerNO;
-
-//时间参数获取
-+(NSData *)buildSocketPackage_Time:(NSString *)customerNO;
-//时间参数保存
-+(NSData *)saveSocketPackage_Time:(NSString *)customerNO;
++(NSData *)buildSocketPackage_ThresholdMSG;
++(NSData *)buildSocketPackage_Threshold:(NSString *)customerNO;
 
 
 

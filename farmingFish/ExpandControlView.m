@@ -8,9 +8,10 @@
 
 #import "ExpandControlView.h"
 
-#import "MyExpandTableView.h"
+#import "ExpandRealDataView.h"
 #import "YYButton.h"
 #import "SocketService.h"
+#import "UIView+Toast.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #define HEAD_HEIGHT 40
 
@@ -202,7 +203,7 @@
     YYCollectorInfo *collectorInfo=[_collectorInfos objectAtIndex:selectCourseIndex];
     
     if([[_collectorInfos objectAtIndex:selectCourseIndex] expandYN]){
-        [[SocketService shareInstance] disconnect];
+        [[SocketService shareInstance] disconnectAndClear];
     }else{
         [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_STATUS)];
         [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
@@ -234,6 +235,12 @@
                 }
                 
             }];
+            
+            if([dic count]==2&&mStatus!=nil){
+                [self.window makeToast:@"设置成功"];
+            }else{
+                [self.window makeToast:@"实时状态更新成功"];
+            }
             
             [self findCollector:customNo setStatus:mStatus];
 

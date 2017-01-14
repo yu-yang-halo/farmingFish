@@ -6,21 +6,22 @@
 //  Copyright © 2016年 cn.lztech  合肥联正电子科技有限公司. All rights reserved.
 //
 
-#import "MyExpandTableView.h"
+#import "ExpandRealDataView.h"
 
 #import "YYButton.h"
 #import "SocketService.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "AppDelegate.h"
 #import "CacheHelper.h"
+#import "UIView+Toast.h"
 #define HEAD_HEIGHT 40
-@interface MyExpandTableView(){
+@interface ExpandRealDataView(){
     int clickParentIndex;
 }
 @property(nonatomic,strong) RealDataLoadBlock block;
 @property(nonatomic,strong) NSMutableDictionary *onlineTable;
 @end
-@implementation MyExpandTableView
+@implementation ExpandRealDataView
 
 -(instancetype)init{
     self=[super init];
@@ -216,7 +217,7 @@
     
     if([[_collectorInfos objectAtIndex:selectCourseIndex] expandYN]){
         [self reloadTableViewUI:selectCourseIndex];
-        [[SocketService shareInstance] disconnect];
+        [[SocketService shareInstance] disconnectAndClear];
     }else{
         [self reloadTableViewUI:selectCourseIndex];
         
@@ -229,9 +230,11 @@
                 if(onlineYN){
                     //@"实时数据";
                     NSLog(@"%@ online",customerNO);
+                    //[self.window makeToast:@"数据在线"];
                 }else{
                     //@"实时数据(离线)";
                     NSLog(@"%@ offline",customerNO);
+                    //[self.window makeToast:@"数据离线"];
                 }
                 
             }];
@@ -249,6 +252,7 @@
                         NSArray* contents=[obj componentsSeparatedByString:@"|"];
                         if(contents!=nil&&[contents count]==5){
                             [realDataArr addObject:obj];
+                            
                         }
                     }else if([key isKindOfClass:[NSString class]]){
                         
@@ -270,6 +274,8 @@
                 if(realDataArr!=nil&&[realDataArr count]>0){
                     
                     [CacheHelper cacheRealDataToDisk:realDataArr customNo:[dic objectForKey:@"customNo"]];
+                    
+                    [self.window makeToast:@"实时数据更新成功"];
                 }
             
                 [self reloadData];

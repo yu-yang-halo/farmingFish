@@ -37,7 +37,7 @@
     [self.tableView addGestureRecognizer:tapGR];
     
     
-    self.contents=@[@"溶氧下限",@"溶氧上限",@"pH值下限",@"pH值上限",@"氨氮下限",@"氨氮上限",@"亚硝酸盐上限",@"亚硝酸盐下限",@"增氧机开启时间",@"增氧机关闭时间"];
+    self.contents=@[@"溶氧上限",@"溶氧下限"];
     
 
     
