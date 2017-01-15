@@ -105,6 +105,8 @@
         
          cell.historyTableView=tbView;
         [cell addSubview:tbView];
+        
+        
     }
     tbView=cell.historyTableView;
     headerView=cell.headerView;
@@ -145,10 +147,8 @@
     }
     
 
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
-     UIView *selectBGView=[[UIView alloc] initWithFrame:CGRectZero];
-    
-    [cell setSelectedBackgroundView:selectBGView];
     
     return cell;
 }

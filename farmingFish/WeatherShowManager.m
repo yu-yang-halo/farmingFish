@@ -10,6 +10,7 @@
 #import "YYWeatherService.h"
 #import "WeatherHelper.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "UIColor+hexStr.h"
 @interface WeatherShowManager(){
     
 }
@@ -25,6 +26,9 @@
         [[NSBundle mainBundle] loadNibNamed:@"weatherView" owner:self options:nil];
         self.weeks=@[@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"];
         self.weatherView.frame=CGRectZero;
+        
+        self.weatherView.userInteractionEnabled=NO;
+        
         
     }
     return self;
@@ -93,13 +97,12 @@
     
     _weatherView.frame=frame;
     
-    
+        
     [UIView animateWithDuration:1 animations:^{
         _weatherView.alpha=1;
     } completion:^(BOOL finished) {
         
     }];
-    
     
 }
 -(NSString *)prefixZero:(int)imageId{

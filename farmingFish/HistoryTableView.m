@@ -62,13 +62,13 @@
         
     }
 
-    [cell setBackgroundColor:[UIColor colorWithWhite:204/255.f alpha:1.f]];
     
     UIView *bgView=[[UIView alloc] initWithFrame:cell.bounds];
     
     [bgView setBackgroundColor:[UIColor clearColor]];
-    
+    //[UIColor colorWithWhite:204/255.f alpha:1.f];
     [cell setSelectedBackgroundView:bgView];
+    
     
     
     CGRect cellFrame=cell.frame;
@@ -79,20 +79,19 @@
 }
 
 -(UIView *)createLineChartsView:(NSIndexPath *)indexPath{
-    UIView *containerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0,CGRectGetWidth([UIScreen mainScreen].bounds), 220)];
-    
-
-    
+    UIView *containerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0,CGRectGetWidth([UIScreen mainScreen].bounds), 250)];
     NSArray *xyArrs=[self convertChartViewDataDouble:indexPath];
+    
+    UIColor *holoBlue=[UIColor colorWithRed:51/255.0 green:181/255.0 blue:229/255.0 alpha:1.0];
   
-    LineChartView* chartView = [[LineChartView alloc] initWithFrame:CGRectMake(0,30, CGRectGetWidth([UIScreen mainScreen].bounds), 190)];
+    LineChartView* chartView = [[LineChartView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth([UIScreen mainScreen].bounds), 240)];
     
     ChartLegend *l = chartView.legend;
     l.form = ChartLegendFormLine;
     l.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
-    l.textColor = UIColor.whiteColor;
+    l.textColor = holoBlue;
     l.horizontalAlignment = ChartLegendHorizontalAlignmentLeft;
-    l.verticalAlignment = ChartLegendVerticalAlignmentBottom;
+    l.verticalAlignment = ChartLegendVerticalAlignmentTop;
     l.orientation = ChartLegendOrientationHorizontal;
     l.drawInside = NO;
     
@@ -100,21 +99,28 @@
     
     chartView.dragEnabled = NO;
     [chartView setScaleEnabled:NO];
-    chartView.drawGridBackgroundEnabled = NO;
+    chartView.drawGridBackgroundEnabled = YES;
     chartView.pinchZoomEnabled = NO;
     
     
-    chartView.backgroundColor = [UIColor colorWithWhite:204/255.f alpha:1.f];
+    chartView.backgroundColor = [UIColor whiteColor];
 
     
     ChartXAxis *xAxis = chartView.xAxis;
     xAxis.labelFont = [UIFont systemFontOfSize:11.f];
-    xAxis.labelTextColor = UIColor.whiteColor;
+    xAxis.labelTextColor =holoBlue;
     xAxis.drawGridLinesEnabled = NO;
     xAxis.drawAxisLineEnabled = YES;
     xAxis.labelPosition=XAxisLabelPositionBottom;
     
     xAxis.valueFormatter=self;
+    
+    
+    ChartYAxis *leftAxis=chartView.leftAxis;
+    leftAxis.labelTextColor=holoBlue;
+    leftAxis.drawGridLinesEnabled = NO;
+    leftAxis.drawAxisLineEnabled = YES;
+    
     
 
    
@@ -132,21 +138,24 @@
     {
         [yVals1 addObject:[[ChartDataEntry alloc] initWithX:[xArrs[i] doubleValue] y:[yArrs[i] doubleValue]]];
     }
+    NSString *description=nil;
+
+    if(xyArrs.count>=6){
+        description=[NSString stringWithFormat:@"%@平均值(%.01f)         最大值(%.01f)--最小值(%.01f) ",xyArrs[2],[xyArrs[3] floatValue],[xyArrs[4] floatValue],[xyArrs[5] floatValue]];
+    }else{
+        description=[NSString stringWithFormat:@"%@平均值(%.01f)",xyArrs[2],[xyArrs[3] floatValue]];
+    }
     
-    LineChartDataSet *set1 = [[LineChartDataSet alloc] initWithValues:yVals1 label:xyArrs[2]];
+
+    
+    LineChartDataSet *set1 = [[LineChartDataSet alloc] initWithValues:yVals1 label:description];
     set1.axisDependency = AxisDependencyLeft;
-    [set1 setColor:[UIColor colorWithRed:51/255.f green:181/255.f blue:229/255.f alpha:1.f]];
-    [set1 setCircleColor:UIColor.whiteColor];
-    set1.lineWidth = 2.0;
-    set1.circleRadius = 3.0;
-    set1.fillAlpha = 65/255.0;
-    set1.fillColor = [UIColor colorWithRed:51/255.f green:181/255.f blue:229/255.f alpha:1.f];
+        //set1.fillAlpha = 65/255.0;
+    set1.fillColor =holoBlue;
     set1.highlightColor = [UIColor colorWithRed:244/255.f green:117/255.f blue:117/255.f alpha:1.f];
     set1.drawCircleHoleEnabled = NO;
-    
-    NSNumberFormatter *percentFormatter = [[NSNumberFormatter alloc] init];
-    percentFormatter.positiveSuffix = @"%";
-    percentFormatter.negativeSuffix = @"%";
+    set1.mode=LineChartModeCubicBezier;
+    set1.drawCirclesEnabled=NO;
     
     set1.valueFormatter =self;
     
@@ -158,33 +167,17 @@
     [dataSets addObject:set1];
     
     LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
-    [data setValueTextColor:UIColor.whiteColor];
+    [data setValueTextColor:holoBlue];
     [data setValueFont:[UIFont systemFontOfSize:9.f]];
     
     
     chartView.data = data;
-
-    
-    UIView *contentView=[[UIView alloc] initWithFrame:CGRectMake(0,0,CGRectGetWidth([UIScreen mainScreen].bounds),30)];
-    
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0,10,CGRectGetWidth([UIScreen mainScreen].bounds),20)];
-    
-    [label setText:[NSString stringWithFormat:@"%@平均值（%.01f）",xyArrs[2],[xyArrs[3] floatValue]]];
-    
-    
-    [label setTextColor:[UIColor fsDarkBlue]];
-    [label setTextAlignment:(NSTextAlignmentLeft)];
-    [label setFont:[UIFont systemFontOfSize:12]];
-    [contentView addSubview:label];
-    
-    [containerView addSubview:contentView];
-    
-    
     
     return containerView;
 
-
 }
+#pragma mark 过期....
+/*
 -(UIView *)createChartView:(NSIndexPath *)indexPath{
     UIView *containerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0,CGRectGetWidth([UIScreen mainScreen].bounds), 220)];
     
@@ -229,7 +222,15 @@
     
     UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0,10,CGRectGetWidth([UIScreen mainScreen].bounds),20)];
     
-    [label setText:[NSString stringWithFormat:@"%@平均值（%.01f）",xyArrs[2],[xyArrs[3] floatValue]]];
+    NSString *description=nil;
+    if(xyArrs.count>=6){
+         description=[NSString stringWithFormat:@"%@平均值(%.01f) 最大值(%.01f) 最小值(%.01f) ",xyArrs[2],[xyArrs[3] floatValue],[xyArrs[4] floatValue],[xyArrs[5] floatValue]];
+    }else{
+         description=[NSString stringWithFormat:@"%@平均值(%.01f)",xyArrs[2],[xyArrs[3] floatValue]];
+    }
+   
+    
+    [label setText:description];
     
     
     [label setTextColor:[UIColor fsDarkBlue]];
@@ -243,8 +244,10 @@
     
     return containerView;
 }
+*
+*/
 
-
+#pragma mark return [x轴数据集,y轴数据集,标题,平均值,最大值,最小值]
 -(NSArray *)convertChartViewDataDouble:(NSIndexPath *)indexPath{
     NSArray *allValues=_historyDataDict.allValues;
     allValues=[allValues sortedArrayUsingComparator:^NSComparisonResult(NSArray*  _Nonnull obj1, NSArray *  _Nonnull obj2) {
@@ -256,8 +259,6 @@
         
     }];
     
-    
-    
     NSArray<HistoryWantData *> *valueArr=allValues[indexPath.row];
     
     id key=@([[valueArr lastObject] detectType]);
@@ -268,11 +269,30 @@
     float avg=0.0;
     float sum=0.0;
     
+    float max=-1;
+    float min=-1;
+    
+    
     for (HistoryWantData *wantData in valueArr) {
         
         [xArrs addObject:@(wantData.time)];
         [yArrs addObject:@(wantData.value)];
         sum+=wantData.value;
+        
+        if(max==-1||min==-1){
+            max=wantData.value;
+            min=wantData.value;
+        }else{
+            
+            if(min>wantData.value){
+                min=wantData.value;
+            }
+            if(max<wantData.value){
+                max=wantData.value;
+            }
+            
+        }
+        
     }
     
     NSString *title=[ConstansManager contentForKeyInt:key];
@@ -281,7 +301,7 @@
         avg=sum/[valueArr count];
     }
     
-    return @[xArrs,yArrs, title,@(avg)];
+    return @[xArrs,yArrs, title,@(avg),@(max),@(min)];
 }
 
 

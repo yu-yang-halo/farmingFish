@@ -58,11 +58,14 @@
 
 }
 -(void)personalConfig:(id)sender{
+    [self.view makeToast:@"即将上线..."];
+    /*
     UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     
     UIViewController *settingsVC=[storyBoard instantiateViewControllerWithIdentifier:@"settingsVC"];
     
     [self.navigationController pushViewController:settingsVC animated:YES];
+     */
 }
 
 #pragma mark 准备好数据
