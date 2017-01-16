@@ -14,6 +14,8 @@
 #import <objc/runtime.h>
 static FService *instance;
 const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
+const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/AppHandler.ashx";
+
 @implementation FService
 +(instancetype)shareInstance{
     if(instance==nil){
@@ -226,18 +228,82 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
     
     return retObj;
 }
+-(NSData *)dictionaryToKeyValueData:(NSDictionary *)params{
+    NSMutableString *kvStr=[NSMutableString new];
+    
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        [kvStr appendFormat:@"%@=%@&",key,obj];
+        
+        
+    }];
+    
+    [kvStr replaceCharactersInRange:NSMakeRange(kvStr.length-1, 1) withString:@""];
+    
+    NSLog(@"kvStr %@",kvStr);
+    
+    NSData *body=[kvStr dataUsingEncoding:(NSUTF8StringEncoding)];
+    return body;
+}
+-(id)GetWarningList:(NSString *)companyId collectorId:(NSString *)collectorId startTime:(NSString *)startTime endTime:(NSString *)endTime{
+    NSDictionary *parameters=@{@"CmdID":@"GetWarningList",@"CollectorID":collectorId,@"CompanyID":companyId,@"BeginDateTime":startTime,@"EndDateTime":endTime};
+    
+    
+    
+    NSData *body=[self dictionaryToKeyValueData:parameters];
+    
+    NSData *retResult=[self requestURLSyncPOST:REQUEST_ALERT_URL postBody:body];
+
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetWarningList::: %@", retObj);
+    
+    return retObj;
+}
+
+-(id)GetCollectorSensorList:(NSString *)collectorId sensorId:(NSString *)sensorId collectType:(NSString *)collectType{
+    
+    NSDictionary *parameters=@{@"CmdID":@"GetCollecotSensorList",@"CollectorID":collectorId,@"SensorID":sensorId,@"CollectType":collectType};
+
+    
+   
+    NSData *body=[self dictionaryToKeyValueData:parameters];
+    
+    NSData *retResult=[self requestURLSyncPOST:REQUEST_ALERT_URL postBody:body];
+    
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"GetCollectorSensorList::: %@", retObj);
+
+    
+    return retObj;
+}
+-(id)SetCollectorSensor:(NSString *)collectorId sensorId:(NSString *)sensorId paramId:(NSString *)paramId LowerValue:(float)lowerValue UpperValue:(float)upperValue IsWarning:(short)iswarning{
+    NSDictionary *parameters=@{@"CmdID":@"SetCollectorSensor",@"CollectorID":collectorId,@"SensorID":sensorId,@"ParamID":paramId,@"LowerValue":@(lowerValue),@"UpperValue":@(upperValue),@"IsWarning":@(iswarning)};
+    
+    
+    NSData *body=[self dictionaryToKeyValueData:parameters];
+    
+    NSData *retResult=[self requestURLSyncPOST:REQUEST_ALERT_URL postBody:body];
+
+    
+    
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    NSLog(@"SetCollectorSensor::: %@", retObj);
+    return retObj;
+}
 
 -(NSData *)requestURLSyncPOST:(NSString *)service postBody:(NSData *)postBody{
     NSURL* url=[NSURL URLWithString:service];
     NSMutableURLRequest* request=[NSMutableURLRequest requestWithURL:url];
     [request setTimeoutInterval:12];
     
-    
-    NSString *str=[[NSString alloc] initWithData:postBody encoding:NSUTF8StringEncoding];
-    NSLog(@"request params: %@",str);
-    [request setHTTPBody:postBody];
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postBody];
     [request setValue:@"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7" forHTTPHeaderField:@"User-Agent"];
     
     

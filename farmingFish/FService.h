@@ -33,5 +33,15 @@ typedef NS_ENUM(NSUInteger, CATEGORYID) {
 -(id)GetNewsList:(CATEGORYID)categoryId number:(int)num;
 
 
+#pragma mark 预警部分
+
+-(id)GetWarningList:(NSString *)companyId collectorId:(NSString *)collectorId startTime:(NSString *)startTime endTime:(NSString *)endTime;
+
+-(id)GetCollectorSensorList:(NSString *)collectorId sensorId:(NSString *)sensorId collectType:(NSString *)collectType;
+//IsWarning 1 yes  0 no
+-(id)SetCollectorSensor:(NSString *)collectorId sensorId:(NSString *)sensorId paramId:(NSString *)paramId LowerValue:(float)lowerValue UpperValue:(float)upperValue IsWarning:(short)iswarning;
+
+
+
 
 @end

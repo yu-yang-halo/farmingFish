@@ -13,6 +13,7 @@
 #import <JZLocationConverter/JZLocationConverter.h>
 #import "Reachability.h"
 #import "UIView+Toast.h"
+#import "FService.h"
 @interface AppDelegate ()<BMKLocationServiceDelegate>
 {
     BMKMapManager *mapManager;
@@ -45,7 +46,10 @@
     
 
     [self networkEnvInit];
-        
+    
+    
+    [[FService shareInstance] GetCollectorSensorList:@"68eeffe7-9561-4a0f-9a7d-751c4cca98fe" sensorId:@"1" collectType:@"1"];
+    
     
     return YES;
 }
