@@ -99,7 +99,7 @@ const static NSString* WEBSERVICE_URL=@"http://183.78.182.98:9110/service.svc/";
                 NSString *type=[key substringFromIndex:[@"F_Param" length]];
                 NSLog(@"type %@",type);
                 
-                if(value!=nil&&[value isKindOfClass:[NSNumber class]]&&[value intValue]!=0){
+                if(value!=nil&&[value isKindOfClass:[NSNumber class]]&&[value floatValue]!=0){
                     NSMutableArray *items=[dicts objectForKey:@(type.intValue)];
                     
                     if(items==nil){

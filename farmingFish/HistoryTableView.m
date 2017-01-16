@@ -141,9 +141,9 @@
     NSString *description=nil;
 
     if(xyArrs.count>=6){
-        description=[NSString stringWithFormat:@"%@平均值(%.01f)         最大值(%.01f)--最小值(%.01f) ",xyArrs[2],[xyArrs[3] floatValue],[xyArrs[4] floatValue],[xyArrs[5] floatValue]];
+        description=[NSString stringWithFormat:@"%@平均值(%.02f)         最大值(%.02f)--最小值(%.02f) ",xyArrs[2],[xyArrs[3] floatValue],[xyArrs[4] floatValue],[xyArrs[5] floatValue]];
     }else{
-        description=[NSString stringWithFormat:@"%@平均值(%.01f)",xyArrs[2],[xyArrs[3] floatValue]];
+        description=[NSString stringWithFormat:@"%@平均值(%.02f)",xyArrs[2],[xyArrs[3] floatValue]];
     }
     
 
@@ -375,7 +375,7 @@
     }
 }
 - (NSString * _Nonnull)stringForValue:(double)value entry:(ChartDataEntry * _Nonnull)entry dataSetIndex:(NSInteger)dataSetIndex viewPortHandler:(ChartViewPortHandler * _Nullable)viewPortHandler{
-    return [NSString stringWithFormat:@"%.1f",value];
+    return [NSString stringWithFormat:@"%.2f",value];
 }
 @end
 
