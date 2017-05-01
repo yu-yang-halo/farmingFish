@@ -13,14 +13,17 @@
 +(NSData *)buildSocketPackage_WATER:(NSString *)customerNO;
 +(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO;
 
-//区间参数设置
-+(NSData *)buildSocketPackage_ThresholdMSG;
-+(NSData *)buildSocketPackage_Threshold:(NSString *)customerNO;
++(NSData *)buildSocketPackage_range:(int)max min:(int)min deviceId:(NSString *)customerNO methodType:(int)type;
+
++(NSData *)buildSocketPackage_mode:(int)mode deviceId:(NSString *)customerNO methodType:(int)type;
+
++(NSData *)buildSocketPackage_time:(int)time deviceId:(NSString *)customerNO methodType:(int)type;
 
 
++(void)reservePackageInfo:(Byte *)bytes StatusBlock:(StatusBlock)block tag:(int)tag;
++(void)resolveRangeData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo;
++(void)resolveModeData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo;
 
-
-
-+(void)reservePackageInfo:(NSData *)data StatusBlock:(StatusBlock)block tag:(int)tag;
++(void)resolveTimeData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo;
 
 @end

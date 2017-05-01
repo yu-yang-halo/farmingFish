@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,16 +16,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9xO-YN-vpE">
-                        <rect key="frame" x="248" y="10" width="51" height="31"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="31" id="P5R-py-Yv2"/>
-                            <constraint firstAttribute="width" constant="49" id="fQO-J8-rvJ"/>
-                        </constraints>
-                    </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fik-59-NXH">
                         <rect key="frame" x="23" y="15" width="185" height="21"/>
                         <constraints>
@@ -36,19 +29,30 @@
                         <color key="textColor" red="0.49260390228426398" green="0.49260390228426398" blue="0.49260390228426398" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aF-8J-ROK">
+                        <rect key="frame" x="254" y="7" width="58" height="38"/>
+                        <color key="backgroundColor" red="0.19607843137254902" green="0.59607843137254901" blue="0.058823529411764705" alpha="0.58227204623287676" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="58" id="9B5-y2-YTf"/>
+                            <constraint firstAttribute="height" constant="38" id="iTp-a9-UgF"/>
+                        </constraints>
+                        <state key="normal" title="关">
+                            <color key="titleColor" red="0.98555478350115178" green="0.98252110876309318" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9xO-YN-vpE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9pE-ZR-8ec"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="9xO-YN-vpE" secondAttribute="trailing" constant="15" id="KNe-bd-ffc"/>
+                    <constraint firstAttribute="trailing" secondItem="6aF-8J-ROK" secondAttribute="trailing" constant="8" id="2AC-kZ-Qu7"/>
+                    <constraint firstItem="6aF-8J-ROK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="92S-Sy-EEx"/>
                     <constraint firstItem="Fik-59-NXH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sMm-VH-Lwa"/>
                     <constraint firstItem="Fik-59-NXH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="xwT-2x-9hN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="propNameLabel" destination="Fik-59-NXH" id="Ebp-xT-6fD"/>
-                <outlet property="propStatusSwitch" destination="9xO-YN-vpE" id="KCJ-Wn-tu9"/>
+                <outlet property="propSwitch" destination="6aF-8J-ROK" id="QNm-FB-azf"/>
             </connections>
-            <point key="canvasLocation" x="284" y="191.5"/>
+            <point key="canvasLocation" x="-7" y="91.5"/>
         </tableViewCell>
     </objects>
 </document>

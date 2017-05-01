@@ -21,7 +21,6 @@ PODS:
   - CocoaAsyncSocket (7.5.0):
     - CocoaAsyncSocket/GCD (= 7.5.0)
   - CocoaAsyncSocket/GCD (7.5.0)
-  - FSLineChart (0.1.7)
   - HMSegmentedControl (1.5.3)
   - JZLocationConverter (1.0.0)
   - Masonry (1.0.1)
@@ -34,7 +33,6 @@ DEPENDENCIES:
   - BaiduMapKit (~> 3.0.0)
   - Charts
   - CocoaAsyncSocket
-  - FSLineChart
   - HMSegmentedControl
   - JZLocationConverter
   - Masonry
@@ -47,7 +45,6 @@ SPEC CHECKSUMS:
   BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
   Charts: beb341928d2135613b4325a6c6aff9f2f6de895e
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
-  FSLineChart: 1b8d3727e8feb323144126d381184bf1b15e6efc
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
   JZLocationConverter: 3d816bee6484aed9c155a6045a02ce444833e2f0
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
@@ -55,6 +52,6 @@ SPEC CHECKSUMS:
   Toast: 32c59229abfcf41850162b83bb9259dc84372473
   UIColor+uiGradients: 0e540aa2d8c75254aaebb6c92f20c1aa43be5f05
 
-PODFILE CHECKSUM: b455f16c48ecd6622e0f054932926297d9f183b7
+PODFILE CHECKSUM: 66e69a6a421e3ca26c4bf17598745d10c43d45e3
 
 COCOAPODS: 1.1.1

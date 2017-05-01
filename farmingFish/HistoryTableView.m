@@ -5,8 +5,6 @@
 //  Created by apple on 2016/11/7.
 //  Copyright © 2016年 雨神 623240480@qq.com. All rights reserved.
 //
-#import <FSLineChart/FSLineChart.h>
-#import <FSLineChart/UIColor+FSPalette.h>
 #import "HistoryTableView.h"
 #import "BeanObject.h"
 #import "ConstansManager.h"

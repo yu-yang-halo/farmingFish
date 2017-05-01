@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1805ED7E1EAF705D001D0D05 /* ExpandSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805ED7D1EAF705D001D0D05 /* ExpandSettingsView.m */; };
 		180A27421DCC1FD9002ECF63 /* GradientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A27411DCC1FD9002ECF63 /* GradientHelper.m */; };
 		180AB9621DCECDB900054015 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AB9611DCECDB900054015 /* MoreViewController.m */; };
 		180AB9661DCECEBC00054015 /* YYAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AB9651DCECEBC00054015 /* YYAlertViewController.m */; };
@@ -43,6 +44,9 @@
 		18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A72EFA1D44373F00E15141 /* VoiceTalk.mm */; };
 		18C944B01DE47C2B00BF1587 /* ParamsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C944AE1DE47C2B00BF1587 /* ParamsTableViewCell.m */; };
 		18C944B11DE47C2B00BF1587 /* ParamsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C944AF1DE47C2B00BF1587 /* ParamsTableViewCell.xib */; };
+		18E571121EB0B22800B1A3DA /* ExpandSetRangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E571111EB0B22800B1A3DA /* ExpandSetRangeView.m */; };
+		18E571161EB0B2C700B1A3DA /* RangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E571141EB0B2C700B1A3DA /* RangeTableViewCell.m */; };
+		18E571171EB0B2C700B1A3DA /* RangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E571151EB0B2C700B1A3DA /* RangeTableViewCell.xib */; };
 		18E7BE881D26891000729DCA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE871D26891000729DCA /* MainViewController.m */; };
 		18E7BE8B1D268BC600729DCA /* UIColor+hexStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BE8A1D268BC600729DCA /* UIColor+hexStr.m */; };
 		18EA3FBC1DC4C9BB008475B6 /* UIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA3FBA1DC4C9BB008475B6 /* UIWebViewController.m */; };
@@ -98,6 +102,8 @@
 
 /* Begin PBXFileReference section */
 		15D54551EB32662436626826 /* Pods_farmingFish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_farmingFish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1805ED7C1EAF705D001D0D05 /* ExpandSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandSettingsView.h; sourceTree = "<group>"; };
+		1805ED7D1EAF705D001D0D05 /* ExpandSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandSettingsView.m; sourceTree = "<group>"; };
 		180A27401DCC1FD9002ECF63 /* GradientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientHelper.h; sourceTree = "<group>"; };
 		180A27411DCC1FD9002ECF63 /* GradientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientHelper.m; sourceTree = "<group>"; };
 		180A27441DCC33C7002ECF63 /* AppConfig.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.pch; path = ../AppConfig.pch; sourceTree = "<group>"; };
@@ -157,6 +163,11 @@
 		18C944AD1DE47C2B00BF1587 /* ParamsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParamsTableViewCell.h; sourceTree = "<group>"; };
 		18C944AE1DE47C2B00BF1587 /* ParamsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParamsTableViewCell.m; sourceTree = "<group>"; };
 		18C944AF1DE47C2B00BF1587 /* ParamsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParamsTableViewCell.xib; sourceTree = "<group>"; };
+		18E571101EB0B22800B1A3DA /* ExpandSetRangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandSetRangeView.h; sourceTree = "<group>"; };
+		18E571111EB0B22800B1A3DA /* ExpandSetRangeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandSetRangeView.m; sourceTree = "<group>"; };
+		18E571131EB0B2C700B1A3DA /* RangeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeTableViewCell.h; sourceTree = "<group>"; };
+		18E571141EB0B2C700B1A3DA /* RangeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeTableViewCell.m; sourceTree = "<group>"; };
+		18E571151EB0B2C700B1A3DA /* RangeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RangeTableViewCell.xib; sourceTree = "<group>"; };
 		18E7BE861D26891000729DCA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		18E7BE871D26891000729DCA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		18E7BE891D268BC600729DCA /* UIColor+hexStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+hexStr.h"; sourceTree = "<group>"; };
@@ -323,7 +334,6 @@
 		180F0F541D23E3E70021760A /* service */ = {
 			isa = PBXGroup;
 			children = (
-				180F0F561D23E4190021760A /* socket */,
 				180F0F551D23E3F20021760A /* http */,
 			);
 			name = service;
@@ -369,6 +379,7 @@
 				84DD4BE91DAB4574009CCC90 /* YYTabViewController.m */,
 				18EA3FB91DC4C9BB008475B6 /* UIWebViewController.h */,
 				18EA3FBA1DC4C9BB008475B6 /* UIWebViewController.m */,
+				180F0F561D23E4190021760A /* socket */,
 			);
 			name = viewcontroller;
 			sourceTree = "<group>";
@@ -465,6 +476,13 @@
 				18C944AD1DE47C2B00BF1587 /* ParamsTableViewCell.h */,
 				18C944AE1DE47C2B00BF1587 /* ParamsTableViewCell.m */,
 				18C944AF1DE47C2B00BF1587 /* ParamsTableViewCell.xib */,
+				1805ED7C1EAF705D001D0D05 /* ExpandSettingsView.h */,
+				1805ED7D1EAF705D001D0D05 /* ExpandSettingsView.m */,
+				18E571101EB0B22800B1A3DA /* ExpandSetRangeView.h */,
+				18E571111EB0B22800B1A3DA /* ExpandSetRangeView.m */,
+				18E571131EB0B2C700B1A3DA /* RangeTableViewCell.h */,
+				18E571141EB0B2C700B1A3DA /* RangeTableViewCell.m */,
+				18E571151EB0B2C700B1A3DA /* RangeTableViewCell.xib */,
 			);
 			name = tableview;
 			sourceTree = "<group>";
@@ -637,7 +655,7 @@
 				TargetAttributes = {
 					187BC9601D22A05200FB5678 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = HLQ3A9KFRW;
+						DevelopmentTeam = 4TGRFT5XS8;
 						LastSwiftMigration = 0820;
 					};
 				};
@@ -676,6 +694,7 @@
 				18C944B11DE47C2B00BF1587 /* ParamsTableViewCell.xib in Resources */,
 				187BC96F1D22A05200FB5678 /* Main.storyboard in Resources */,
 				18EDCCAD1D8A21510075D436 /* InfoPlist.strings in Resources */,
+				18E571171EB0B2C700B1A3DA /* RangeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +772,7 @@
 				18EEBFF21DB3700300CED79A /* NewsViewController.m in Sources */,
 				84E97BE91D9E1E6E00D3D25B /* SQMenuShowView.m in Sources */,
 				848A10C71DAB73D5003F24CE /* ExpandRealDataView.m in Sources */,
+				1805ED7E1EAF705D001D0D05 /* ExpandSettingsView.m in Sources */,
 				18EEBFF51DB3707F00CED79A /* SettingsViewController.m in Sources */,
 				84D2E3EC1D94F4B500BD0002 /* RealDataViewController.m in Sources */,
 				187BC9691D22A05200FB5678 /* AppDelegate.m in Sources */,
@@ -778,11 +798,13 @@
 				84485B7D1DACA8C7000AF2EC /* YYWeatherService.m in Sources */,
 				848A10CE1DAB7FBF003F24CE /* BeanObject.m in Sources */,
 				84485B821DACBE84000AF2EC /* WeatherHelper.m in Sources */,
+				18E571121EB0B22800B1A3DA /* ExpandSetRangeView.m in Sources */,
 				18EEBFF81DB370AD00CED79A /* HistoryViewController.m in Sources */,
 				18EDAB2C1D4360D40071FFE8 /* VideoViewController.mm in Sources */,
 				187BC9661D22A05200FB5678 /* main.m in Sources */,
 				18E7BE881D26891000729DCA /* MainViewController.m in Sources */,
 				18A72EFB1D44373F00E15141 /* VoiceTalk.mm in Sources */,
+				18E571161EB0B2C700B1A3DA /* RangeTableViewCell.m in Sources */,
 				1861B7541D8824E5008CD63C /* File.java in Sources */,
 				8418A7BE1DACE07600251DF7 /* WeatherShowManager.m in Sources */,
 			);
@@ -912,7 +934,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = HLQ3A9KFRW;
+				DEVELOPMENT_TEAM = 4TGRFT5XS8;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -925,7 +947,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				INFOPLIST_FILE = farmingFish/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -933,7 +955,7 @@
 					"$(PROJECT_DIR)/lib/Release-iphonesimulator",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.lztech.valve;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.tld.framingfish;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -960,7 +982,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = HLQ3A9KFRW;
+				DEVELOPMENT_TEAM = 4TGRFT5XS8;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -971,7 +993,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				INFOPLIST_FILE = farmingFish/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -979,7 +1001,7 @@
 					"$(PROJECT_DIR)/lib/Release-iphonesimulator",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.lztech.valve;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.tld.framingfish;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;

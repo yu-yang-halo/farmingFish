@@ -23,6 +23,28 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
     }
     return instance;
 }
+-(id)loginN:(NSString *)name password:(NSString *)pass{
+    NSDictionary *parameters=@{@"userAccount":name,@"userPwd":pass};
+    
+    NSString *loginREQ_URL=[NSString stringWithFormat:@"%@LoginN",WEBSERVICE_URL];
+    
+    NSData *retResult=[self requestURLSyncPOST:loginREQ_URL postBody:[parameters JSONData]];
+    
+    NSLog(@"str value: %@",[[NSString alloc] initWithData:retResult encoding:NSUTF8StringEncoding]);
+    
+    NSLog(@"result::: %@", [retResult objectFromJSONData]);
+    
+    NSDictionary *retObj=[retResult objectFromJSONData];
+    
+    if(retObj==nil){
+        return nil;
+    }else{
+        id result=[retObj objectForKey:@"LoginNResult"];
+        
+        return result;
+    }
+  
+}
 
 -(NSString *)loginName:(NSString *)name password:(NSString *)pass{
     
@@ -252,7 +274,7 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
     
     NSData *body=[self dictionaryToKeyValueData:parameters];
     
-    NSData *retResult=[self requestURLSyncPOST:REQUEST_ALERT_URL postBody:body];
+    NSData *retResult=[self requestURLSyncPOSTKV:REQUEST_ALERT_URL postBody:body];
 
     
     
@@ -270,7 +292,7 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
    
     NSData *body=[self dictionaryToKeyValueData:parameters];
     
-    NSData *retResult=[self requestURLSyncPOST:REQUEST_ALERT_URL postBody:body];
+    NSData *retResult=[self requestURLSyncPOSTKV:REQUEST_ALERT_URL postBody:body];
     
     
     
@@ -280,13 +302,13 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
     
     return retObj;
 }
--(id)SetCollectorSensor:(NSString *)collectorId sensorId:(NSString *)sensorId paramId:(NSString *)paramId LowerValue:(float)lowerValue UpperValue:(float)upperValue IsWarning:(short)iswarning{
-    NSDictionary *parameters=@{@"CmdID":@"SetCollectorSensor",@"CollectorID":collectorId,@"SensorID":sensorId,@"ParamID":paramId,@"LowerValue":@(lowerValue),@"UpperValue":@(upperValue),@"IsWarning":@(iswarning)};
+-(id)SetCollectorSensor:(NSString *)collectorId sensorId:(NSString *)sensorId paramId:(int)paramId LowerValue:(float)lowerValue UpperValue:(float)upperValue IsWarning:(short)iswarning{
+    NSDictionary *parameters=@{@"CmdID":@"SetCollectorSensor",@"CollectorID":collectorId,@"SensorID":sensorId,@"ParamID":[NSString stringWithFormat:@"%d",paramId],@"LowerValue":@(lowerValue),@"UpperValue":@(upperValue),@"IsWarning":@(iswarning)};
     
     
     NSData *body=[self dictionaryToKeyValueData:parameters];
     
-    NSData *retResult=[self requestURLSyncPOST:REQUEST_ALERT_URL postBody:body];
+    NSData *retResult=[self requestURLSyncPOSTKV:REQUEST_ALERT_URL postBody:body];
 
     
     
@@ -296,13 +318,14 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
     return retObj;
 }
 
--(NSData *)requestURLSyncPOST:(NSString *)service postBody:(NSData *)postBody{
+
+-(NSData *)requestURLSyncPOSTKV:(NSString *)service postBody:(NSData *)postBody{
     NSURL* url=[NSURL URLWithString:service];
     NSMutableURLRequest* request=[NSMutableURLRequest requestWithURL:url];
     [request setTimeoutInterval:12];
     
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/x-www-form-urlencoded"forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postBody];
     [request setValue:@"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7" forHTTPHeaderField:@"User-Agent"];
     
@@ -314,7 +337,40 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
         if(response.statusCode==200){
             return data;
         }else{
-            NSString *str=@"{\"LoginResult\":\"500\"}";
+            NSString *str=@"{\"LoginNResult\":\"500\"}";
+            
+            return [str dataUsingEncoding:(NSUTF8StringEncoding)];
+        }
+    }else{
+        NSString *errorDescription=error.localizedDescription;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"[error] %@",errorDescription);
+        });
+        
+        
+    }
+    return nil;
+}
+
+-(NSData *)requestURLSyncPOST:(NSString *)service postBody:(NSData *)postBody{
+    NSURL* url=[NSURL URLWithString:service];
+    NSMutableURLRequest* request=[NSMutableURLRequest requestWithURL:url];
+    [request setTimeoutInterval:12];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postBody];
+    [request setValue:@"Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7" forHTTPHeaderField:@"User-Agent"];
+    
+    
+    NSHTTPURLResponse* response=nil;
+    NSError* error=nil;
+    NSData * data=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if(data!=nil){
+        if(response.statusCode==200){
+            return data;
+        }else{
+            NSString *str=@"{\"LoginNResult\":\"500\"}";
             
             return [str dataUsingEncoding:(NSUTF8StringEncoding)];
         }

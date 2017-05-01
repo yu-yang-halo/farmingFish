@@ -58,14 +58,15 @@
 
 }
 -(void)personalConfig:(id)sender{
-    [self.view makeToast:@"即将上线..."];
-    /*
-    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    if(_devicesInfo==nil){
+        [self.view.window makeToast:@"暂无设备数据信息,请重试"];
+        [self loadNeedData];
+        return;
+    }
     
-    UIViewController *settingsVC=[storyBoard instantiateViewControllerWithIdentifier:@"settingsVC"];
+    [self performSegueWithIdentifier:@"toSettingsVC" sender:nil];
+   
     
-    [self.navigationController pushViewController:settingsVC animated:YES];
-     */
 }
 
 #pragma mark 准备好数据
@@ -264,11 +265,11 @@
     [cell setSelectedBackgroundView:bgView];
     
     
-    if(indexPath.row==3){
-        [cell.itemImage setShowPointHidden:NO];
-    }else{
-        [cell.itemImage setShowPointHidden:YES];
-    }
+//    if(indexPath.row==3){
+//        [cell.itemImage setShowPointHidden:NO];
+//    }else{
+//        [cell.itemImage setShowPointHidden:YES];
+//    }
     
     return cell;
 }
@@ -315,6 +316,9 @@
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSIndexPath *)sender{
+    if(sender==nil){
+        return;
+    }
     
     if(sender.row>=4){
         return;

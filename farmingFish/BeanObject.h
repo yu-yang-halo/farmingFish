@@ -11,6 +11,26 @@
 @interface BeanObject : NSObject
 
 @end
+@interface YYCollectorSensor:NSObject
+
+@property(nonatomic,strong) NSNumber *F_CollectType;
+@property(nonatomic,strong) NSString *F_CollectTypeName;
+@property(nonatomic,strong) NSNumber *F_ID;
+@property(nonatomic,strong) NSNumber *F_IsChecked;
+@property(nonatomic,strong) NSNumber *F_IsWarning;
+@property(nonatomic,strong) NSString *F_IsWarningName;
+@property(nonatomic,strong) NSNumber *F_Lower;
+@property(nonatomic,strong) NSNumber *F_LowerChange;
+@property(nonatomic,strong) NSNumber *F_Upper;
+@property(nonatomic,strong) NSNumber *F_UpperChange;
+@property(nonatomic,strong) NSString *F_ParamText;
+@property(nonatomic,strong) NSString *F_ParamValue;
+@property(nonatomic,strong) NSString *F_Unit;
+
+
+
+
+@end
 /*
  [{"CustomerNo":"00-00-04-01","UserType":1,"CollectorID":"68eeffe7-9561-4a0f-9a7d-751c4cca98fe","DeviceID":"00-00-04-01","ProvinceName":"","CityName":"","OrgName":"","FiledID":"4f2ca14a-5a15-47f0-95e2-52746c4abeb7","PondName":"肥东县程继来家庭农场场地","Electrics":"1-增氧机,2-增氧机"}]
 */
@@ -33,6 +53,17 @@
 @property(nonatomic,assign) int  day;//0--今天,1--昨天,2--前天
 @property(nonatomic,strong) NSDictionary *historyDict;
 
+
+@property(nonatomic,assign) int upperValue;
+@property(nonatomic,assign) int upperValueChange;
+@property(nonatomic,assign) int lowerValue;
+@property(nonatomic,assign) int lowerValueChange;
+@property(nonatomic,assign) int mode;
+@property(nonatomic,assign) int time;
+@property(nonatomic,assign) int timeChange;
+
+
+@property(nonatomic,strong)  NSArray<YYCollectorSensor *>* sensorList;
 
 @end
 /*
@@ -103,6 +134,39 @@
 @property(nonatomic,assign) NSNumber *F_IndexCode;
 
 
+
+@end
+
+@interface YYUserInfo : NSObject
+@property(nonatomic,strong) NSString *Id;
+@property(nonatomic,strong) NSString *CustomerNo;
+@property(nonatomic,strong) NSString *UserAccount;
+@property(nonatomic,strong) NSString *Xm;
+@property(nonatomic,strong) NSString *companyid;
+@end
+
+
+
+@interface YYPacket : NSObject
+
+-(instancetype)initWithByteArray:(Byte *)bytes;
+-(NSData *)toNSData;
+
+
+@property(nonatomic,assign) Byte frameHeader;  //0
+@property(nonatomic,assign) short productInfo; //1-2
+@property(nonatomic,assign) Byte version;//3
+@property(nonatomic,assign) short deviceType;//4-5
+@property(nonatomic,strong) NSString *deviceAddress;//6-9
+@property(nonatomic,assign) Byte* cmdSerialNumber;//10-17
+@property(nonatomic,assign) short cmdword;//18-19 命令字
+@property(nonatomic,assign) Byte flag;//20 操作标志
+@property(nonatomic,assign) short length;//21-22 数据包长度 N
+@property(nonatomic,assign) Byte* contents;//具体数据
+@property(nonatomic,assign) short checkCode;//校验和 23+N-24+N
+@property(nonatomic,assign) Byte frameFooter;//帧尾  25+N
+
+@property(nonatomic,strong) NSDictionary *dict;
 
 @end
 

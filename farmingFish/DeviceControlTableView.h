@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BeanObject.h"
 @interface DeviceControlTableView : UITableView
 
 @property(nonatomic,strong) NSArray      *deviceDatas;
 @property(nonatomic,strong) NSString     *realStatus;//@"10000000"
+@property(nonatomic,strong) YYCollectorInfo *collectorInfo;
+
+
 
 @end

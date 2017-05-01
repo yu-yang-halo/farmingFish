@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A67CBA977BFE73D1335ED610C6CBE6E4"
+               BlueprintIdentifier = "068127E1F23F607DF20136A23A2687DD"
                BuildableName = "UIColor_uiGradients.framework"
                BlueprintName = "UIColor+uiGradients"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A67CBA977BFE73D1335ED610C6CBE6E4"
+            BlueprintIdentifier = "068127E1F23F607DF20136A23A2687DD"
             BuildableName = "UIColor_uiGradients.framework"
             BlueprintName = "UIColor+uiGradients"
             ReferencedContainer = "container:Pods.xcodeproj">

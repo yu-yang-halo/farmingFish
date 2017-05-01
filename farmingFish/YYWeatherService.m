@@ -43,6 +43,10 @@ static NSString *juheKEY=@"7621836ff352deeee8c88dd07c60ca1e";
         //NSLog(@"dict ::: %@",dict);
         
         NSDictionary *result=[dict objectForKey:@"result"];
+        
+        if([result isKindOfClass:[NSNull class]]){
+            return;
+        }
         if(result!=nil){
             NSDictionary *realTimeData=[[result objectForKey:@"data"] objectForKey:@"realtime"];
             

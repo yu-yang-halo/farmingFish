@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FSLineChart.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>HMSegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,7 +57,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>068127E1F23F607DF20136A23A2687DD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>24DC10C678E41F3BD692715378B64091</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4184BD126F9931B425ED282A008E0EE7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,12 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>809463219ED0A00088BB0753D65348EB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A67CBA977BFE73D1335ED610C6CBE6E4</key>
+		<key>A89C0E241B07CCB3EA3FD5177FC7D547</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,16 +103,6 @@
 			<true/>
 		</dict>
 		<key>D52144DE9D7255DE912490FF5A806573</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DB9569EF50BAE7206514E91528123AA1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F1EBABB6DE494DB067AFC5024C81F1D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

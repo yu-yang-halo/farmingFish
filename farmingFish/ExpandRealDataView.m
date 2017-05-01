@@ -220,8 +220,7 @@
         [[SocketService shareInstance] disconnectAndClear];
     }else{
         [self reloadTableViewUI:selectCourseIndex];
-        
-        [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_STATUS)];
+    
    
         [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
             
@@ -239,8 +238,12 @@
                 
             }];
             
-        [[SocketService shareInstance] setStatusBlock:^(NSDictionary *dic) {
-                
+        [[SocketService shareInstance] setStatusBlock:^(YYPacket *packet) {
+                if(packet.cmdword!=0x03){
+                   return ;
+                }
+            
+                NSDictionary *dic=[packet dict];
                 NSLog(@"%@",dic);
                 NSMutableArray *realDataArr=[NSMutableArray new];
                 [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {

@@ -11,7 +11,8 @@ target 'farmingFish' do
     pod 'BaiduMapKit', '~> 3.0.0'
     pod 'HMSegmentedControl'
     pod 'JZLocationConverter'
-    pod "FSLineChart"
+    pod 'HMSegmentedControl'
     pod 'Charts'
+    
 
 end

@@ -13,6 +13,7 @@
 #import "SocketService.h"
 #import "UIView+Toast.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "AppDelegate.h"
 #define HEAD_HEIGHT 40
 
 @interface ExpandControlView(){
@@ -88,7 +89,7 @@
         [cell setBackgroundColor:[UIColor clearColor]];
         
         devControlView=[[DeviceControlTableView alloc] initWithFrame:CGRectMake(0,0, self.frame.size.width-0, 0)];
-        [devControlView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [devControlView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 
         [devControlView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.0]];
        
@@ -100,6 +101,7 @@
     if(devControlView!=nil){
         [devControlView setDeviceDatas:collectorInfo.electricsArr];
         [devControlView setRealStatus:collectorInfo.electricsStatus];
+        [devControlView setCollectorInfo:collectorInfo];
         
         [devControlView reloadData];
         
@@ -110,7 +112,15 @@
         frameCell.size.height=frame.size.height+20;
         [cell setFrame:frameCell];
     }
+    UIView *selectedBGView=[[UIView alloc] initWithFrame:cell.bounds];
     
+    [selectedBGView setBackgroundColor:[UIColor clearColor]];
+    
+    [cell setSelectedBackgroundView:selectedBGView];
+    
+
+    
+
     return cell;
 }
 
@@ -185,6 +195,18 @@
     [_temp setElectricsStatus:status];
 }
 
+-(void)findCollector:(NSString *)CustomerNo setMode:(int)mode{
+    YYCollectorInfo *_temp;
+    
+    for (YYCollectorInfo *collectorInfo in _collectorInfos) {
+        if([collectorInfo.CustomerNo isEqualToString:CustomerNo]){
+            _temp=collectorInfo;
+            break;
+        }
+    }
+    [_temp setMode:mode];
+}
+
 -(YYCollectorInfo *)findSelectedCollectorInfo{
     YYCollectorInfo *_temp;
     
@@ -205,7 +227,7 @@
     if([[_collectorInfos objectAtIndex:selectCourseIndex] expandYN]){
         [[SocketService shareInstance] disconnectAndClear];
     }else{
-        [[SocketService shareInstance] setAcceptType:(ACCEPT_DATA_TYPE_STATUS)];
+    
         [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
         [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *customerNO) {
             
@@ -219,7 +241,21 @@
             
         }];
         
-        [[SocketService shareInstance] setStatusBlock:^(NSDictionary *dic) {
+        [[SocketService shareInstance] setStatusBlock:^(YYPacket *packet) {
+            NSDictionary *dic=[packet dict];
+            
+            if(packet.cmdword==0x15){
+                id modeObj=[dic objectForKey:@"mode"];
+                
+                if(modeObj!=nil){
+                    [self findCollector:packet.deviceAddress setMode:[modeObj intValue]];
+                }
+                return ;
+            }
+            
+            if(packet.cmdword!=0x03&&packet.cmdword!=0x0F){
+                return ;
+            }
             
             NSLog(@"%@",dic);
             __block NSString *mStatus=nil;
@@ -235,11 +271,13 @@
                 }
                 
             }];
-            
-            if([dic count]==2&&mStatus!=nil){
-                [self.window makeToast:@"设置成功"];
-            }else{
-                [self.window makeToast:@"实时状态更新成功"];
+           
+            if(packet.cmdword==0x0F){
+                AppDelegate *delegate=[UIApplication sharedApplication].delegate;
+                
+                [delegate hide];
+
+                
             }
             
             [self findCollector:customNo setStatus:mStatus];

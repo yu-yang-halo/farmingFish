@@ -15,6 +15,10 @@
 #import "MainViewController.h"
 #import "UIViewController+Extension.h"
 #import "YYWeatherService.h"
+#import "JSONKit.h"
+#import "BeanObjectHelper.h"
+#import "BeanObject.h"
+
 const static NSString *KEY_USERNAME=@"username-key";
 const static NSString *KEY_PASSWORD=@"password-key";
 const static NSString *KEY_REMEMBER=@"remember-key";
@@ -142,7 +146,7 @@ const static NSString *KEY_REMEMBER=@"remember-key";
    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *result=[[FService shareInstance] loginName:username password:password];
+        id result=[[FService shareInstance] loginN:username password:password];
        
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -162,14 +166,27 @@ const static NSString *KEY_REMEMBER=@"remember-key";
                 }else{
                     
                     [self performSegueWithIdentifier:@"toMainPage" sender:sender];
-                
                     
-                    [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
-                    [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
                     
-                    AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
-                    [delegate setCustomerNo:result];
-                    [delegate setUserAccount:username];
+                    NSArray *arrs=[result objectFromJSONString];
+                    YYUserInfo *userInfo=[[YYUserInfo alloc] init];
+                    if([arrs count]>0){
+                        [BeanObjectHelper dictionaryToBeanObject:arrs[0] beanObj:userInfo];
+                        
+                        
+                        [[NSUserDefaults standardUserDefaults] setObject:username forKey:KEY_USERNAME];
+                        [[NSUserDefaults standardUserDefaults] setObject:password forKey:KEY_PASSWORD];
+                        
+                        AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+                        [delegate setCustomerNo:userInfo.CustomerNo];
+                        [delegate setUserAccount:username];
+                        
+                    }else{
+                        [self.view makeToast:@"数据错误"];
+                        return;
+                    }
+                    
+                   
                 }
                 
                 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="XPK-8u-O5D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="XPK-8u-O5D">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -322,62 +322,14 @@
                     <view key="view" contentMode="scaleToFill" id="e3d-TB-fTg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bQn-PB-1tL">
-                                <rect key="frame" x="0.0" y="64" width="375" height="512"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIa-0U-iiC">
-                                <rect key="frame" x="0.0" y="576" width="375" height="91"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0K-gn-bSv">
-                                        <rect key="frame" x="36" y="25" width="133" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="133" id="Jc1-Ac-Jeq"/>
-                                            <constraint firstAttribute="height" constant="41" id="jay-kG-j9u"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="从设备读取"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="klp-g5-882">
-                                        <rect key="frame" x="206" y="25" width="133" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="cwF-o5-UDg"/>
-                                            <constraint firstAttribute="width" constant="133" id="iGN-3i-NeE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="保存至设备"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="t0K-gn-bSv" firstAttribute="centerY" secondItem="uIa-0U-iiC" secondAttribute="centerY" id="4zf-N2-l2T"/>
-                                    <constraint firstItem="t0K-gn-bSv" firstAttribute="centerX" secondItem="uIa-0U-iiC" secondAttribute="centerX" constant="-85" id="AlY-Gb-b5s"/>
-                                    <constraint firstItem="klp-g5-882" firstAttribute="centerX" secondItem="uIa-0U-iiC" secondAttribute="centerX" constant="85" id="FpV-6n-ChS"/>
-                                    <constraint firstItem="klp-g5-882" firstAttribute="centerY" secondItem="uIa-0U-iiC" secondAttribute="centerY" id="YgU-EL-Dm0"/>
-                                    <constraint firstAttribute="height" constant="91" id="nfV-yG-Pnv"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="uIa-0U-iiC" firstAttribute="leading" secondItem="e3d-TB-fTg" secondAttribute="leading" id="1a4-4y-xAJ"/>
-                            <constraint firstItem="uIa-0U-iiC" firstAttribute="top" secondItem="bQn-PB-1tL" secondAttribute="bottom" id="5UL-wU-8co"/>
-                            <constraint firstItem="bQn-PB-1tL" firstAttribute="top" secondItem="e3d-TB-fTg" secondAttribute="top" constant="64" id="LFd-cE-49q"/>
-                            <constraint firstItem="B9r-yz-sxN" firstAttribute="top" secondItem="uIa-0U-iiC" secondAttribute="bottom" id="LN0-45-3eq"/>
-                            <constraint firstItem="bQn-PB-1tL" firstAttribute="leading" secondItem="e3d-TB-fTg" secondAttribute="leading" id="d4D-dU-eQU"/>
-                            <constraint firstAttribute="trailing" secondItem="uIa-0U-iiC" secondAttribute="trailing" id="h3g-VL-2zL"/>
-                            <constraint firstAttribute="trailing" secondItem="bQn-PB-1tL" secondAttribute="trailing" id="hVb-7O-1v3"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="9FX-ih-92Z"/>
-                    <connections>
-                        <outlet property="tableView" destination="bQn-PB-1tL" id="bn6-3q-JJd"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="aVd-f1-sNI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SlJ-lo-X4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1202.5" y="896.5"/>
+            <point key="canvasLocation" x="-1226" y="535"/>
         </scene>
         <!--养殖知识-->
         <scene sceneID="8Pv-mB-eDE">
@@ -456,11 +408,12 @@
                         <segue destination="XyH-DU-vO6" kind="push" identifier="tabVC" id="5yh-hJ-92i"/>
                         <segue destination="zkK-ck-aPL" kind="push" identifier="toHistoryVC" id="Myw-1v-o4f"/>
                         <segue destination="HNh-EK-6IQ" kind="push" identifier="toNewsVC" id="dwk-wN-VxQ"/>
+                        <segue destination="GVl-wK-2jT" kind="push" identifier="toSettingsVC" id="BLt-ta-qvC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K2P-Df-uES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1101" y="22"/>
+            <point key="canvasLocation" x="-1216" y="-332"/>
         </scene>
         <!--我的视频-->
         <scene sceneID="AwH-e2-evG">

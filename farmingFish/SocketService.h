@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-typedef NS_OPTIONS(NSUInteger,ACCEPT_DATA_TYPE){
-    ACCEPT_DATA_TYPE_STATUS     = 1<<0,
-    ACCEPT_DATA_TYPE_THRESHOLD  = 1<<1,
-};
+#import "BeanObject.h"
+
 
 typedef NS_OPTIONS(NSUInteger,SOCKET_TAG){
     SOCKET_TAG_CLIENT_REGISTER  = 999,
@@ -21,16 +19,24 @@ typedef NS_OPTIONS(NSUInteger,SOCKET_TAG){
     
     SOCKET_TAG_GET_THRESHOLDS   = 2001,
     SOCKET_TAG_SET_THRESHOLDS   = 2002,
-
+   
+    
+    
+    MethodType_GET              =3000,
+    MethodType_POST             =3001,
+    
+    MODE_TYPE_AUTO              =0xAC,//自动
+    MODE_TYPE_MENUAL            =0xDC,//手动
    
 };
 
-typedef void (^StatusBlock)(NSDictionary *dic);
+
+typedef void (^StatusBlock)(YYPacket *packet);
 typedef void (^OnlineStatusBlock)(BOOL onlineYN,NSString *customNO);
 @interface SocketService : NSObject<UIApplicationDelegate>
 
 +(instancetype)shareInstance;
-@property(nonatomic,assign) ACCEPT_DATA_TYPE acceptType;
+
 -(void)reconnect;
 -(void)connect:(NSString *)customerNO;
 
@@ -41,12 +47,21 @@ typedef void (^OnlineStatusBlock)(BOOL onlineYN,NSString *customNO);
 
 -(void)sendControlCmd:(int)cmdval number:(int)num devId:(NSString *)devId;
 
--(void)saveThresoldsCmd;
+
+-(void)rangSetOrGet:(int)methodType max:(int)max min:(int)min devId:(NSString *)devId;
+-(void)modeSwith:(int)methodType mode:(int)modeType devId:(NSString *)devId;
+
+-(void)autoStartTime:(int)methodType time:(int)time devId:(NSString *)devId;
+
+
+
 
 
 
 -(void)setStatusBlock:(StatusBlock)block;
 -(void)setOnlineStatusBlock:(OnlineStatusBlock)block;
+
+
 -(void)enableListenser:(BOOL)isEnable;
 
 

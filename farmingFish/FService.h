@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, CATEGORYID) {
 +(instancetype)shareInstance;
 
 -(NSString *)loginName:(NSString *)name password:(NSString *)pass;
+-(id)loginN:(NSString *)name password:(NSString *)pass;
 
 //采集设备信息
 -(id)GetCollectorInfo:(NSString *)customerNo userAccount:(NSString *)ua;
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSUInteger, CATEGORYID) {
 
 -(id)GetCollectorSensorList:(NSString *)collectorId sensorId:(NSString *)sensorId collectType:(NSString *)collectType;
 //IsWarning 1 yes  0 no
--(id)SetCollectorSensor:(NSString *)collectorId sensorId:(NSString *)sensorId paramId:(NSString *)paramId LowerValue:(float)lowerValue UpperValue:(float)upperValue IsWarning:(short)iswarning;
+-(id)SetCollectorSensor:(NSString *)collectorId sensorId:(NSString *)sensorId paramId:(int)paramId LowerValue:(float)lowerValue UpperValue:(float)upperValue IsWarning:(short)iswarning;
 
 
 

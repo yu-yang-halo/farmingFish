@@ -10,4 +10,7 @@
 #import "BeanObject.h"
 @interface BeanObjectHelper : NSObject
 +(void)dictionaryToBeanObject:(NSDictionary *)dict beanObj:(NSObject *)bean;
+
++(NSArray<YYCollectorSensor *> *)parseYYCollectorSensorList:(id)arrs;
+
 @end

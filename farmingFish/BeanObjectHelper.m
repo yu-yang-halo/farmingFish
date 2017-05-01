@@ -15,11 +15,12 @@
             NSString *destMethodName=[NSString stringWithFormat:@"set%@:",[self beginCharacterUpper:keyName]];
             
             
-            // NSLog(@"destMethodName %@",destMethodName);
+            //NSLog(@"destMethodName %@",destMethodName);
             SEL destMethodSelector=NSSelectorFromString(destMethodName);
             if([bean respondsToSelector:destMethodSelector]){
-               // NSLog(@"keyName %@",keyName);
-                [bean performSelector:destMethodSelector withObject:[dict objectForKey:keyName]];
+                id value=[dict objectForKey:keyName];
+               // NSLog(@"keyName %@ %@",keyName,value);
+                [bean performSelector:destMethodSelector withObject:value];
             }
         }
     }
@@ -41,4 +42,19 @@
     
     
 }
++(NSArray<YYCollectorSensor *> *)parseYYCollectorSensorList:(id)arrs{
+    NSMutableArray *sensors=[[NSMutableArray alloc] init];
+    for(NSDictionary *dict in arrs) {
+        YYCollectorSensor *sensor=[[YYCollectorSensor alloc] init];
+        [self dictionaryToBeanObject:dict beanObj:sensor];
+        
+        if(sensor.F_IsChecked.intValue==1){
+            [sensors addObject:sensor];
+        }
+        
+    }
+    
+    return [sensors copy];
+}
+
 @end

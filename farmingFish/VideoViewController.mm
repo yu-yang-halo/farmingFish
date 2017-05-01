@@ -695,8 +695,19 @@ VideoViewController *g_pController = NULL;
     
     NSArray *params=[F_OutIPAddr componentsSeparatedByString:@"|"];
     
-    NSString *ipAddr=params[0];
-    NSString *nickname=params[1];
+    if(params==nil){
+        return nil;
+    }
+    NSString *ipAddr=nil;
+    NSString *nickname=@"";
+    if([params count]>=1){
+        ipAddr=params[0];
+    }
+    if([params count]>=2){
+        nickname=params[1];
+    }
+    
+   
     
     if(ipAddr==nil){
         return nil;

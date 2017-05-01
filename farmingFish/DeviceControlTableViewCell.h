@@ -11,6 +11,7 @@
 @interface DeviceControlTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *propNameLabel;
-@property (weak, nonatomic) IBOutlet UISwitch *propStatusSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *propSwitch;
+
 
 @end

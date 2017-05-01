@@ -14,10 +14,13 @@
 #import "Reachability.h"
 #import "UIView+Toast.h"
 #import "FService.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 @interface AppDelegate ()<BMKLocationServiceDelegate>
 {
     BMKMapManager *mapManager;
     BMKLocationService *locService;
+    MBProgressHUD *hud;
+   
 }
 @property(nonatomic,strong)   CLGeocoder *geocoder;
 @property(nonatomic,assign) CLLocationCoordinate2D myLocation;
@@ -48,7 +51,7 @@
     [self networkEnvInit];
     
     
-    [[FService shareInstance] GetCollectorSensorList:@"68eeffe7-9561-4a0f-9a7d-751c4cca98fe" sensorId:@"1" collectType:@"1"];
+   
     
     
     return YES;
@@ -146,6 +149,30 @@
         
         
     }];
+    
+}
+
+-(void)showLoading:(NSString *)message{
+    if(_onlyFirst){
+        hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+        hud.label.text =message;
+        _onlyFirst=NO;
+    }
+    
+}
+-(void)hide{
+    if(hud!=nil){
+         [hud hideAnimated:YES];
+          hud=nil;
+          [self.window makeToast:@"设置成功"];
+    }
+   
+}
+-(void)hideNoMessage{
+    if(hud!=nil){
+        [hud hideAnimated:YES];
+        hud=nil;
+    }
     
 }
 

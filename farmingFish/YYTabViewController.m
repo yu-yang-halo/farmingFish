@@ -51,12 +51,11 @@
         
         [self buttonStyleInit:btn index:i];
         
-        if(i==3){
-            [btn setShowPointHidden:NO];
-        }else{
-            [btn setShowPointHidden:YES];
-        }
-        
+//        if(i==3){
+//            [btn setShowPointHidden:NO];
+//        }else{
+//            [btn setShowPointHidden:YES];
+//        }
         
        
         

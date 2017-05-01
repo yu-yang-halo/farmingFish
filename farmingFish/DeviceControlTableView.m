@@ -10,6 +10,7 @@
 #import "DeviceControlTableViewCell.h"
 #import "SocketService.h"
 #import "AppDelegate.h"
+#import "UIView+Toast.h"
 @interface DeviceControlTableView()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong) NSString *customerNo;
@@ -39,37 +40,55 @@
     if(deviceControlCell==nil){
         deviceControlCell=[[[NSBundle mainBundle] loadNibNamed:@"DeviceControlTableViewCell" owner:nil options:nil] lastObject];
     }
-    deviceControlCell.propStatusSwitch.tag=indexPath.row;
+    deviceControlCell.propSwitch.tag=indexPath.row;
     deviceControlCell.propNameLabel.text=[_deviceDatas objectAtIndex:indexPath.row];
     
     if(_realStatus!=nil&&_realStatus.length==8){
         int status=[[_realStatus substringWithRange:NSMakeRange(indexPath.row, 1)] intValue];
         
         if(status==1){
-            [deviceControlCell.propStatusSwitch setOn:YES];
+            [deviceControlCell.propSwitch setSelected:YES];
         }else{
-            [deviceControlCell.propStatusSwitch setOn:NO];
+            [deviceControlCell.propSwitch setSelected:NO];
         }
 
     }else{
-         [deviceControlCell.propStatusSwitch setOn:NO];
+        [deviceControlCell.propSwitch setSelected:NO];
     }
     
-    [deviceControlCell setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.0]];
+
+
+    [deviceControlCell.propSwitch addTarget:self action:@selector(swOnOff:) forControlEvents:UIControlEventTouchUpInside];
     
+    [deviceControlCell setUserInteractionEnabled:YES];
+    UIView *selectedBGView=[[UIView alloc] initWithFrame:deviceControlCell.bounds];
     
-    UIView *bgView=[[UIView alloc] initWithFrame:deviceControlCell.bounds];
-    [bgView setBackgroundColor:[UIColor colorWithWhite:0.7 alpha:0.1]];
-    [deviceControlCell setSelectedBackgroundView:bgView];
+    [selectedBGView setBackgroundColor:[UIColor clearColor]];
     
-    [deviceControlCell.propStatusSwitch addTarget:self action:@selector(swOnOff:) forControlEvents:UIControlEventValueChanged];
+    [deviceControlCell setSelectedBackgroundView:selectedBGView];
+    [deviceControlCell setSelectionStyle:(UITableViewCellSelectionStyleNone)];
+    
     return deviceControlCell;
 }
 
--(void)swOnOff:(UISwitch *)sender{
-     NSLog(@"ON : %d",sender.on);
+-(void)swOnOff:(UIButton *)sender{
     
-    [[SocketService shareInstance] sendControlCmd:sender.on number:sender.tag+1 devId:_customerNo];
+    if(_collectorInfo.mode==MODE_TYPE_AUTO){
+        if(sender.tag<5){
+            [self.window makeToast:@"处于自动模式,无法手动控制"];
+            return;
+        }
+        
+    }
+    AppDelegate *delegate=[UIApplication sharedApplication].delegate;
+    [delegate setOnlyFirst:YES];
+    [delegate showLoading:@"设置中..."];
+    if(sender.isSelected){
+        [sender setSelected:NO];
+    }else{
+        [sender setSelected:YES];
+    }
+    [[SocketService shareInstance] sendControlCmd:sender.isSelected number:sender.tag+1 devId:_customerNo];
     
 }
 

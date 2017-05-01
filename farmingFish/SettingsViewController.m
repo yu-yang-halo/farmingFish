@@ -9,92 +9,141 @@
 #import "SettingsViewController.h"
 #import "UIViewController+Extension.h"
 #import "ParamsTableViewCell.h"
-@interface SettingsViewController ()<UITableViewDelegate,UITableViewDataSource,TextFieldActiveHandler>
+#import <HMSegmentedControl/HMSegmentedControl.h>
+#import "ExpandSettingsView.h"
+#import "ExpandSetRangeView.h"
+#import "FService.h"
+#import "BeanObjectHelper.h"
+#import "AppDelegate.h"
+#import "JSONKit.h"
+#import "SocketService.h"
+@interface SettingsViewController ()
 
 @property(nonatomic,strong) NSArray *contents;
+@property(nonatomic,strong) ExpandSettingsView *tableView;
+@property(nonatomic,strong) ExpandSetRangeView *setRangeView;
 
+@property(nonatomic,strong) NSMutableArray *collectorInfos;
+@property(nonatomic,strong) NSDictionary *deviceData;
 @end
 
 @implementation SettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets=NO;
-    self.title=@"个人中心";
     [self viewControllerBGInitWhite];
+    self.title=@"个人中心";
+    
+   
     
     
-    self.tableView.delegate=self;
-    self.tableView.dataSource=self;
-    [self.tableView setSeparatorStyle:(UITableViewCellSeparatorStyleSingleLine)];
-    
-    self.tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
+    AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+    self.deviceData=delegate.deviceData;
     
     
-    UITapGestureRecognizer *tapGR=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewClick:)];
+    if(_deviceData!=nil){
+        NSArray *arr=[[_deviceData objectForKey:@"GetCollectorInfoResult"] objectFromJSONString];
+        self.collectorInfos=[NSMutableArray new];
+        if(arr!=nil&&[arr count]>0){
+            
+            for(NSDictionary *dict in arr){
+                YYCollectorInfo *info=[[YYCollectorInfo alloc] init];
+                [BeanObjectHelper dictionaryToBeanObject:dict beanObj:info];
+                
+                NSString *electrics=[dict objectForKey:@"Electrics"];
+                if(electrics!=nil){
+                    info.electricsArr=[electrics componentsSeparatedByString:@","];
+                }
+                [_collectorInfos addObject:info];
+                
+            }
+            
+        }
+        
+    }
+
+    self.contents=@[@"预警设置",@"阈值设置"];
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:_contents];
+    
+    segmentedControl.frame = CGRectMake(0, 64, self.view.bounds.size.width, 50);
+    
+    self.tableView=[[ExpandSettingsView alloc] initWithFrame:CGRectZero];
+    _tableView.frame=CGRectMake(0, 64+50,self.view.bounds.size.width, self.view.bounds.size.height-64-50);
+    
+    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [_tableView setCollectorInfos:_collectorInfos];
+    [_tableView setBackgroundColor:[UIColor clearColor]];
+    
+    self.setRangeView=[[ExpandSetRangeView alloc] initWithFrame:CGRectZero];
+    _setRangeView.frame=CGRectMake(0, 64+50,self.view.bounds.size.width, self.view.bounds.size.height-64-50);
     
     
-    [self.tableView addGestureRecognizer:tapGR];
+    
+    [_setRangeView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [_setRangeView setCollectorInfos:_collectorInfos];
+    [_setRangeView setBackgroundColor:[UIColor clearColor]];
+
     
     
-    self.contents=@[@"溶氧上限",@"溶氧下限"];
+    
     
 
+    
+    
+    [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    segmentedControl.selectionIndicatorHeight = 1.5f;
+    segmentedControl.backgroundColor = [UIColor whiteColor];
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.0 green:0.0 blue:0 alpha:1];
+    segmentedControl.verticalDividerWidth=1.0f;
+    segmentedControl.verticalDividerColor=[UIColor colorWithWhite:0 alpha:0.1];
+    segmentedControl.verticalDividerEnabled=YES;
+    
+    
+    segmentedControl.selectionIndicatorBoxOpacity = 0.0;
+    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl.shouldAnimateUserSelection = NO;
+    segmentedControl.tag = 2;
+    [self.view addSubview:segmentedControl];
+    [self.view addSubview:_tableView];
+    [self.view addSubview:_setRangeView];
+    
+    [_setRangeView setHidden:YES];
+    
+    
+    [self.view setUserInteractionEnabled:YES];
+    
+    
+
+}
+-(void)segmentedControlChangedValue:(HMSegmentedControl *)sender{
+    
+    if(sender.selectedSegmentIndex==0){
+        [_setRangeView setHidden:YES];
+        [_tableView setHidden:NO];
+    }else{
+        [_setRangeView setHidden:NO];
+        [_tableView setHidden:YES];
+        
+    }
     
 }
 
+
+-(void)dealloc{
+    [[SocketService shareInstance] enableListenser:NO];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[SocketService shareInstance] reconnect];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[SocketService shareInstance] disconnect];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return [_contents count];
-}
-
--(void)tableViewClick:(id)sender{
-    
-    [self.activeTF resignFirstResponder];
-    
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier=@"paramsCell";
-    
-    ParamsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if(cell==nil){
-        cell=[[[NSBundle mainBundle] loadNibNamed:@"ParamsTableViewCell" owner:nil options:nil] lastObject];
-    }
-    [cell setSelected:NO];
-     cell.nameLabel.text=[_contents objectAtIndex:indexPath.row];
-     cell.valueTF.text=@"1.0";
-     cell.handler=self;
-    
-    [cell setAccessoryType:(UITableViewCellAccessoryDisclosureIndicator)];
-    
-    
-    return cell;
-}
--(void)handleTextField:(UITextField *)activeTF{
-    self.activeTF=activeTF;
-    
-    
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
 }
 
 @end

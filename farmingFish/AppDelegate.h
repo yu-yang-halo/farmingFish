@@ -26,6 +26,13 @@
 
 
 @property(nonatomic,assign) BOOL isReachableWiFi;
+@property(nonatomic,assign) BOOL onlyFirst;
+
+-(void)showLoading:(NSString *)message;
+-(void)hide;
+-(void)hideNoMessage;
+
+ 
 
 @end
 

@@ -7,16 +7,15 @@
 //
 
 #import "DeviceControlTableViewCell.h"
-
+#import "UIColor+hexStr.h"
 @implementation DeviceControlTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    [self.propStatusSwitch setOnImage:[UIImage imageNamed:@"switch_on"]];
-    [self.propStatusSwitch setOffImage:[UIImage imageNamed:@"switch_off"]];
-    
+    [self.propSwitch.layer setCornerRadius:3];
+    [self.propSwitch setTitle:@"开" forState:(UIControlStateSelected)];
+    [self.propSwitch setTitle:@"关" forState:(UIControlStateNormal)];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

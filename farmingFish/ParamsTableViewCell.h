@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BeanObject.h"
 @protocol TextFieldActiveHandler <NSObject>
 
 -(void)handleTextField:(UITextField *)activeTF;
@@ -17,8 +17,10 @@
 @interface ParamsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
-@property (weak, nonatomic) IBOutlet UITextField *valueTF;
-
+@property (weak, nonatomic) IBOutlet UITextField *upperValueTF;
+@property (weak, nonatomic) IBOutlet UITextField *lowerValueTF;
 @property(weak,nonatomic) id<TextFieldActiveHandler> handler;
+
+@property(weak,nonatomic) YYCollectorSensor *sensor;
 
 @end
