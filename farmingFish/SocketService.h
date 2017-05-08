@@ -32,13 +32,13 @@ typedef NS_OPTIONS(NSUInteger,SOCKET_TAG){
 
 
 typedef void (^StatusBlock)(YYPacket *packet);
-typedef void (^OnlineStatusBlock)(BOOL onlineYN,NSString *customNO);
+typedef void (^OnlineStatusBlock)(BOOL onlineYN,NSString *DeviceId);
 @interface SocketService : NSObject<UIApplicationDelegate>
 
 +(instancetype)shareInstance;
 
 -(void)reconnect;
--(void)connect:(NSString *)customerNO;
+-(void)connect:(NSString *)DeviceId;
 
 
 -(void)disconnect;

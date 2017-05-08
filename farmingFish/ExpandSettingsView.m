@@ -241,11 +241,11 @@
     
 }
 
--(void)findCollector:(NSString *)CustomerNo setStatus:(NSString *)status{
+-(void)findCollector:(NSString *)DeviceId setStatus:(NSString *)status{
     YYCollectorInfo *_temp;
     
     for (YYCollectorInfo *collectorInfo in _collectorInfos) {
-        if([collectorInfo.CustomerNo isEqualToString:CustomerNo]){
+        if([collectorInfo.DeviceID isEqualToString:DeviceId]){
             _temp=collectorInfo;
             break;
         }

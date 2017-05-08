@@ -61,8 +61,6 @@
     [self setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
     
    
-//    
-//    [_realDataCache setObject:@[[NSString stringWithFormat:@"%@|%f|%f|%@",@"溶氧",8.0,20.0,@"mg/L"],[NSString stringWithFormat:@"%@|%f|%f|%@",@"Test",20.0,20.0,@"mg/L"]]  forKey:delegate.customerNo];
 
 }
 
@@ -112,7 +110,7 @@
     
     YYCollectorInfo *collector=[self findSelectedCollectorInfo];
    
-    NSArray *realDatas=[CacheHelper fetchCacheRealDataFromDisk:collector.CustomerNo];
+    NSArray *realDatas=[CacheHelper fetchCacheRealDataFromDisk:collector.DeviceID];
     
     if(realDataView!=nil&&realDatas!=nil){
         [cell hideLoading];
@@ -221,18 +219,17 @@
     }else{
         [self reloadTableViewUI:selectCourseIndex];
     
-   
-        [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
+        [[SocketService shareInstance] connect:collectorInfo.DeviceID];
             
-        [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *customerNO) {
+        [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *DeviceId) {
                 
                 if(onlineYN){
                     //@"实时数据";
-                    NSLog(@"%@ online",customerNO);
+                    NSLog(@"%@ online",DeviceId);
                     //[self.window makeToast:@"数据在线"];
                 }else{
                     //@"实时数据(离线)";
-                    NSLog(@"%@ offline",customerNO);
+                    NSLog(@"%@ offline",DeviceId);
                     //[self.window makeToast:@"数据离线"];
                 }
                 
@@ -276,7 +273,7 @@
             
                 if(realDataArr!=nil&&[realDataArr count]>0){
                     
-                    [CacheHelper cacheRealDataToDisk:realDataArr customNo:[dic objectForKey:@"customNo"]];
+                    [CacheHelper cacheRealDataToDisk:realDataArr DeviceId:[dic objectForKey:@"DeviceId"]];
                     
                     [self.window makeToast:@"实时数据更新成功"];
                 }

@@ -13,6 +13,9 @@
 @end
 
 @implementation YYCollectorInfo
+-(NSString *)DeviceID{
+    return [_DeviceID uppercaseString];
+}
 -(instancetype)init{
     self=[super init];
     if(self){
@@ -91,10 +94,10 @@
         NSLog(@"序号[4-5]设备类型%02x%02x",bytes[4],bytes[5]);
         self.deviceType=(bytes[4]<<8)|(bytes[5]&0xFF);
         
-        NSString *customNo=[NSString stringWithFormat:@"%02x-%02x-%02x-%02x",bytes[6],bytes[7],bytes[8],bytes[9]];
+        NSString *DeviceId=[NSString stringWithFormat:@"%02x-%02x-%02x-%02x",bytes[6],bytes[7],bytes[8],bytes[9]];
         
-        NSLog(@"序号[6-9]设备地址%02x%02x%02x%02x  customNO:%@",bytes[6],bytes[7],bytes[8],bytes[9],customNo);
-        self.deviceAddress=customNo;
+        NSLog(@"序号[6-9]设备地址%02x%02x%02x%02x  DeviceId:%@",bytes[6],bytes[7],bytes[8],bytes[9],DeviceId);
+        self.deviceAddress=[DeviceId uppercaseString];
         
         
         NSLog(@"序号[10-17]命令流水号%02x%02x%02x%02x%02x%02x%02x%02x",bytes[10],bytes[11],bytes[12],bytes[13],bytes[14],bytes[15],bytes[16],bytes[17]);
@@ -195,7 +198,10 @@
     
     req[25+_length]='#';
     
-    return [[NSData alloc] initWithBytes:req length:(26+_length)];
+    NSData *sendData=[[NSData alloc] initWithBytes:req length:(26+_length)];
+    
+    NSLog(@"Send Data %@",sendData);
+    return sendData;
 }
 
 -(NSDictionary *)dict{
@@ -329,7 +335,7 @@
         [dic setObject:devOnOffStatus forKey:@"status"];
         
     }
-    [dic setObject:_deviceAddress forKey:@"customNo"];
+    [dic setObject:[_deviceAddress uppercaseString] forKey:@"DeviceId"];
     return dic;
 }
 -(NSDictionary *)resolveSwitchData:(Byte *)status{
@@ -342,7 +348,7 @@
     NSLog(@"电机状态 %@",st);
     NSMutableDictionary *dic=[NSMutableDictionary new];
     [dic setObject:st forKey:@"status"];
-    [dic setObject:_deviceAddress forKey:@"customNo"];
+    [dic setObject:[_deviceAddress uppercaseString] forKey:@"DeviceId"];
     return dic;
 }
 

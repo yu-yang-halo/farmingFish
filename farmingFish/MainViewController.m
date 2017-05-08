@@ -21,7 +21,7 @@
 #import "YYColleCollectionViewCell.h"
 #import "GradientHelper.h"
 #import "AppDelegate.h"
-#define YYTelephone @"18905606894"
+#define YYTelephone @"0551-63651196"
 
 @interface MainViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UIAlertViewDelegate>{
     NSArray *itemTitles;

@@ -25,9 +25,9 @@ typedef NS_ENUM(NSUInteger, CATEGORYID) {
 -(id)GetVideoInfo:(NSString *)fieldId;
 
 
--(id)GetCollectorData:(NSString *)customerNo dateTime:(NSString *)date;
+-(id)GetCollectorData:(NSString *)DeviceId dateTime:(NSString *)date;
 //day : 0--今天 1--昨天  2--前天
--(id)GetCollectorData:(NSString *)customerNo day:(int)day;
+-(id)GetCollectorData:(NSString *)DeviceId day:(int)day;
 
 
 //新闻数据 categoryId 1:新闻 2:知识库

@@ -18,11 +18,11 @@
 }
 
 //时间
-+(NSData *)buildSocketPackage_time:(int)time deviceId:(NSString *)customerNO methodType:(int)type{
++(NSData *)buildSocketPackage_time:(int)time deviceId:(NSString *)DeviceId methodType:(int)type{
     
     YYPacket *packet=[[YYPacket alloc] init];
     
-    [packet setDeviceAddress:customerNO];
+    [packet setDeviceAddress:DeviceId];
     
     [packet setCmdword:0x18];
     if(type==MethodType_GET){
@@ -44,10 +44,10 @@
     return [packet toNSData];
 }
 //模式设置
-+(NSData *)buildSocketPackage_mode:(int)mode deviceId:(NSString *)customerNO methodType:(int)type{
++(NSData *)buildSocketPackage_mode:(int)mode deviceId:(NSString *)DeviceId methodType:(int)type{
     YYPacket *packet=[[YYPacket alloc] init];
     
-    [packet setDeviceAddress:customerNO];
+    [packet setDeviceAddress:DeviceId];
     
     [packet setCmdword:0x15];
     if(type==MethodType_GET){
@@ -67,11 +67,11 @@
     return [packet toNSData];
 }
 //阈值参数设置
-+(NSData *)buildSocketPackage_range:(int)max min:(int)min deviceId:(NSString *)customerNO methodType:(int)type{
++(NSData *)buildSocketPackage_range:(int)max min:(int)min deviceId:(NSString *)DeviceId methodType:(int)type{
     
     YYPacket *packet=[[YYPacket alloc] init];
     
-    [packet setDeviceAddress:customerNO];
+    [packet setDeviceAddress:DeviceId];
     
     [packet setCmdword:0x13];
     if(type==MethodType_GET){
@@ -95,11 +95,11 @@
 }
 
 //电机远程控制方式
-+(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO{
++(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)DeviceId{
     
     YYPacket *packet=[[YYPacket alloc] init];
     
-    [packet setDeviceAddress:customerNO];
+    [packet setDeviceAddress:DeviceId];
     
     [packet setCmdword:0x10];
     [packet setFlag:0x02];
@@ -114,10 +114,10 @@
 }
 
 //终端心跳信息
-+(NSData *)buildSocketPackage_WATER:(NSString *)customerNO{
++(NSData *)buildSocketPackage_WATER:(NSString *)DeviceId{
     YYPacket *packet=[[YYPacket alloc] init];
     
-    [packet setDeviceAddress:customerNO];
+    [packet setDeviceAddress:DeviceId];
     
     [packet setCmdword:0x0002];
     [packet setFlag:0x00];
@@ -130,11 +130,11 @@
 }
 
 //终端ID注册信息
-+(NSData *)buildSocketPackage_mobile_client:(NSString *)customerNO{
++(NSData *)buildSocketPackage_mobile_client:(NSString *)DeviceId{
     
     YYPacket *packet=[[YYPacket alloc] init];
     
-    [packet setDeviceAddress:customerNO];
+    [packet setDeviceAddress:DeviceId];
     
     [packet setCmdword:0x0001];
     [packet setFlag:0x00];

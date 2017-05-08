@@ -165,8 +165,6 @@ const static NSString *KEY_REMEMBER=@"remember-key";
                     return ;
                 }else{
                     
-                    [self performSegueWithIdentifier:@"toMainPage" sender:sender];
-                    
                     
                     NSArray *arrs=[result objectFromJSONString];
                     YYUserInfo *userInfo=[[YYUserInfo alloc] init];
@@ -180,6 +178,9 @@ const static NSString *KEY_REMEMBER=@"remember-key";
                         AppDelegate *delegate=[[UIApplication sharedApplication] delegate];
                         [delegate setCustomerNo:userInfo.CustomerNo];
                         [delegate setUserAccount:username];
+                        [self performSegueWithIdentifier:@"toMainPage" sender:sender];
+                        
+
                         
                     }else{
                         [self.view makeToast:@"数据错误"];

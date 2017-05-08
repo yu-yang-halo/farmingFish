@@ -24,7 +24,7 @@ static SocketService *instance;
 }
 @property (readwrite, nonatomic, copy) StatusBlock mblock;
 @property (readwrite, nonatomic, copy) OnlineStatusBlock onlineBlock;
-@property(nonatomic,strong) NSString *customerNO;
+@property(nonatomic,strong) NSString *DeviceId;
 @property(nonatomic,strong) NSString *tmpCNO;
 @end
 
@@ -85,10 +85,10 @@ static SocketService *instance;
     if(asyncSocket==nil){
         return;
     }
-    if(_customerNO==nil){
+    if(_DeviceId==nil){
         return;
     }
-    [self connect:_customerNO];
+    [self connect:_DeviceId];
     NSLog(@"重新连接。。。");
 }
 -(void)disconnect{
@@ -108,12 +108,13 @@ static SocketService *instance;
     asyncSocket=nil;
 }
 
--(void)connect:(NSString *)customerNO{
+
+-(void)connect:(NSString *)DeviceId{
     if(asyncSocket!=nil&&asyncSocket.isConnected){
         [asyncSocket disconnect];
     }
     [self disconnect];
-    self.customerNO=customerNO;
+    self.DeviceId=DeviceId;
     systemForceDisconnectYN=YES;
   // [[[UIApplication sharedApplication] keyWindow] makeToast:@"数据连接中..."];
    dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -149,27 +150,27 @@ static SocketService *instance;
 {
     NSLog(@"socket:%@ didConnectToHost:%@ port:%hu", sock, host, port);
     
-   // self.customerNO=_tmpCNO;
     if(_onlineBlock!=nil){
-        _onlineBlock(YES,_customerNO);
+        _onlineBlock(YES,_DeviceId);
     }
     
     
-    
-    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
-    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
-    
-    
+//    
+//    [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_DeviceId] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+//    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
     
     
+    [asyncSocket writeData:[SPackage buildSocketPackage_WATER:_DeviceId] withTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
+    [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
+
     [self keepLive];
     
     
-    [self rangSetOrGet:MethodType_GET max:-1 min:-1 devId:_customerNO];
+    [self rangSetOrGet:MethodType_GET max:-1 min:-1 devId:_DeviceId];
     
-    [self modeSwith:MethodType_GET mode:0 devId:_customerNO];
+    [self modeSwith:MethodType_GET mode:0 devId:_DeviceId];
     
-    [self autoStartTime:MethodType_GET time:0 devId:_customerNO];
+    [self autoStartTime:MethodType_GET time:0 devId:_DeviceId];
     
     
     
@@ -183,12 +184,12 @@ static SocketService *instance;
         while(asyncSocket!=nil&&asyncSocket.isConnected){
             NSLog(@"保持心跳....");
             
-            [asyncSocket writeData:[SPackage buildSocketPackage_WATER:_customerNO]withTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
+            [asyncSocket writeData:[SPackage buildSocketPackage_WATER:_DeviceId]withTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
             [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_GET_STATUS];
-            
-            [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_customerNO] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
-            [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
-           
+//            
+//            [asyncSocket writeData:[SPackage buildSocketPackage_mobile_client:_DeviceId] withTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+//            [asyncSocket readDataWithTimeout:-1 tag:SOCKET_TAG_CLIENT_REGISTER];
+//           
             
             
             [NSThread sleepForTimeInterval:6];
@@ -272,7 +273,7 @@ static SocketService *instance;
     if(err!=nil){
        
         
-        if(systemForceDisconnectYN&&_customerNO!=nil){
+        if(systemForceDisconnectYN&&_DeviceId!=nil){
              [[[UIApplication sharedApplication] keyWindow] makeToast:@"重连中..."];
             [self reconnect];
         }else{
@@ -280,7 +281,7 @@ static SocketService *instance;
         }
     }
     if(_onlineBlock!=nil){
-         _onlineBlock(NO,_customerNO);
+         _onlineBlock(NO,_DeviceId);
     }
    
    

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CacheHelper : NSObject
-+(void)cacheRealDataToDisk:(NSArray *)realDataArr customNo:(NSString *)customNo;
-+(NSArray *)fetchCacheRealDataFromDisk:(NSString *)customNo;
++(void)cacheRealDataToDisk:(NSArray *)realDataArr DeviceId:(NSString *)DeviceId;
++(NSArray *)fetchCacheRealDataFromDisk:(NSString *)DeviceId;
 
 @end

@@ -47,6 +47,11 @@
     
     [_timeTF addTarget:self action:@selector(textFieldTextChange:)  forControlEvents:UIControlEventEditingChanged];
      [_timeTF setTag:2];
+    
+    [_modeBtn.layer setCornerRadius:3];
+    [_modeBtn setTitle:@"手动" forState:(UIControlStateNormal)];
+    [_modeBtn setTitle:@"自动" forState:(UIControlStateSelected)];
+    
 }
 
 -(void)textFieldTextChange:(UITextField *)textField{
@@ -70,19 +75,7 @@
 
     // Configure the view for the selected state
 }
-- (IBAction)modeSwitch:(UISwitch *)sender {
-    AppDelegate *delegate=[UIApplication sharedApplication].delegate;
-    [delegate setOnlyFirst:YES];
-    [delegate showLoading:@"设置中..."];
-    if(sender.isOn){
-        [_modeText setText:@"自动"];
-        [[SocketService shareInstance] modeSwith:MethodType_POST mode:MODE_TYPE_AUTO devId:_collectorInfo.CustomerNo];
-    }else{
-        [_modeText setText:@"手动"];
-        [[SocketService shareInstance] modeSwith:MethodType_POST mode:MODE_TYPE_MENUAL devId:_collectorInfo.CustomerNo];
-    }
-    
-}
+
 
 -(void)textFieldDone{
     [self endEditing:YES];
@@ -98,5 +91,18 @@
     UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(textFieldDone)];
     toolbar.items = @[ space, bar];
     return toolbar;
+}
+- (IBAction)modeSwitch:(UIButton *)sender {
+    AppDelegate *delegate=[UIApplication sharedApplication].delegate;
+    [delegate setOnlyFirst:YES];
+    [delegate showLoading:@"设置中..."];
+    if(sender.isSelected){
+       [[SocketService shareInstance] modeSwith:MethodType_POST mode:MODE_TYPE_MENUAL devId:_collectorInfo.DeviceID];
+        
+    }else{
+       [[SocketService shareInstance] modeSwith:MethodType_POST mode:MODE_TYPE_AUTO devId:_collectorInfo.DeviceID];
+        
+    }
+
 }
 @end

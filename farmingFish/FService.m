@@ -70,18 +70,18 @@ const static NSString* REQUEST_ALERT_URL=@"http://183.78.182.98:9005/AppService/
     }
     
 }
--(id)GetCollectorData:(NSString *)customerNo day:(int)day{
+-(id)GetCollectorData:(NSString *)DeviceId day:(int)day{
     NSString *dateStr=[DateHelper GetLastDay:day];
 
     NSLog(@"%d day is %@",day,dateStr);
     
-    return [self GetCollectorData:customerNo dateTime:dateStr];
+    return [self GetCollectorData:DeviceId dateTime:dateStr];
     
 }
 
--(id)GetCollectorData:(NSString *)customerNo dateTime:(NSString *)date{
+-(id)GetCollectorData:(NSString *)DeviceId dateTime:(NSString *)date{
     NSMutableArray *currentHistoryArrs=[NSMutableArray new];
-    NSDictionary *parameters=@{@"collectorId":customerNo,@"dateTime":date};
+    NSDictionary *parameters=@{@"collectorId":DeviceId,@"dateTime":date};
     
     NSString *collectorInfoREQ_URL=[NSString stringWithFormat:@"%@GetCollectorData",WEBSERVICE_URL];
     

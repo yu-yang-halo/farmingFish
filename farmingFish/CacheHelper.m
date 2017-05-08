@@ -10,7 +10,7 @@
 const static NSString *KEY_REAL_DATA_TABLE=@"realDataDictKEY";
 
 @implementation CacheHelper
-+(void)cacheRealDataToDisk:(NSArray *)realDataArr customNo:(NSString *)customNo{
++(void)cacheRealDataToDisk:(NSArray *)realDataArr DeviceId:(NSString *)DeviceId{
     NSMutableDictionary *dict=[[NSUserDefaults standardUserDefaults] objectForKey:KEY_REAL_DATA_TABLE];
     
     if(dict==nil){
@@ -21,20 +21,20 @@ const static NSString *KEY_REAL_DATA_TABLE=@"realDataDictKEY";
         }
     }
     
-    [dict setObject:realDataArr forKey:customNo];
+    [dict setObject:realDataArr forKey:DeviceId];
     
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KEY_REAL_DATA_TABLE];
     
     
     
 }
-+(NSArray *)fetchCacheRealDataFromDisk:(NSString *)customNo{
++(NSArray *)fetchCacheRealDataFromDisk:(NSString *)DeviceId{
     NSMutableDictionary *dict=[[NSUserDefaults standardUserDefaults] objectForKey:KEY_REAL_DATA_TABLE];
     
     if(dict==nil){
         return nil;
     }
-    NSArray *realDataArrs=[dict objectForKey:customNo];
+    NSArray *realDataArrs=[dict objectForKey:DeviceId];
     return realDataArrs;
 }
 @end

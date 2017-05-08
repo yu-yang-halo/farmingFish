@@ -13,7 +13,7 @@
 #import "UIView+Toast.h"
 @interface DeviceControlTableView()<UITableViewDataSource,UITableViewDelegate>
 
-@property(nonatomic,strong) NSString *customerNo;
+@property(nonatomic,strong) NSString *DeviceID;
 @end
 
 @implementation DeviceControlTableView
@@ -23,9 +23,7 @@
         self.dataSource=self;
         self.delegate=self;
         [self setScrollEnabled:NO];
-        AppDelegate *delegate=[UIApplication sharedApplication].delegate;
-        
-        self.customerNo=delegate.customerNo;
+      
         
         
     }
@@ -83,12 +81,12 @@
     AppDelegate *delegate=[UIApplication sharedApplication].delegate;
     [delegate setOnlyFirst:YES];
     [delegate showLoading:@"设置中..."];
-    if(sender.isSelected){
-        [sender setSelected:NO];
-    }else{
-        [sender setSelected:YES];
-    }
-    [[SocketService shareInstance] sendControlCmd:sender.isSelected number:sender.tag+1 devId:_customerNo];
+//    if(sender.isSelected){
+//        [sender setSelected:NO];
+//    }else{
+//        [sender setSelected:YES];
+//    }
+    [[SocketService shareInstance] sendControlCmd:!sender.isSelected number:sender.tag+1 devId:_collectorInfo.DeviceID];
     
 }
 

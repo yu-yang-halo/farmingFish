@@ -247,11 +247,11 @@
     
 }
 
--(void)findCollector:(NSString *)CustomerNo setStatus:(NSString *)status{
+-(void)findCollector:(NSString *)DeviceId setStatus:(NSString *)status{
     YYCollectorInfo *_temp;
     
     for (YYCollectorInfo *collectorInfo in _collectorInfos) {
-        if([collectorInfo.CustomerNo isEqualToString:CustomerNo]){
+        if([collectorInfo.DeviceID isEqualToString:DeviceId]){
             _temp=collectorInfo;
             break;
         }
@@ -302,7 +302,7 @@
         //collectorInfo.historyDict=[[FService shareInstance] GetCollectorData:@"00-00-04-01" dateTime:@"2016-10-29"];
         collectorInfo.day=idx;
         
-        collectorInfo.historyDict=[[FService shareInstance] GetCollectorData:collectorInfo.CustomerNo day:collectorInfo.day];
+        collectorInfo.historyDict=[[FService shareInstance] GetCollectorData:collectorInfo.DeviceID day:collectorInfo.day];
         
        
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -84,17 +84,19 @@
         
         
         
-        [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
+        [[SocketService shareInstance] connect:collectorInfo.DeviceID];
         
-        [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *customerNO) {
+        
+        
+        [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *DeviceId) {
             
             if(onlineYN){
                 //@"实时数据";
-                NSLog(@"%@ online",customerNO);
+                NSLog(@"%@ online",DeviceId);
                 //[self.window makeToast:@"数据在线"];
             }else{
                 //@"实时数据(离线)";
-                NSLog(@"%@ offline",customerNO);
+                NSLog(@"%@ offline",DeviceId);
                 //[self.window makeToast:@"数据离线"];
             }
             

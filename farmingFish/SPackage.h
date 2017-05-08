@@ -9,21 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "SocketService.h"
 @interface SPackage : NSObject
-+(NSData *)buildSocketPackage_mobile_client:(NSString *)customerNO;
-+(NSData *)buildSocketPackage_WATER:(NSString *)customerNO;
-+(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)customerNO;
++(NSData *)buildSocketPackage_mobile_client:(NSString *)DeviceId;
 
-+(NSData *)buildSocketPackage_range:(int)max min:(int)min deviceId:(NSString *)customerNO methodType:(int)type;
++(NSData *)buildSocketPackage_WATER:(NSString *)DeviceId;
++(NSData *)buildSocketPackage_ControlMSG:(int)num cmd:(int)cmdStatus deviceId:(NSString *)DeviceId;
 
-+(NSData *)buildSocketPackage_mode:(int)mode deviceId:(NSString *)customerNO methodType:(int)type;
++(NSData *)buildSocketPackage_range:(int)max min:(int)min deviceId:(NSString *)DeviceId methodType:(int)type;
 
-+(NSData *)buildSocketPackage_time:(int)time deviceId:(NSString *)customerNO methodType:(int)type;
++(NSData *)buildSocketPackage_mode:(int)mode deviceId:(NSString *)DeviceId methodType:(int)type;
+
++(NSData *)buildSocketPackage_time:(int)time deviceId:(NSString *)DeviceId methodType:(int)type;
 
 
 +(void)reservePackageInfo:(Byte *)bytes StatusBlock:(StatusBlock)block tag:(int)tag;
-+(void)resolveRangeData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo;
-+(void)resolveModeData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo;
-
-+(void)resolveTimeData:(Byte *)status StatusBlock:(StatusBlock)block customNo:(NSString *)customNo;
+//+(void)resolveRangeData:(Byte *)status StatusBlock:(StatusBlock)block DeviceId:(NSString *)DeviceId;
+//+(void)resolveModeData:(Byte *)status StatusBlock:(StatusBlock)block DeviceId:(NSString *)DeviceId;
+//
+//+(void)resolveTimeData:(Byte *)status StatusBlock:(StatusBlock)block DeviceId:(NSString *)DeviceId;
 
 @end

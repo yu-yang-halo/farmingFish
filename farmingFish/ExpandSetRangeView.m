@@ -91,11 +91,9 @@
     [cell.timeTF setText:[NSString stringWithFormat:@"%d",[collectorInfo time]]];
     
     if(collectorInfo.mode==MODE_TYPE_AUTO){
-        [cell.modeText setText:@"自动"];
-         [cell.modeSwitch setOn:YES];
+        [cell.modeBtn setSelected:YES];
     }else{
-        [cell.modeText setText:@"手动"];
-        [cell.modeSwitch setOn:NO];
+        [cell.modeBtn setSelected:NO];
     }
     
 
@@ -200,10 +198,10 @@
             [delegate setOnlyFirst:YES];
             [delegate showLoading:@"保存中..."];
             if(timeChange){
-                [[SocketService shareInstance] autoStartTime:MethodType_POST time:collectorInfo.time devId:collectorInfo.CustomerNo];
+                [[SocketService shareInstance] autoStartTime:MethodType_POST time:collectorInfo.time devId:collectorInfo.DeviceID];
             }
             if(rangeChange){
-                 [[SocketService shareInstance] rangSetOrGet:MethodType_POST max:collectorInfo.upperValue min:collectorInfo.lowerValue devId:collectorInfo.CustomerNo];
+                 [[SocketService shareInstance] rangSetOrGet:MethodType_POST max:collectorInfo.upperValue min:collectorInfo.lowerValue devId:collectorInfo.DeviceID];
             }
             
         }else{
@@ -236,11 +234,11 @@
     
 }
 
--(void)findCollector:(NSString *)CustomerNo setStatus:(NSString *)status{
+-(void)findCollector:(NSString *)DeviceId setStatus:(NSString *)status{
     YYCollectorInfo *_temp;
     
     for (YYCollectorInfo *collectorInfo in _collectorInfos) {
-        if([collectorInfo.CustomerNo isEqualToString:CustomerNo]){
+        if([collectorInfo.DeviceID isEqualToString:DeviceId]){
             _temp=collectorInfo;
             break;
         }
@@ -269,7 +267,7 @@
         [[SocketService shareInstance] disconnectAndClear];
     }else{
         
-        [[SocketService shareInstance] connect:[[_collectorInfos objectAtIndex:selectCourseIndex] CustomerNo]];
+        [[SocketService shareInstance] connect:[[_collectorInfos objectAtIndex:selectCourseIndex] DeviceID]];
         
         [[SocketService shareInstance] setStatusBlock:^(YYPacket *packet) {
               NSDictionary *dic=[packet dict];

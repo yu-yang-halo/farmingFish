@@ -183,11 +183,11 @@
     
 }
 
--(void)findCollector:(NSString *)CustomerNo setStatus:(NSString *)status{
+-(void)findCollector:(NSString *)DeviceId setStatus:(NSString *)status{
     YYCollectorInfo *_temp;
     
     for (YYCollectorInfo *collectorInfo in _collectorInfos) {
-        if([collectorInfo.CustomerNo isEqualToString:CustomerNo]){
+        if([collectorInfo.DeviceID isEqualToString:DeviceId]){
             _temp=collectorInfo;
             break;
         }
@@ -195,11 +195,11 @@
     [_temp setElectricsStatus:status];
 }
 
--(void)findCollector:(NSString *)CustomerNo setMode:(int)mode{
+-(void)findCollector:(NSString *)DeviceId setMode:(int)mode{
     YYCollectorInfo *_temp;
     
     for (YYCollectorInfo *collectorInfo in _collectorInfos) {
-        if([collectorInfo.CustomerNo isEqualToString:CustomerNo]){
+        if([collectorInfo.DeviceID isEqualToString:DeviceId]){
             _temp=collectorInfo;
             break;
         }
@@ -228,15 +228,15 @@
         [[SocketService shareInstance] disconnectAndClear];
     }else{
     
-        [[SocketService shareInstance] connect:collectorInfo.CustomerNo];
-        [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *customerNO) {
+        [[SocketService shareInstance] connect:collectorInfo.DeviceID];
+        [[SocketService shareInstance] setOnlineStatusBlock:^(BOOL onlineYN,NSString *DeviceId) {
             
             if(onlineYN){
                 //@"实时数据";
-                NSLog(@"%@ online",customerNO);
+                NSLog(@"%@ online",DeviceId);
             }else{
                 //@"实时数据(离线)";
-                NSLog(@"%@ offline",customerNO);
+                NSLog(@"%@ offline",DeviceId);
             }
             
         }];
@@ -259,14 +259,14 @@
             
             NSLog(@"%@",dic);
             __block NSString *mStatus=nil;
-            __block NSString *customNo=nil;
+            __block NSString *deviceId=nil;
             [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
                 
                  if([key isKindOfClass:[NSString class]]){
                     if([key isEqualToString:@"status"]){
                         mStatus=obj;
-                    }else if ([key isEqualToString:@"customNo"]){
-                        customNo=obj;
+                    }else if ([key isEqualToString:@"DeviceId"]){
+                        deviceId=obj;
                     }
                 }
                 
@@ -280,7 +280,7 @@
                 
             }
             
-            [self findCollector:customNo setStatus:mStatus];
+            [self findCollector:deviceId setStatus:mStatus];
 
             [self reloadData];
         }];

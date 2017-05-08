@@ -20,7 +20,7 @@
     BMKMapManager *mapManager;
     BMKLocationService *locService;
     MBProgressHUD *hud;
-   
+    NSTimer *timer;
 }
 @property(nonatomic,strong)   CLGeocoder *geocoder;
 @property(nonatomic,assign) CLLocationCoordinate2D myLocation;
@@ -152,11 +152,18 @@
     
 }
 
+
 -(void)showLoading:(NSString *)message{
     if(_onlyFirst){
         hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
         hud.label.text =message;
         _onlyFirst=NO;
+        
+        timer=[NSTimer scheduledTimerWithTimeInterval:10 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            
+            [self hideCancel];
+            
+        }];
     }
     
 }
@@ -165,6 +172,10 @@
          [hud hideAnimated:YES];
           hud=nil;
           [self.window makeToast:@"设置成功"];
+        if(timer!=nil){
+             [timer fire];
+        }
+        
     }
    
 }
@@ -172,6 +183,22 @@
     if(hud!=nil){
         [hud hideAnimated:YES];
         hud=nil;
+        if(timer!=nil){
+            [timer fire];
+        }
+        
+    }
+    
+}
+-(void)hideCancel{
+    if(hud!=nil){
+        [hud hideAnimated:YES];
+        hud=nil;
+        [self.window makeToast:@"已超时，设置被取消"];
+        if(timer!=nil){
+            [timer fire];
+        }
+        
     }
     
 }
